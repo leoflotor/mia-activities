@@ -1,0 +1,368 @@
+% -- Document configuration
+\input{preamble.tex}
+
+% -- Document
+\begin{document}
+
+\thispagestyle{empty}
+
+%Title
+\begin{center}
+\textsc{\theinstitution}\\[2mm]
+
+\thedepartment
+
+\rule{0.6\textwidth}{0.5pt}\\[2mm]
+
+\thecourse \\[4mm]
+
+{\Large \textbf{\thetitle}}\\[2mm]
+
+\theauthor \\[2mm]
+
+{\small \today}
+\end{center}
+\medskip
+
+Resolver las siguientes relaciones de recurrencia.
+\begin{enumerate}[label=\textbf{\alph*.}]
+    % -- Primer problema
+    \item $x(n) = x(n-1) + 5$ para $n > 1$, $x(1) = 0$.
+    \begin{solution}
+        Primero se utilizó \textit{forward substitution} para trarar de encontrar un patrón que se pueda identificar fácilmente, y se encontró que se podía escribir de la siguiente forma,
+        \begin{equation*}
+            \begin{rcases}
+                \begin{array}{l l l}
+                    \txtgray{n} & x(n) & \\
+                    \txtgray{1} & x(1) = 0 & = \dprod{0}{5} = \dprod{(1 - 1)}{5} \\
+                    \txtgray{2} & x(2) = x(1) + 5 = 5 & = \dprod{1}{5} = \dprod{(2 - 1)}{5} \\
+                    \txtgray{3} & x(3) = x(2) + 5 = 10 & = \dprod{2}{5} = \dprod{(3 - 1)}{5} \\
+                    \txtgray{4} & x(4) = x(3) + 5 = 15 & = \dprod{3}{5} = \dprod{(4 - 1)}{5}
+                \end{array} \quad
+            \end{rcases}
+            x(k) = \dprod{(k - 1)}{5},\ k \geq 1\ .
+        \end{equation*}
+
+        Posteriormente, se aplicó \textit{backward substitution} para encontrar una relación de recurrencia,
+        \begin{equation*}
+            \begin{rcases}
+                \begin{array}{l l l l}
+                    \txtgray{n} \quad & x(n) & = x(n - 1) + 5 & \\
+                    \txtgray{n - 1} \quad & & = \left[ x(n - 2) + 5 \right] + 5 & = x(n-2) + \dprod{2}{5} \\
+                    \txtgray{n - 2} \quad & & = \left[ x(n - 3) + 5 \right] + \dprod{2}{5} & = x(n - 3) + \dprod{3}{5} \\
+                    \txtgray{n - 3} \quad & & = \left[ x(n - 4) + 5 \right] + \dprod{3}{5} & = x(n - 4) + \dprod{4}{5} \\
+                    \quad\txtgray\vdots & & \qquad\vdots & \qquad\vdots
+                \end{array} \quad
+            \end{rcases}
+            x_{n - i + 1} = x(n - i) + \dprod{i}{5},\ i \geq 1\ ,
+        \end{equation*}
+        de donde se encontró que el valor para el cual se llegaba al final de $x(n)$ está dado por,
+        \begin{equation*}
+            \begin{rcases}
+                \begin{array}{l}
+                    x(1) = 0 \\
+                    x(1) = x(n - i)
+                \end{array}
+            \end{rcases}
+            \begin{array}{l}
+                n - i = 1 \\
+                i = n - 1
+            \end{array}
+            \ ,
+        \end{equation*}
+        donde $1 \leq i \leq n - 1$. Al usar la relación de recurrencia se obtiene que
+        \begin{equation*}
+            \begin{array}{l l l l}
+                \txtgray\vdots & & \qquad\vdots & \qquad\vdots \\
+                \txtgray{2} \quad & x(n) & = x\left(n - (n - 1)\right) + \dprod{(n - 1)}{5} & = \cancelto{0}{x(1)} + \dprod{(n - 1)}{5}\ .
+            \end{array}
+        \end{equation*}
+        
+        Finalmente, el resultado es
+        \begin{equation}
+            \result{x(n) = \dprod{(n - 1)}{5}\ .}
+        \end{equation}
+
+        Este procedimiento es el mismo que se repetirá para el resto de los problemas.
+    \end{solution}
+
+    % -- Segundo problema
+    \item $x(n) = 3 x(n-1)$ para $n > 1$, $x(1) = 4$.
+    \begin{solution}
+        La solución encontrada usando el método de \textit{forward substitution} es
+        \begin{equation*}
+            \begin{rcases}
+                \begin{array}{l l l}
+                    \txtgray{n} & x(n) & \\
+                    \txtgray{1} & x(1) = 4 & = \dprod{4}{3^0} \\
+                    \txtgray{2} & x(2) = \dprod{3}{x(1)} & = \dprod{4}{3^1} \\
+                    \txtgray{3} & x(3) = \dprod{3}{x(2)} & = \dprod{4}{3^2} \\
+                    \txtgray{4} & x(4) = \dprod{4}{x(3)} & = \dprod{4}{3^3}
+                \end{array} \quad
+            \end{rcases}
+            x(k) = \dprod{4}{3^{k - 1}},\ k \geq 0\ .
+        \end{equation*}
+        De manera similar al problema anterior, por el método de \textit{backward substitution}, se encuentra que
+        \begin{equation*}
+            \begin{rcases}
+                \begin{array}{l l l l}
+                    \txtgray{n} & x(n) & = \dprod{3}{x(n - 1)} & = \dprod{3^1}{x(n - 1)} \\
+                    \txtgray{n - 1} & & = 3 \left[ \dprod{3}{x(n - 2)} \right] & = \dprod{3^2}{x(n - 2)} \\
+                    \txtgray{n - 2} & & = 3 \left[ \dprod{3}{x(n - 3)} \right] & = \dprod{3^3}{x(n - 3)} \\
+                    \txtgray{n - 3} & & = 3 \left[ \dprod{3}{x(n - 4)} \right] & = \dprod{3^4}{x(n - 4)} \\
+                    \quad\txtgray\vdots & & \qquad \vdots & \qquad \vdots
+                \end{array} \quad
+            \end{rcases}
+            x_{n - i + 1} = \dprod{3^i}{x(n - i)}\ , i \geq 1\ .
+        \end{equation*}
+        Además, se puede utilizar la condición inicial $x(1)$ para determinar el último valor de la sucesión,
+        \begin{equation*}
+            \begin{rcases}
+                \begin{array}{l}
+                    x(1) = 4 \\
+                    x(1) = x(n - i)
+                \end{array}
+            \end{rcases}
+            \begin{array}{l}
+                n - i = 1 \\
+                i = n - 1
+            \end{array}\ ,
+        \end{equation*}
+        donde $1 \leq i \leq n - 1$, y el último valor de la sucesión está dado por
+        \begin{equation*}
+            \begin{array}{l l l l}
+                \txtgray\vdots & & \qquad\vdots & \qquad\vdots \\
+                \txtgray{2} & x(n) & = \dprod{3^{n - 1}}{x\left(n - (n - 1)\right)} & = \dprod{3^{n - 1}}{\cancelto{4}{x(1)}}\ .
+            \end{array}
+        \end{equation*}
+        El resultado final es,
+        \begin{equation}
+            \result{x(n) = \dprod{4}{3^{n - 1}}\ .}
+        \end{equation}
+    \end{solution}
+
+    % -- Tercer problema
+    \item $x(n) = x(n-1) + n$ para $n > 0$, $x(0) = 0$.
+    \begin{solution}
+        Se usó el método de \textit{forward substitution} pero no se logró encontrar un patrón para determinar la solución.
+        \begin{equation*}
+            \begin{rcases}
+                \begin{array}{l l l}
+                    \txtgray{n} & x(n) & \\
+                    \txtgray{0} & x(0) & = 0 \\
+                    \txtgray{1} & x(1) = x(0) + 1 & = 1 \\
+                    \txtgray{2} & x(2) = x(1) + 2 & = 3 \\
+                    \txtgray{3} & x(3) = x(2) + 3 & = 6
+                \end{array} \quad
+            \end{rcases}
+            \text{¡Patrón no tan evidente!}
+        \end{equation*}
+
+        Debido a lo anteriormente mencionado se dió espacial atención al caso usando \textit{backward substitution} para encontrar la relación de recurrencia, 
+        \begin{equation*}
+            \underbrace{%
+            \begin{array}{l l l l}
+                \txtgray{n} & x(n) & = x(n - 1) + n & \\
+                \txtgray{n - 1} & & = \left[x(n - 2) + (n - 1)\right] + n & = x(n - 2) + \sum_{i=0}^{1} (n - i) \\
+                \txtgray{n - 2} & & = \left[x(n - 3) + (n - 2)\right] + \sum_{i=0}^{1} (n - i) & = x(n - 3) + \sum_{i=0}^{2} (n - i) \\
+                \txtgray{n - 3} & & = \left[x(n - 4) + (n - 3)\right] + \sum_{i=0}^{2} (n - i) & = x(n - 4) + \sum_{i=0}^{3} (n - i) \\
+                \quad\txtgray\vdots & & \qquad \vdots & \qquad \vdots
+            \end{array}}_{%
+            \begin{array}{c}
+                x_{n - i} = x(n - 1 - i) + \sum_{k=0}^{i} (n - k),\ i \geq 0 \ .
+            \end{array}}
+        \end{equation*}
+        Usando la condición inicial, y comparando con la relación de recurrencia, se encontró el último valor de la sucesión
+        \begin{equation*}
+            \begin{rcases}
+                \begin{array}{l}
+                    x(0) = 0 \\
+                    x(0) = x(n - 1 - i)
+                \end{array}
+            \end{rcases}
+            \begin{array}{l}
+                n - 1 - i = 0 \\
+                i = n - 1
+            \end{array}\ ,
+        \end{equation*}
+        donde $0 \leq i \leq n - 1$. Y la sucesión termina en
+        \begin{equation*}
+            \begin{array}{l l l l}
+                \txtgray\vdots & & \qquad \vdots & \qquad \vdots \\
+                \txtgray{1} & x(n) & = x\left(n - 1 (n - 1)\right) + \sum_{k=0}^{n-1} (n - k) & = \cancelto{0}{x(0)} + \sum_{k=0}^{n-1} (n - k)\ .
+            \end{array}
+        \end{equation*}
+
+        A pesar de haber llegado ya a un resultado no parece ser que pudiera considerarse la solución al problema ya que desde un inicio en el caso de \textit{forward substitution} el comportamiento indicaba una sumataoria de términos. Se decidió tomar dicha sumatoria y buscar una manera de reducirla como se muestra a continuación,
+        \begin{equation*}
+            \begin{array}{l l}
+                x(n) & = \sum_{k=0}^{n-1} (n - k) \\
+                & = n + (n - 1) + (n - 2) + \ldots + \cancelto{3}{\left[n - (n - 3)\right]} + \cancelto{2}{\left[n - (n - 2)\right]} + \cancelto{1}{\left[n - (n - 1)\right]} \\
+                & = 1 + 2 + 3 + \ldots + (n - 2) + (n - 1) + n \\
+                & = \sum_{k=1}^{n} k\ .
+            \end{array}
+        \end{equation*}
+        
+        Sumando ambas sumas y resolviendo para $x(n)$,
+        \begin{equation*}
+            \begin{array}{l l}
+                x(n) + x(n) & = \sum_{k=0}^{n-1} (n - k) + \sum_{k=1}^{n} k \\
+                \dprod{2}{x(n)} & = \sum_{k=1}^{n} (n - k - 1) + \sum_{k=1}^{n} k \\
+                & = \sum_{k=1}^{n} (n + 1) \\
+                & = n (n + 1) \\
+                x(n) & = \frac{n}{2} (n + 1)\ .
+            \end{array}
+        \end{equation*}
+
+        Por lo tanto, el resultado al problema es
+        \begin{equation}
+            \result{x(n) = \frac{n}{2} (n + 1)\ .}
+        \end{equation}
+
+        Es curioso que la suma de 1 hasta $n$, donde $n \in \mathbb{N}$, se pueda expresar de esta manera tan elegante.
+
+    \end{solution}
+    
+    % -- Cuarto problema
+    \item $x(n) = x(n/2) + n$ para $n > 1$, $x(1) = 1$ (resolver para $n = 2^k$).
+    \begin{solution}
+        Primeramente se realizó el cambio en $x(n)$ de $n \to 2^k$,
+        \begin{equation*}
+            x(2^k) = x(2^{k - 1}) + 2^k\ .
+        \end{equation*}
+        Después se calcularon varios casos usando \textit{forward substitution}. El patrón encontrado no es tan evidente de detectar si se observa solamente el valor de $k$, pero al comparar el resultado de cada intento con su respectivo valor de $n$ puede resultar mas sencillo como se muestra a continuación.
+        \begin{equation*}
+            \begin{rcases}
+                \begin{array}{l l l l l}
+                    \txtgray{n} & \txtgray{k} & x(2^k) & & \\
+                    \txtgray{1} & \txtgray{0} & x(2^0) & = 1 & = 1 \\
+                    \txtgray{2} & \txtgray{1} & x(2^1) = x(2^0) + 2^1 & = 1 + 2^1 & = 3 \\
+                    \txtgray{4} & \txtgray{2} & x(2^2) = x(2^1) + 2^2 & = 1 + 2^1 + 2^2 & = 7 \\
+                    \txtgray{8} & \txtgray{3} & x(2^3) = x(2^2) + 2^3 & = 1 + 2^1 + 2^2 + 2^3 & = 15
+                \end{array} \quad
+            \end{rcases}
+            x(n) = \dprod{2}{n} - 1 = 2^{k + 1} - 1\ .
+        \end{equation*}
+        La relación de recurrencia se encuentra usando \textit{backward substitution},
+        \begin{equation*}
+            \underbrace{%
+            \begin{array}{l l l l}
+                \txtgray{k} & x(2^k) & = x(2^{k - 1}) + 2^k & \\
+                \txtgray{k - 1} & & = \left[x(2^{k - 2}) + 2^{k - 1}\right] + 2^k & = x(2^{k - 2}) + \sum_{i=0}^{1} (2^{k - j}) \\
+                \txtgray{k - 2} & & = \left[x(2^{k - 3}) + 2^{k - 2}\right] + \sum_{i=0}^{1} (2^{k - j}) & = x(2^{k - 3}) + \sum_{i=0}^{2} (2^{k - j}) \\
+                \txtgray{k - 3} & & = \left[x(2^{k-4}) + 2^{k - 3}\right] + \sum_{i=0}^{2} (2^{k - j}) & = x(2^{k - 4}) + \sum_{i=0}^{3} (2^{k - j}) \\
+                \quad\txtgray\vdots & & \qquad \vdots & \qquad \vdots
+            \end{array}}_{%
+            \begin{array}{c}
+                x_{k - i + 1} = x(2^{k - i}) + \sum_{j=0}^{i-1} 2^{k - j}\ .
+            \end{array}}
+        \end{equation*}
+        De la condición inicial y de la relación de recurrencia se puede encontrar que
+        \begin{equation*}
+            \begin{rcases}
+                \begin{array}{l l l}
+                    x(1) & = x(2^0) & = 1 \\
+                    x(2^0) & = x(2^{k - i})
+                \end{array}
+            \end{rcases}
+            \begin{array}{l l}
+                2^0 = 2^{k - i} \\
+                0 = k - i
+            \end{array}
+            \implies i = k\ .
+        \end{equation*}
+        Sustituyendo $i = k$ en la relación de recurrencia se encuentra el último término de $x(n)$,
+        \begin{equation*}
+            \begin{array}{l l l l}
+                \txtgray\vdots & & \qquad \vdots & \qquad \vdots \\
+                \txtgray{1} & x(n) & = x(2^{k - k}) + \sum_{j=0}^{k-1} 2^{k - j} & = \underbrace{x(2^0)}_{1=2^{k - k}} + \sum_{j=0}^{k-1} 2^{k - j} \\
+                & x(n) & = \sum_{j=0}^{k} 2^{k - j}\ ,
+            \end{array}
+        \end{equation*}
+        donde $0 \leq j \leq k$. Esta suma se puede simplificar,
+        \begin{equation*}
+            \begin{array}{l l}
+                x(2^k) & = \sum_{j=0}^{k} 2^{k - j} \\
+                & = 2^{k} + 2^{k - 1} + 2^{k - 2} + \ldots + \overbrace{2^{k - (k - 2)}}^{2^2} + \overbrace{2^{k - (k - 1)}}^{2^1} + \overbrace{2^{k - k}}^{2^0} \\
+                & = \sum_{j = 0}^{k} 2^j\ .
+            \end{array}
+        \end{equation*}
+        Finalmente, haciendo un poco de manipulación a la serie se llega al r esultado que se encontró por el método de \textit{forward substitution},
+        \begin{equation*}
+            \begin{array}{l l}
+                x(2^k) & = \sum_{j = 0}^{k} 2^j \\
+                \dprod{2^1}{x(2^k)} & = \sum_{j = 1}^{k+1} 2^{j} \\
+                \dprod{2^1}{x(2^k)} & = \sum_{j = 1}^{k} 2^{j} + 2^{k+1} \\
+                & = \sum_{j = 1}^{k} 2^{j} + 2^{k+1} + (2^0 - 2^0) \\
+                & = \sum_{j = 0}^{k} 2^{j} + 2^{k+1} - \underbrace{2^0}_{=1} \\
+                \dprod{2^1}{x(2^k)} & = x(2^k) + 2^{k+1} - 1 \\
+                x(2^k) & = 2^{k+1} - 1\ .
+            \end{array}
+        \end{equation*}
+        La serie anterior es conocida como una \textit{serie geométrica}, y el procedimiento para resolverla es el comunmente encontrado en la litertura. El resultado a este problema es,
+        \begin{equation}
+            \result{x(2^k) = 2^{k+1} - 1\ .}
+        \end{equation}
+    \end{solution}
+
+    % -- Quinto problema
+    \item $x(n) = x(n/3) + 1$ para $n > 1$, $x(1) = 1$ (resolver para $n = 3^k$).
+    \begin{solution}
+        Nuevamente se hizo el cambio en $x(n)$ de $n \to 3^k$,
+        \begin{equation*}
+            x(3^k) = x(3^{k - 1}) + 1\ .
+        \end{equation*}
+        En este problema fue sencillo de identificar la dependencia de $k$ al usar \textit{forward substitution},
+        \begin{equation*}
+            \begin{rcases}
+                \begin{array}{l l l l}
+                    \txtgray{n} & \txtgray{k} & x(3^k) & \\
+                    \txtgray{1} & \txtgray{0} & x(3^0) = x(1) & = 1 \\
+                    \txtgray{3^1} & \txtgray{1} & x(3^1) = x(3^0) + 1 & = 2 \\
+                    \txtgray{3^2} & \txtgray{2} & x(3^2) = x(3^1) + 1 & = 3 \\
+                    \txtgray{3^3} & \txtgray{3} & x(3^3) = x(3^2) + 1 & = 4
+                \end{array} \quad
+            \end{rcases}
+            x(3^k) = k + 1 = \log_{3}(n) + 1\ .
+        \end{equation*}
+        Por completez se repitió lo mismo que para los problemas anteriores, se calcularon varios términos usando \textit{backward substitution} y se dedujo la relación de recurrencia,
+        \begin{equation*}
+            \begin{rcases}
+                \begin{array}{l l l}
+                    \txtgray{k} & x(3^k) & = x(3^{k - 1}) + 1 \\
+                    \txtgray{k - 1} & & = x(3^{k - 2}) + 2 \\
+                    \txtgray{k - 2} & & = x(3^{k - 3}) + 3 \\
+                    \txtgray{k - 3} & & = x(3^{k - 4}) + 4 \\
+                    \quad\txtgray\vdots & & \qquad \vdots
+                \end{array}
+            \end{rcases}
+            x_{k - i + 1} = x(3^{k - i}) + i\ , i \geq 1\ .
+        \end{equation*}
+        Se usa la relación de recurrencia y el caso base para encontrar el último índice de la serie,
+        \begin{equation*}
+            \begin{rcases}
+                \begin{array}{l l}
+                    x(1) = x(3^0) & = 1 \\
+                    x(3^0) = x(3^{k - i})
+                \end{array}
+            \end{rcases}
+            \begin{array}{l}
+                3^0 = 3^{k - i} \\
+                0 = k - i
+            \end{array}
+            \implies i = k\ .
+        \end{equation*}
+        El último elemento de la serie será,
+        \begin{equation*}
+            \begin{array}{l l l}
+                \txtgray\vdots & & \qquad\vdots \\
+                \txtgray{1} & x(3^k) & = \underbrace{x(3^{k - k})}_{=1} + \underbrace{k}_{\log_{3}(n)}\ .
+            \end{array}
+        \end{equation*}
+        El resultado final coincide con aquel encontrado mediante \textit{forward substitution},
+        \begin{equation}
+            \result{x(n) = 1 + \log_{3}(n)\ .}
+        \end{equation}
+    \end{solution}
+\end{enumerate}
+\end{document}

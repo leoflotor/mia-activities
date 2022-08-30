@@ -1,4 +1,5 @@
 #!/usr/local/bin/sbcl --script
+
 ;;;; Hello world
 
 ;;; Simple script that prints a greeting.
@@ -11,3 +12,5 @@
 
 (write-line "Hello, World!")
 (write-line "Hello, World!")
+
+"Hello, World!" ; Este caso no corre en el script

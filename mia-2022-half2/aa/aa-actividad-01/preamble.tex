@@ -1,0 +1,64 @@
+\documentclass{article}
+
+% -- Input and language settings
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+% -- Page and line settings
+\usepackage{geometry}
+\geometry{letterpaper, margin=1.2cm, includefoot, includehead}
+\renewcommand{\baselinestretch}{1.2}
+
+% -- Required packages
+\usepackage{xcolor}
+\usepackage[many]{tcolorbox}
+\usepackage{mathtools, amsfonts}              % Loads amsmath if not already loaded
+\usepackage[parfill]{parskip}       % No indent for all paragraphs
+\usepackage{cancel}                 % To cancel math terms
+\usepackage[shortlabels]{enumitem}  % To handle enumerations
+
+% -- Title and heading settings
+\usepackage{titling}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\lhead{\theinstitution\ -- \thedepartment}
+\chead{}
+\rhead{\thecourse\ -- \thetitle}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+
+% -- Something I don't understand
+\usepackage{stackengine}
+\setstackEOL{\#}
+\setstackgap{L}{.7\baselineskip}
+
+% -- Problem solution
+\newenvironment{solution}
+{\begin{quote}
+\textbf{Solución:}\medskip
+
+}
+{
+
+% \hfill\rule{0.5\textwidth}{0.5pt}
+\end{quote}}
+
+% -- Equation result
+\newcommand{\result}[1]
+{
+\tcbhighmath[colframe=white, colback=gray!15, sharp corners]
+{#1}
+}
+
+% -- Function definitions
+\newcommand{\dprod}[2]{{#1} \cdot {#2}}
+\newcommand{\txtgray}[1]{\textcolor{gray}{#1}}
+
+% -- Author information
+\title{Actividad 1}
+\author{Leonardo Flores Torres}
+\newcommand\theinstitution{Universidad Veracruzna}
+\newcommand\thedepartment{Inteligencia Artificial}
+\newcommand\thecourse{Análisis de Algoritmos}
