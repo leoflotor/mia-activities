@@ -1,0 +1,133 @@
+% -- Document configuration
+\input{preamble.tex}
+
+% -- Document
+\begin{document}
+
+\thispagestyle{empty}
+
+%Title
+\begin{center}
+\textsc{\theinstitution}\\[2mm]
+
+\thedepartment
+
+\rule{0.6\textwidth}{0.5pt}\\[2mm]
+
+\thecourse \\[4mm]
+
+{\Large \textbf{\thetitle}}\\[2mm]
+
+\theauthor \\[2mm]
+
+{\small \today}
+\end{center}
+\medskip
+
+% -- 
+\vspace{1cm}
+
+Para $x(n) = \dprod{3}{x(n-1)} - x(n-2)$, donde $x(0) = 1$ y $x(1) = 3$,
+\begin{itemize}
+    \item calcular $x(2)$ y $x(3)$,
+    \item obtener la fórmula general y la característica,
+    \item verificar los resultados de $x(2)$ y $x(3)$ con la fórmula de recurrencia.
+\end{itemize}
+\begin{solution}
+    Primero se usará la relación de recurrencia para obtener los valores de $x(2)$ y $x(3)$:
+    \begin{align*}
+        x(2) & = \dprod{3}{x(1)} - x(0) & %
+        x(3) & = \dprod{3}{x(2)} - x(1) \\
+        & = \dprod{3}{3} - 1 & %
+        & = \dprod{3}{8} - 3 \\
+        & = 8 & % 
+        & = 21
+    \end{align*}
+    Ahora, si se reordenan los términos de $x(n)$ de la siguiente manera
+    \begin{equation*}
+        x(n) - \dprod{3}{x(n-1)} + x(n-2) = 0, 
+    \end{equation*}
+    su correspondiente ecuación característica es
+    \begin{equation*}
+        r^2 - 3 r + 1 = 0\ .
+    \end{equation*}
+    La cual tiene las siguientes raíces,
+    \begin{equation*}
+        r_{\pm} = \frac{3 \pm \sqrt{5}}{2}\ .
+    \end{equation*}
+    Ya que sus raíces son distintas la solución general de $x(n)$ es
+    \begin{equation}
+        x(n) = \alpha r_{+}^n + \beta r_{-}^n\ . \label{eq:solucion_general}
+    \end{equation}
+    Posteriormente se aplicaron los casos base $x(1)$ y $x(0)$ para encontrar los valores de las constantes,
+    \begin{align}
+        x(1) & = \alpha r_{+} + \beta r_{-} = 3\ , \label{eq:caso_base_x1} \\
+        x(0) & = \alpha + \beta = 1\ . \label{eq:caso_base_x0}
+    \end{align}
+    La \cref{eq:caso_base_x0} se resuelve para $\alpha$, y se sustituye en la \cref{eq:caso_base_x1} de donde se obtiene
+    \begin{align}
+        \beta & = \frac{r_{+} - 3}{r_{+} - r_{-}}\ , \nonumber \\
+        & = \frac{5 - 3 \sqrt{5}}{10}\ . \label{eq:beta_valor}
+    \end{align}
+    Ahora se toma la \cref{eq:beta_valor} y se sustituye en la \cref{eq:caso_base_x1} resolviendo para $\alpha$,
+    \begin{align*}
+        \alpha & = 1 - \beta\ , \nonumber \\
+        & = \frac{5 + 3 \sqrt{5}}{10}\ .
+    \end{align*}
+    Tomando los valores de $\alpha$ y $\beta$, y sustituyendolos en la \cref{eq:solucion_general} se obtiene la solución al problema,
+    \begin{align}
+        x(n) & = \left(\frac{5 + 3 \sqrt{5}}{10}\right) \left(\frac{5 + 3 \sqrt{5}}{10}\right)^n + \left(\frac{5 - 3 \sqrt{5}}{10}\right) \left(\frac{5 - 3 \sqrt{5}}{10}\right)^n\ , \nonumber \\
+        & = \left(\frac{5 + 3 \sqrt{5}}{10}\right)^{n+1} + \left(\frac{5 - 3 \sqrt{5}}{10}\right)^{n+1}\ . \label{eq:solucion1}
+    \end{align}
+    Finalmente, se comprueban los resultados de la \cref{eq:solucion1} con los resultados obtenidos al usar la relación de recurrencia,
+    \begin{align*}
+        x(0) & = \left(\frac{5 + 3 \sqrt{5}}{10}\right) + \left(\frac{5 - 3 \sqrt{5}}{10}\right) = \frac{10}{10} = 1\ , \\
+        x(1) & = \left(\frac{5 + 3 \sqrt{5}}{10}\right) \left(\frac{3 + \sqrt{5}}{2}\right) + \left(\frac{5 - 3 \sqrt{5}}{10}\right) \left(\frac{3 + \sqrt{5}}{2}\right) = \frac{6}{2} = 3\ , \\
+        x(2) & = \left(\frac{5 + 3 \sqrt{5}}{10}\right) \left(\frac{3 + \sqrt{5}}{2}\right)^2 + \left(\frac{5 - 3 \sqrt{5}}{10}\right) \left(\frac{3 + \sqrt{5}}{2}\right)^2 = \frac{16}{2} = 8\ , \\
+        x(3) & = \left(\frac{5 + 3 \sqrt{5}}{10}\right) \left(\frac{3 + \sqrt{5}}{2}\right)^3 + \left(\frac{5 - 3 \sqrt{5}}{10}\right) \left(\frac{3 + \sqrt{5}}{2}\right)^3 = \frac{42}{2} = 21\ .
+    \end{align*}
+\end{solution}
+
+\nnfootnote{Las soluciones a los problemas se realizaron revisando el libro de referencia \cite{levitin2008introduction}.}
+
+Determinar por inducción matemática que
+\begin{equation*}
+    \sum_{i=1}^{n} i^2 = \frac{2 n^3 + 3 n^2 + n}{6}\ .
+\end{equation*}
+\begin{solution}
+    Primero, se denominará a la igualdad anterior como $T(n)$, y se dividirá en en dos partes, la del lado derecho y la del lado izquierdo,
+    \begin{equation*}
+        \begin{split}
+            I(n) & = \sum_{i=1}^{k} i^2\ ,\\
+            D(n) & = \frac{2 n^3 + 3 n^2 + n}{6}\ .
+        \end{split}
+    \end{equation*}
+    Ambos lados de la igualdad tienen que ser iguales para cualquier valor de $n = k$ donde $k \geq 1$. Se calcularon un par de términos para comprobar este hecho:
+    \begin{equation*}
+        \begin{array}{l l l}
+            \txtgray{k} & I(k) & D(k) \medskip \\
+            \txtgray{1} & 1^2 = 1 & \dfrac{2 + 3 + 1}{6} = 1 \medskip \\
+            \txtgray{2} & 1^2 + 2^2 = 5 & \dfrac{\dprod{2}{8} + \dprod{3}{4} + 2}{6} = 5 \medskip \\
+            \txtgray\vdots & \qquad\vdots & \qquad\vdots
+        \end{array}
+    \end{equation*}
+    Por inspección se puede decir que $I(n) = D(n)$, y se puede proceder con la demostración. Ahora, supóngase que la igualdad $T(n)$ es válida para $n = k$, si eso es cierto entonces queda demostrar que también lo es para $n = k+1$ como se muestra a continuación,
+    \begin{equation*}
+        \begin{split}
+            T(k+1) & = \sum_{i=1}^{k+1} i^2\ ,\\
+            & = \sum_{i=1}^{k} i^2 + (k+1)^2\ ,\\
+            & = \frac{k+1}{6} \left[2 (k + 1)^2 + 3 (k + 1) + 1\right]\ ,\\
+            & = \frac{k+1}{6} \left(2 k^2 + 7 k + 6\right)\ ,\\
+            & = \frac{1}{6} \left(2 k^3 + 9 k^2 + 13 k + 6\right)\ ,\\
+            T(k + 1) & = \frac{1}{6} \left[\left(2 k^3 + 3 k^2 + k\right) + \left(6 k^2 + 12 k + 6\right)\right]\ ,\\
+            \sum_{i=1}^{k} i^2 + (k+1)^2 & = \frac{k}{6} \left(2 k + 1\right) \left(k + 1\right) + \left(k + 1\right)^2\ ,\\
+            \sum_{i=1}^{k} i^2 & = \frac{k}{6} \left(2 k + 1\right) \left(k + 1\right)\ ,\\
+            & = \frac{2 k^3 + 3^k + 1}{6}\ .
+        \end{split}
+    \end{equation*}
+    Con lo que se demuestra que $T(n)$ también es válida para $n = k+1$.
+\end{solution}
+
+\bibliography{references.bib}
+
+\end{document}

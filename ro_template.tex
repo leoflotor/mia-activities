@@ -1,0 +1,104 @@
+\documentclass[letter,11pt]{article}
+
+%Input
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+%Page Settings
+\usepackage{geometry}
+	\geometry{a4paper, margin=1.2cm, includefoot, includehead}
+	\renewcommand{\baselinestretch}{1.2}
+\usepackage{titling}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\lhead{\theinstitution\ -- \thedepartment}
+\chead{}
+\rhead{\thecourse\ -- \thetitle}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+
+%%Important packages
+\usepackage{amsmath,amssymb}
+
+%%Additional packages
+\usepackage{multicol,float}
+\usepackage{caption,subcaption}
+
+\usepackage{xcolor}
+\usepackage[many]{tcolorbox}
+
+%Graphics
+\usepackage{graphicx}
+
+\usepackage{tikz,pgfplots}
+\usetikzlibrary{babel}
+
+%Information of the document
+\title{Assignment name}
+\author{Author}
+\newcommand\theinstitution{Institution}
+\newcommand\thedepartment{Department}
+\newcommand\thecourse{Course}
+
+%Other definitions
+
+%-------------------------------
+\newenvironment{solution}
+{\begin{quote}
+\textbf{Solution:}\medskip
+
+}
+{
+
+\hfill\rule{0.5\textwidth}{0.5pt}
+\end{quote}}
+%-------------------------------
+
+%-------------------------------
+\newcommand{\result}[1]
+{
+\tcbhighmath[colframe=white, colback=gray!25, sharp corners]
+{#1}
+}
+%-------------------------------
+
+%Total derivative
+\newcommand{\D}[3][]{\dfrac{\mathrm{d^{#1}}#2}{\mathrm{d}#3^{#1}}}
+%Partial derivative
+\newcommand{\pD}[2]{\dfrac{\partial #1}{\partial #2}}
+%Differential
+\renewcommand{\d}{\mathrm{d}}
+%Math highlight
+\newcommand{\mathhl}[1]{\colorbox{gray!15}{$\displaystyle #1$}}
+
+% --- MAIN DOCUMENT ---
+
+\begin{document}
+
+	\thispagestyle{empty}
+
+	%Title
+	\begin{center}
+		\textsc{\theinstitution}\\[2mm]
+		
+		\thedepartment
+				
+		\rule{0.6\textwidth}{0.5pt}\\[2mm]
+		
+		\thecourse \\[4mm]
+		
+		{\Large \textbf{\thetitle}}\\[2mm]
+		
+		\theauthor \\[2mm]
+		
+		{\small Date}
+	\end{center}
+	\medskip
+
+	%Document begins
+	Hello
+
+\end{document}

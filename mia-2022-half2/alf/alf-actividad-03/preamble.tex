@@ -1,0 +1,74 @@
+\documentclass{article}
+
+% -- Input and language settings
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+% -- Page and line settings
+\usepackage{geometry}
+\geometry{letterpaper, margin=1.2cm, includefoot, includehead}
+\renewcommand{\baselinestretch}{1.2}
+
+% -- Required packages
+\usepackage{xcolor}
+\usepackage[many]{tcolorbox}
+\usepackage{mathtools, amsfonts}        % Loads amsmath if not already loaded
+\allowdisplaybreaks                     % To allow page breaks if equations are too long
+\usepackage[parfill]{parskip}           % No indent and separation lines for paragraphs
+\usepackage[bottom]{footmisc}           % Force footnotes at the bottom of the page
+\usepackage{cancel}                     % To cancel math terms
+\usepackage[shortlabels]{enumitem}      % To handle enumerations
+\usepackage{tikz}
+\usetikzlibrary{automata, arrows.meta, positioning}
+\usepackage[mode=buildnew]{standalone}  % To import figures in standalone files
+\usepackage[hidelinks]{hyperref}
+\usepackage{cleveref}                   % To use autocompleted reference labels
+\usepackage{caption}                    % Caption and subcaption to allow subfigures
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{multicol}                   % To use multicolumns
+\usepackage{amssymb}
+
+% -- Title and heading settings
+\usepackage{titling}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+% -- Theorems
+\newtheorem{theorem}{Theorem}
+
+\lhead{\theinstitution\ -- \thedepartment}
+\chead{}
+\rhead{\thecourse\ -- \thetitle}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+
+% -- Problem solution
+\newenvironment{solution}
+{\begin{quote}
+\textbf{Solution:}\medskip
+
+}
+{
+
+% \hfill\rule{0.5\textwidth}{0.5pt}
+\end{quote}}
+
+% -- Equation result
+\newcommand{\result}[1]
+{
+\tcbhighmath[colframe=white, colback=gray!15, sharp corners]
+{#1}
+}
+
+% -- Function definitions
+\newcommand{\dprod}[2]{{#1} \cdot {#2}}
+\newcommand{\txtgray}[1]{\textcolor{gray}{#1}}
+
+% -- Author information
+\title{Assignment 3}
+\author{Leonardo Flores Torres}
+\newcommand\theinstitution{Universidad Veracruzna}
+\newcommand\thedepartment{Artificial Intelligence}
+\newcommand\thecourse{Automata and Formal Languages}

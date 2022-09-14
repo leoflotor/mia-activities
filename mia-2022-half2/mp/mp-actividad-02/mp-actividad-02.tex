@@ -1,0 +1,97 @@
+% -- Document configuration
+\input{preamble.tex}
+
+% -- Document
+\begin{document}
+
+\thispagestyle{empty}
+
+%Title
+\begin{center}
+\textsc{\theinstitution}\\[2mm]
+
+\thedepartment
+
+\rule{0.6\textwidth}{0.5pt}\\[2mm]
+
+\thecourse \\[4mm]
+
+{\Large \textbf{\thetitle}}\\[2mm]
+
+\theauthor \\[2mm]
+
+{\small \today}
+\end{center}
+\medskip
+
+% -- 
+\vspace{1cm}
+
+Suppose that we have three coloured boxes $r$ (red), $b$ (blue), and $g$ (green). Box $r$ contains 3 apples, 4 oranges and 3 limes, box $b$ contains 1 apple, 1 orange and 0 limes, and box $g$ contains 3 apples, 3 oranges and 4 limes. If a box is chosen at random with probabilities $p(r)=0.2$, $p(b)=0.2$, $p(g)=0.6$, and a piece of fruit is removed from the box (with equal probability of selecting any of the items in the box), then what is the probability of selecting an apple? If we observe that the selected fruit is in fact an orange, what is the probability that it came from the green box?
+
+\begin{solution}
+    The probabilities of selecting either one of the boxes is
+    \begin{equation*}
+        \begin{split}
+            p(r) & = 2 / 10\ , \\
+            p(b) & = 2 / 10\ , \\
+            p(g) & = 6 / 10\ .
+        \end{split}
+    \end{equation*}
+    Now, if we assume that we pick one of the boxes at random, then the probability of selecting one of the fruits in that box is just the fraction of that fruit $F$ in the selected box $B$,
+    \begin{equation*}
+        \begin{aligned}
+            p(F=a | B=r) & = 3/10\ ,\\
+            p(F=o | B=r) & = 4/10\ ,\\
+            p(F=l | B=r) & = 3/10\ ,\\
+            p(F=a | B=b) & = 5/10\ ,\\
+            p(F=o | B=b) & = 5/10\ ,\\
+            p(F=l | B=b) & = 0\ ,\\
+            p(F=a | B=g) & = 3/10\ ,\\
+            p(F=o | B=g) & = 3/10\ ,\\
+            p(F=l | B=g) & = 4/10\ .\\
+        \end{aligned}
+    \end{equation*}
+    The probability of selecting of selecting any of the fruits can be computed with
+    \begin{equation*}
+        p(X) = \sum\limits_{Y} p(X|Y) p(Y)\ .
+    \end{equation*}
+    Thus, the probability of selecting an apple is,
+    \begin{align*}
+        p(F=a) & = p(F=a | B=r)\ p(B=r) + p(F=a | B=b)\ p(B=b) + p(F=a | B=g)\ p(B=g)\ ,\\
+        & = (3/10)(2/10) + (5/10)(2/10) + (3/10)(6/10)\ ,\\
+        & = \frac{34}{10^2}\ .
+    \end{align*}
+    Similarly, the probability of selecting an orange is,
+    \begin{align*}
+        p(F=o) & = p(F=o | B=r)\ p(B=r) + p(F=o | B=b)\ p(B=b) + p(F=o | B=g)\ p(B=g)\ ,\\
+        & = (4/10)(2/10) + (5/10)(2/10) + (3/10)(6/10)\ ,\\
+        & = \frac{36}{10^2}\ .
+    \end{align*}
+    And the probability to select a lime is,
+    \begin{align*}
+        p(F=l) & = p(F=l | B=r)\ p(B=r) + p(F=l | B=b)\ p(B=b) + p(F=l | B=g)\ p(B=g)\ ,\\
+        & = (3/10)(2/10) + (0)(2/10) + (4/10)(6/10)\ ,\\
+        & = \frac{30}{10^2}\ .
+    \end{align*}
+    The answer to the first question, \textit{what is the probability of selecting an apple?}, is 
+    \begin{equation*}
+        \result{
+            p(F=a) = 34 / 100\ .
+        }
+    \end{equation*}
+    Now, the probability of selecting a box given that the selected fruit is an orange is,
+    \begin{align*}
+        p(B=r | F=o) & = \frac{p(F=o | B=r)\ p(B=r)}{P(F=o)} = \frac{(4/10)(2/10)}{(36/10^2)} = \frac{4}{18}\ ,\\
+        p(B=b | F=o) & = \frac{p(F=o | B=b)\ p(B=b)}{P(F=o)} = \frac{(5/10)(2/10)}{(36/10^2)} = \frac{5}{18}\ ,\\
+        p(B=g | F=o) & = \frac{p(F=o | B=g)\ p(B=g)}{P(F=o)} = \frac{(3/10)(6/10)}{(36/10^2)} = \frac{9}{18}\ .\\
+    \end{align*}
+    Finally, the answer to the second question, \textit{if we observe that the selected fruit is in fact an orange, what is the probability that it came from the green box?}, is
+    \begin{equation*}
+        \result{
+            p(B=g | F=o) = \frac{9}{18}\ .
+        }
+    \end{equation*}
+\end{solution}
+
+\end{document}

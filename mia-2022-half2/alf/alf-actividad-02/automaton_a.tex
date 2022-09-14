@@ -1,0 +1,29 @@
+\documentclass[border=0.2cm]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{automata, arrows.meta, positioning}
+
+\begin{document}
+
+\begin{tikzpicture} [
+    every initial by arrow/.style = {-To},
+    every loop/.style = {-To}]
+    % \draw [help lines] (-1,-1) grid (5,1);
+    \node (q0) [state, 
+        initial, 
+        initial text={}] at (0,0) {$r_{0}$};
+    \node (q1) [state] at (1.5,0) {$r_{1}$};
+    \node (q2) [state] at (3.0,0) {$r_{2}$};
+    \node (q3) [state, 
+        accepting] at (4.5,0) {$r_{3}$};
+    
+    \path [-To]
+        (q0) edge node [above] {$a$} (q1)
+        (q1) edge node [above] {$a$} (q2)
+        (q2) edge node [above] {$a$} (q3)
+        (q0) edge [loop above] node {$b$} ()
+        (q1) edge [loop above] node {$b$} ()
+        (q2) edge [loop above] node {$b$} ()
+        (q3) edge [loop above] node {$a,b$} ();
+\end{tikzpicture}
+
+\end{document}

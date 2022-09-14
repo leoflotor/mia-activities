@@ -1,0 +1,50 @@
+\documentclass[border=0.15cm]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{automata, arrows.meta, positioning}
+
+\begin{document}
+\begin{tikzpicture}
+    every initial by arrow/.style = {-To},
+    every loop/.style = {-To}]
+    % \draw [help lines] (-1,-1) grid (5,1);
+    \node (R2) [state] at (0,0) {$R_{2}$};
+    \node (R3) [state] at (1.5,0) {$R_{3}$};
+    \node (R4) [state, accepting] at (3.0,0) {$R_{4}$};
+    \node (R34) [state, accepting] at (4.5,0) {$R_{34}$};
+    \node (empty) [state] at (0.75,1.5) {$\emptyset$};
+    \node (R234) [state, accepting] at (4.5,1.5) {$R_{234}$};
+    \node (R24) [state, accepting] at (3.75,-1.5) {$R_{24}$};
+    \node (R23) [state] at (2.25,-1.5) {$R_{23}$};
+
+    \path [-To]
+        (R2) edge node [left] {$1$} (empty)
+        (R2) edge node [below] {$0$} (R3)
+        (R3) edge node [right] {$0$} (empty)
+        (R3) edge node [below] {$1$} (R4)
+        (R4) edge [loop above] node {$0,1$} ()
+        (R23) edge node [left] {$0$} (R3)
+        (R23) edge node [right] {$1$} (R4)
+        (R24) edge node [left] {$1$} (R4)
+        (R24) edge node [right] {$0$} (R34)
+        (R34) edge node [below] {$0,1$} (R4)
+        (R234) edge node [left] {$1$} (R4)
+        (R234) edge node [right]{$0$} (R34)
+        ;
+    %     (R1) edge node [above] {$1$} (R12)
+    %     (R12) edge node [above] {$0$} (R13)
+    %     (R13) edge node [above] {$1$} (R124)
+    %     (R13) edge [bend left=40] node [below] {$0$} (R1)
+    %     (R124) edge node [above] {$0$} (R134)
+    %     (R134) edge node [above] {$0$} (R14)
+    %     (R134) edge [bend left=45] node [below] {$1$} (R124)
+    %     (R14) edge [bend left=70] node [below] {$1$} (R124)
+    %     (R123) edge node [left] {$0$} (R13)
+    %     (R123) edge node [right] {$1$} (R124)
+    %     (R1234) edge node [right] {$0$} (R134)
+    %     (R1234) edge node [left] {$1$} (R124)
+    %     (R1) edge [loop above] node {$0$} ()
+    %     (R12) edge [loop above] node {$1$} ()
+    %     (R124) edge [loop above] node {$1$} ()
+    %     (R14) edge [loop above] node {$0$} ();
+\end{tikzpicture}
+\end{document}

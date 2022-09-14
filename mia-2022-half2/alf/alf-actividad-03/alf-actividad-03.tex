@@ -1,0 +1,155 @@
+% -- Document configuration
+\input{preamble.tex}
+
+% -- Document
+\begin{document}
+
+\thispagestyle{empty}
+
+% Title
+\begin{center}
+\textsc{\theinstitution}\\[2mm]
+
+\thedepartment
+
+\rule{0.6\textwidth}{0.5pt}\\[2mm]
+
+\thecourse \\[4mm]
+
+{\Large \textbf{\thetitle}}\\[2mm]
+
+\theauthor \\[2mm]
+
+{\small \today}
+\end{center}
+\medskip
+
+% --
+\vspace{1cm}
+
+Convert the NFA shown in \cref{fig:nondet-automaton}, corresponding to the machine $N$, to a DFA:
+\begin{figure}[ht!]
+    \centering
+    \includestandalone[mode=buildnew]{nondet-automaton}
+    \caption{The NFA $N$.}
+    \label{fig:nondet-automaton}
+\end{figure}
+\begin{solution}
+    The automaton $N$ is described by the 5-tuple $\left(Q, \Sigma, \delta, q_1, F\right)$. Its set of states $Q = \{q_1, q_2, q_3, q_4\}$, its alphabet $\Sigma = \{0, 1\}$, the start state is $q_1$, and the set of accept states is $F = \{q_4\}$. Additionally, $N$'s transition table is shown below:
+    \begin{equation*}
+        \begin{array}{c | c c}
+            Q \backslash \Sigma & 0 & 1 \\
+            \hline
+            q_1 & \{q_1\} & \{q_1, q_2\} \\
+            q_2 & \{q_3\} & \emptyset \\
+            q_3 & \emptyset & \{q_4\} \\
+            q_4 & \{q_4\} & \{q_4\}
+        \end{array}
+    \end{equation*}
+
+    Now, to find a deterministic equivalent $M$ of $N$ it is necessary to compute the 5-tuple given by $(Q', \Sigma, \delta', q'_{1}, F')$. The set of states of the deterministic automaton $Q'$ correspond to all the possible states product of the power set of $Q$, given by $\mathbb{P}(Q)$,
+    \begin{equation*}
+        \begin{split}
+            Q' & = \{\emptyset, \{q_1\}, \{q_2\}, \{q_3\}, \{q_4\}, \\
+            & \qquad \{q_1, q_2\}, \{q_1, q_3\}, \{q_1, q_4\}, \{q_2, q_3\}, \{q_2, q_4\}, \{q_3, q_4\}, \\
+            & \qquad \{q_1, q_2, q_3\}, \{q_1, q_2, q_4\}, \{q_1, q_3, q_4\}, \{q_2, q_3, q_4\}, \\ 
+            & \qquad \{q_1, q_2, q_3, q_4\}\}\ ,\\
+            & = \{\emptyset, R_{1}, R_{2}, R_{3}, R_{4}, \\
+            & \qquad R_{12}, R_{13}, R_{14}, R_{23}, R_{24}, R_{34}, \\
+            & \qquad R_{123}, R_{124}, R_{134}, R_{234}, \\
+            & \qquad R_{1234}\}\ .
+        \end{split}
+    \end{equation*}
+    The notation $R_{i,j,k,l}$ is used here for simplicity.
+
+    It can be observed that $Q'$ is a set of all possible subsets of $Q$. But, as it will be shown later, not all subsets are \textit{reachables} The transition function for the DFA equivalence is $\delta'(R,a) = \{q \in Q | q \in \delta(r,a) \text{ for some } r \in R\}$ which can also be interpreted as 
+    \begin{equation*}
+        \delta'(R,a) = \bigcup\limits_{r \in R} \delta(r,a)\ .
+    \end{equation*}
+    The transitions $\delta'(R,a)$ of $M$ are shown below:
+    \begin{align*}
+        \delta'(R_{1}, 0) & = R_{1} & % 
+            \delta'(R_{24}, 0) & = R_{3} \cup R_{4} = R_{34} \\
+        \delta'(R_{1}, 1) & = R_{12} & % 
+            \delta'(R_{24}, 1) & = \emptyset \cup R_{4} = R_{4} \\
+        \delta'(R_{2}, 0) & = R_{3} & % 
+            \delta'(R_{34}, 0) & = \emptyset \cup R_{4} = R_{4} \\
+        \delta'(R_{2}, 1) & = \emptyset & % 
+            \delta'(R_{34}, 1) & = R_{4} \cup R_{4} = R_{4} \\
+        \delta'(R_{3}, 0) & = \emptyset & % 
+            \delta'(R_{123}, 0) & = R_{1} \cup R_{3} \cup \emptyset = R_{13} \\
+        \delta'(R_{3}, 1) & = R_{4} & % 
+            \delta'(R_{123}, 1) & = R_{12} \cup \emptyset \cup R_{4} = R_{124} \\
+        \delta'(R_{4}, 0) & = R_{4} & % 
+            \delta'(R_{124}, 0) & = R_{1} \cup R_{3} \cup R_{4} = R_{134} \\
+        \delta'(R_{4}, 1) & = R_{4} & % 
+            \delta'(R_{124}, 1) & = R_{12} \cup \emptyset \cup R_{4} = R_{124} \\
+        \delta'(R_{12}, 0) & = R_{13} & % 
+            \delta'(R_{134}, 0) & = R_{1} \cup \emptyset \cup R_{4} = R_{14} \\
+        \delta'(R_{12}, 1) & = R_{12} \cup R_{12} = R_{12} & % 
+            \delta'(R_{134}, 1) & = R_{12} \cup R_{4} \cup R_{4} = R_{124} \\
+        \delta'(R_{13}, 0) & = R_{1} \cup \emptyset = R_{1} & % 
+            \delta'(R_{234}, 0) & = R_{3} \cup \emptyset \cup R_{4} = R_{34} \\
+        \delta'(R_{13}, 1) & = R_{12} \cup R_{4} = R_{124} & % 
+            \delta'(R_{234}, 1) & = \emptyset \cup R_{4} \cup R_{4} = R_{4} \\
+        \delta'(R_{14}, 0) & = R_{1} \cup R_{4} = R_{14} & % 
+            \delta'(R_{1234}, 0) & = R_{1} \cup R_{3} \cup \emptyset \cup R_{4}= R_{134} \\
+        \delta'(R_{14}, 1) & = R_{12} \cup R_{4} = R_{124} & % 
+            \delta'(R_{1234}, 1) & = R_{12} \cup \emptyset \cup R_{4} \cup R_{4} = R_{124} \\
+        \delta'(R_{23}, 0) & = R_{3} \cup \emptyset = R_{3} & %
+            \delta'(\emptyset, 0) = \emptyset \\
+        \delta'(R_{23}, 1) & = \emptyset \cup R_{4} = R_{4} & %
+            \delta'(\emptyset, 1) = \emptyset
+    \end{align*}
+    The above transitions were included only to shown how the union operation from the definition of $\delta'$ is supposed to operate but it was done directly with the $R$ subsets instead of their elements $r \in R$. Additionally, the transitions above can be written in a transition table for better readability:
+    \begin{equation*}
+        \begin{array}{c | l l}
+            Q' \backslash \Sigma & 0 & 1 \\
+            \hline
+            \emptyset & \emptyset & \emptyset \\
+            R_{1} & R_{1} & R_{12} \\
+            R_{2} & R_{3} & \emptyset \\
+            R_{3} & \emptyset & R_{4} \\
+            R_{4} & R_{4} & R_{4} \\
+            R_{12} & R_{13} & R_{12} \\
+            R_{13} & R_{1} & R_{124} \\
+            R_{14} & R_{14} & R_{124} \\
+            R_{23} & R_{3} & R_{4} \\
+            R_{24} & R_{34} & R_{4} \\
+            R_{34} & R_{4} & R_{4} \\
+            R_{123} & R_{13} & R_{124} \\
+            R_{124} & R_{134} & R_{124} \\
+            R_{134} & R_{14} & R_{124} \\
+            R_{234} & R_{34} & R_{4} \\
+            R_{1234} & R_{134} & R_{124}
+        \end{array}
+    \end{equation*}
+
+    It is important to notice that in the definition of the equivalence of a NFA to a DFA, the start state needs to be the same for both cases. Thus, the execution path for $M$ shall commence in $R_1$ and it will follow from there. This means that any other state in $Q'$ that is not in anyway attached to the main path commencing in $R_1$ will not be reachable includding those conected to the main path but with no transition towards them.
+
+    To end the computation of $M$'s 5-tuple we shall find the accept states $F'$. By definition, the accept states are $F' = \{R \in Q' | R \text{ contains an accpet state of } N\}$. Thus,
+    \begin{equation*}
+        F' = \{R_{4}, R_{14}, R_{24}, R_{34}, R_{124}, R_{134}, R_{234}, R_{1234}\}\ .
+    \end{equation*}
+
+    The resulting DFA $M$ from the transition table is shown in \cref{fig:det-automaton-general}. Clearly, the states $R_{1234}$ and $R_{123}$ are both connected to the main path but have no connection towards them, these two states are unreachable. Furthermore, there is a set of unreachable states which do not have any connection to the main path nor a start state.
+    \begin{figure}[ht!]
+        \centering
+        \includestandalone[mode=buildnew]{det-automaton-path1}
+        \includestandalone[mode=buildnew]{det-automaton-path2}
+        \caption{State diagram of the DFA $M$. Main path shown in the left, and unreachable set of states shown in the right.}
+        \label{fig:det-automaton-general}
+    \end{figure}
+
+    Therefore, after purging the states that cannot be reached, the automaton $M$ is left as the form shown in \cref{fig:det-automaton}, and it is the DFA equivalent to the NFA $N$.
+    \begin{figure}[ht!]
+        \centering
+        \includestandalone[mode=buildnew]{det-automaton}
+        \caption{Final state diagram of $M$.}
+        \label{fig:det-automaton}
+    \end{figure}
+    
+\end{solution}
+
+
+\end{document}
