@@ -44,7 +44,7 @@ La primera imagen que se eligió para esta tarea es una escena de la película \
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.2]{../pictures/akira.jpg}
+    \includegraphics[scale=0.2]{../figures/akira.jpg}
     \caption{Escena de la película \textit{Akira} mostrando a Kaneda montando su motocicleta en la autopista de \textit{Neo-Tokio}.}
     \label{fig:akira-bike}
 \end{figure}
@@ -99,15 +99,15 @@ La nube de pixeles de la \cref{fig:akira-bike} se muestra en la \cref{fig:nube-p
     \centering
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/pixel_cloud_akira_1}
+        \includegraphics[scale=0.09]{../figures/pixel_cloud_akira_1}
     \end{subfigure}
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/pixel_cloud_akira_2}
+        \includegraphics[scale=0.09]{../figures/pixel_cloud_akira_2}
     \end{subfigure}
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/pixel_cloud_akira_3}
+        \includegraphics[scale=0.09]{../figures/pixel_cloud_akira_3}
     \end{subfigure}
     \caption{Nubes de pixeles para la de la \cref{fig:akira-bike}, donde se muestran con una rotación respecto al eje-$Blue$ de la vista de $-0.3\pi$, $0.3\pi$, y $0.65\pi$, respectivamente.}
     \label{fig:nube-pixeles-akira}
@@ -120,15 +120,15 @@ Además de las nubes de pixeles se decidó graficar un espacio de probabilidad d
     \centering
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/gaussian_cloud_akira_1}
+        \includegraphics[scale=0.09]{../figures/gaussian_cloud_akira_1}
     \end{subfigure}
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/gaussian_cloud_akira_2}
+        \includegraphics[scale=0.09]{../figures/gaussian_cloud_akira_2}
     \end{subfigure}
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/gaussian_cloud_akira_3}
+        \includegraphics[scale=0.09]{../figures/gaussian_cloud_akira_3}
     \end{subfigure}
     \caption{Nubes de probabilidad para la \cref{fig:akira-bike}, donde se muestran con una rotación respecto al eje-$Blue$ de la vista de $-0.3\pi$, $0.3\pi$, y $0.65\pi$, respectivamente.}
     \label{fig:nube-gaussiana-akira}
@@ -142,7 +142,7 @@ donde $D$ es la dimensión de los vectores $\vec{x}$ y $\vec{\mu}$, y la matriz 
 La segunda imagen que se utilizó es una pintura hecha por el artista \href{https://twitter.com/DaBroque}{Kate da Broque}\footnote{https://linktr.ee/katedabroque}. Esta imagen se muestra en la \cref{fig:kate-da-broque}, tiene aproximadamente $1.2E7$ pixeles y las dimensiones de la imagen son $(4096, 2958)$.
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.05]{../pictures/kate-da-broque}
+    \includegraphics[scale=0.05]{../figures/kate-da-broque}
     \caption{Obra por el artista Kate da Broque titulada \textit{japanoid android}.}
     \label{fig:kate-da-broque}
 \end{figure}
@@ -196,45 +196,43 @@ La nube de pixeles, con su vector promedio y eigenvectores, de la \cref{fig:kate
     \centering
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/pixel_cloud_kate_1}
+        \includegraphics[scale=0.09]{../figures/pixel_cloud_kate_1}
     \end{subfigure}
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/pixel_cloud_kate_2}
+        \includegraphics[scale=0.09]{../figures/pixel_cloud_kate_2}
     \end{subfigure}
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/pixel_cloud_kate_3}
+        \includegraphics[scale=0.09]{../figures/pixel_cloud_kate_3}
     \end{subfigure}
     \caption{Nubes de pixeles para la \cref{fig:kate-da-broque} con angulos de rotación para las vistas respecto al eje-$Blue$ de $-0.3\pi$, $0.3\pi$ y $0.65\pi$, respectivamente.}
     \label{fig:nube-pixeles-kate}
 \end{figure}
 
-Las nubes de probabilidad para la \cref{fig:kate-da-broque} se muestran en la \cref{fig:nube-gaussiana-kate}.
+Las nubes de probabilidad para la \cref{fig:kate-da-broque} se muestran en la \cref{fig:nube-gaussiana-kate}. Para este caso, la nube de probabilidad se encuentra concentrada y achatada en la dirección del vector promedio $\vec{m}_2$ lo cual tiene sentido si se observa la distribucion de la nube de pixeles.
 \begin{figure}[ht!]
     \centering
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/gaussian_cloud_kate_1}
+        \includegraphics[scale=0.09]{../figures/gaussian_cloud_kate_1}
     \end{subfigure}
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/gaussian_cloud_kate_2}
+        \includegraphics[scale=0.09]{../figures/gaussian_cloud_kate_2}
     \end{subfigure}
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/gaussian_cloud_kate_3}
+        \includegraphics[scale=0.09]{../figures/gaussian_cloud_kate_3}
     \end{subfigure}
     \caption{Nubes de probabilidad para la \cref{fig:kate-da-broque}, donde se muestran con una rotación respecto al eje-$Blue$ de la vista de $-0.3\pi$, $0.3\pi$, y $0.65\pi$, respectivamente.}
     \label{fig:nube-gaussiana-kate}
 \end{figure}
 
-La nube de probabilidad para este caso se encuentra concentrada y achatada en la dirección del vector promedio $\vec{m}_2$ lo cual tiene sentido si se observa la distribucion de la nube de pixeles.
-
 Tanto las nubes de probabilidad en la \cref{fig:nube-gaussiana-akira} y la \cref{fig:nube-gaussiana-kate} son muy parecidas, mientras que una está mas achatada que la otra ¿Qué pasaría si forzaramos de alguna manera a la nube de probabilidad en otra dirección? Para responder a esta pregunta basta con elegir una imagen que muchos de sus pixeles se inclinen a un color en particular. Se eligió una toma en específico de la película \textit{Evangelion: 3.0+1.0 Thrice Upon a Time} \cite{hideaki2022eva} donde el color rojo predomina en toda la escena.
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.2]{../pictures/evangelion}
+    \includegraphics[scale=0.2]{../figures/evangelion}
     \caption{Imagen donde predomina el color al rojo.}
     \label{fig:evangelion}
 \end{figure}
@@ -288,15 +286,15 @@ Se puede observar en la \cref{fig:nube-pixeles-eva} como solo se ocupan los las 
     \centering
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/pixel_cloud_eva_1}
+        \includegraphics[scale=0.09]{../figures/pixel_cloud_eva_1}
     \end{subfigure}
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/pixel_cloud_eva_2}
+        \includegraphics[scale=0.09]{../figures/pixel_cloud_eva_2}
     \end{subfigure}
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/pixel_cloud_eva_3}
+        \includegraphics[scale=0.09]{../figures/pixel_cloud_eva_3}
     \end{subfigure}
     \caption{Nubes de pixeles para la \cref{fig:evangelion} con angulos de rotación para las vistas respecto al eje-$Blue$ de $-0.3\pi$, $0.3\pi$ y $0.65\pi$, respectivamente.}
     \label{fig:nube-pixeles-eva}
@@ -307,24 +305,24 @@ De igual manera se incluyó la nube gaussiana de probabilidad para esta imagen, 
     \centering
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/gaussian_cloud_eva_1}
+        \includegraphics[scale=0.09]{../figures/gaussian_cloud_eva_1}
     \end{subfigure}
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/gaussian_cloud_eva_2}
+        \includegraphics[scale=0.09]{../figures/gaussian_cloud_eva_2}
     \end{subfigure}
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/gaussian_cloud_eva_3}
+        \includegraphics[scale=0.09]{../figures/gaussian_cloud_eva_3}
     \end{subfigure}
     \caption{Nubes de probabilidad para la \cref{fig:evangelion}, donde se muestran con una rotación respecto al eje-$Blue$ de $-0.3\pi$, $0.3\pi$, y $0.65\pi$, respectivamente.}x
     \label{fig:nube-gaussiana-eva}
 \end{figure}
 
-Basando en motivos de relevancia social histórica las monorías racializadas \cite{wevers2016kodak} han recibido un trato poco preferente dentro del desarrollo tecnológico. Debido a esto, la última imagen que se decidió usar para completar con los requerimientos de la tarea fue una imagen que incluyera caras de \href{https://guardian.ng/opinion/humanism-and-its-possibilities-in-africa/}{niños originarios de Nigeria}\footnote{No se encontró al fotógrafo de la imagen, los derechos de la imagen no pertenecen a mí. En este trabajo solamente se usó esta imagen para fines educativos sin fines de lucro}.
+Basando en motivos de relevancia social histórica las monorías racializadas \cite{wevers2016kodak} han recibido un trato poco preferente dentro del desarrollo tecnológico. Debido a esto, la última imagen que se decidió usar para completar con los requerimientos de la tarea fue una imagen que incluyera caras de \href{https://guardian.ng/opinion/humanism-and-its-possibilities-in-africa/}{niños originarios de Nigeria}\footnote{No se encontró al fotógrafo de la imagen, los derechos de la imagen no pertenecen a al autor de este trabajo. En el trabajo presente sólamente se usó esta imagen para fines educativos sin fines de lucro}.
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.25]{../pictures/nigerian-children}
+    \includegraphics[scale=0.25]{../figures/nigerian-children}
     \caption{Caras de niños originarios de Nigeria.}
     \label{fig:kids}
 \end{figure}
@@ -373,19 +371,20 @@ Los eigenvalores de $\Sigma_4$ son $\lambda_1 = 0.0002$, $\lambda_2 = 0.0022$, $
     \end{bmatrix}.
 \end{align*}
 
+Finalmente, en la \cref{fig:nube-pixeles-kids,fig:nube-gaussiana-kids} se muestran las nubes de pixeles y de probabilidad, respectivamente.
 \begin{figure}[ht!]
     \centering
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/pixel_cloud_kids_1}
+        \includegraphics[scale=0.09]{../figures/pixel_cloud_kids_1}
     \end{subfigure}
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/pixel_cloud_kids_2}
+        \includegraphics[scale=0.09]{../figures/pixel_cloud_kids_2}
     \end{subfigure}
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/pixel_cloud_kids_3}
+        \includegraphics[scale=0.09]{../figures/pixel_cloud_kids_3}
     \end{subfigure}
     \caption{Nubes de pixeles para la \cref{fig:kids} con angulos de rotación para las vistas respecto al eje-$Blue$ de $-0.3\pi$, $0.3\pi$ y $0.65\pi$, respectivamente.}
     \label{fig:nube-pixeles-kids}
@@ -395,52 +394,33 @@ Los eigenvalores de $\Sigma_4$ son $\lambda_1 = 0.0002$, $\lambda_2 = 0.0022$, $
     \centering
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/gaussian_cloud_kids_1}
+        \includegraphics[scale=0.09]{../figures/gaussian_cloud_kids_1}
     \end{subfigure}
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/gaussian_cloud_kids_2}
+        \includegraphics[scale=0.09]{../figures/gaussian_cloud_kids_2}
     \end{subfigure}
     \begin{subfigure}[c]{0.3\textwidth}
         \centering
-        \includegraphics[scale=0.09]{../pictures/gaussian_cloud_kids_3}
+        \includegraphics[scale=0.09]{../figures/gaussian_cloud_kids_3}
     \end{subfigure}
-    \caption{Nubes de probabilidad para la \cref{fig:kids}, donde se muestran con una rotación respecto al eje-$Blue$ con ángulos de $-0.3\pi$, $0.3\pi$, y $0.65\pi$, respectivamente.}x
+    \caption{Nubes de probabilidad para la \cref{fig:kids}, donde se muestran con una rotación respecto al eje-$Blue$ con ángulos de $-0.3\pi$, $0.3\pi$, y $0.65\pi$, respectivamente.}
     \label{fig:nube-gaussiana-kids}
 \end{figure}
 
+Tiene sentido pensar que las nubes de probabilidad gaussianas se localizen en alrededor de la posición del vector promedio y además que se extiendan a ocupar las posiciones de sus nubes de pixeles. No se puede apreciar si dichas nubes gaussianas presentan rotaciones sobre los ejes de sus vectores promedio $\vec{m}_i$ pero se espera que este sea el caso debido a que deberian de expandirse en las direcciones de sus respectivos eigenvectores. Nótese que los eigenvectores, en todos los casos, fueron escalados por un factor de $1/10$ en las visualizaciones únicamente.
 
-% \begin{minted}[
-%     frame=none,
-%     % obeytabs=false,
-%     breaklines,
-%     tabsize=4,
-%     linenos=true,
-%     % numbersep=-10pt,
-%     firstnumber=last,
-%     bgcolor=bg
-%     ]{julia}
-    
-%     """
-%         maxn0_approx(n_max, j, updown_factor)
-    
-%     Plane approximation of the dependency of `max(N(m = 0))` regarding the initial 
-%     parameters `n_max` and `j`.
-%     """
-%     maxn0_approx(n_max::Int, j::Int, updown_factor=0)::Int = ((
-%         0.948 * n_max -
-%         1.120 * j +
-%         (-8.260 + updown_factor))
-%         |> x -> round(x, RoundNearestTiesAway) 
-%         |> Int)
-% \end{minted}
+Se desarrolló un pequeño módulo para analizar imágenes usando el lengauge de programación \textit{Julia} \cite{Bezanson_Julia_A_fresh_2017} basándose en la teoría vista en clase, y en el libro añadido en las referencias \cite{richards2006remote}. Adicionalmente, las visualizaciones se realizaron usando la librería \textit{GLMakie} \cite{DanischKrumbiegel2021}, también parte de \textit{Julia}.
 
 \pagebreak
 
 \nocite{*} % to call all references even if they are not cited in the text
 \bibliography{references.bib}
 
-\section*{Anexo}
+\pagebreak
+
+\vspace{1cm}
+\section*{Apéndice}
 \inputminted[
     frame=none,
     % obeytabs=false,

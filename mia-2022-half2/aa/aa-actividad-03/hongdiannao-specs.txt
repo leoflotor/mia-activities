@@ -1,0 +1,22 @@
+
+          ,xXc       leo@hongdiannao 
+      .l0MMMMMO      --------------- 
+   .kNMMMMMWMMMN,    OS: Linux Lite 6.0 x86_64 
+   KMMMMMMKMMMMMMo   Host: HP Pavilion 11 x360 PC 0977100000405F00010420180 
+  'MMMMMMNKMMMMMM:   Kernel: 5.15.0-47-generic 
+  kMMMMMMOMMMMMMO    Uptime: 3 mins 
+ .MMMMMMX0MMMMMW.    Packages: 2419 (dpkg), 6 (flatpak), 8 (snap) 
+ oMMMMMMxWMMMMM:     Shell: bash 5.1.16 
+ WMMMMMNkMMMMMO      Resolution: 1366x768 
+:MMMMMMOXMMMMW       DE: Xfce 
+.0MMMMMxMMMMM;       WM: Xfwm4 
+:;cKMMWxMMMMO        WM Theme: Materia 
+'MMWMMXOMMMMl        Theme: Materia-compact [GTK2/3] 
+ kMMMMKOMMMMMX:      Icons: Papirus-Adapta [GTK2], Adwaita [GTK3] 
+ .WMMMMKOWMMM0c      Terminal: xfce4-terminal 
+  lMMMMMWO0MNd:'     Terminal Font: mononoki Nerd Font Mono 15 
+   oollXMKXoxl;.     CPU: Intel Pentium N3520 (4) @ 2.415GHz 
+     ':. .: .'       GPU: Intel Atom Processor Z36xxx/Z37xxx Series Graphics & Displ 
+              ..     Memory: 636MiB / 3815MiB 
+                .
+

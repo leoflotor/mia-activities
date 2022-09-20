@@ -27,7 +27,7 @@
 \usetikzlibrary{automata, arrows.meta, positioning}
 \usepackage[mode=buildnew]{standalone}      % To import figures in standalone files
 \usepackage[hidelinks]{hyperref}
-\usepackage{cleveref}                       % To use autocompleted reference labels
+\usepackage[spanish]{cleveref}              % To use autocompleted reference labels, language must be change as in babel package
 \usepackage{caption}                        % Caption and subcaption to allow subfigures
 \usepackage{subcaption}
 \usepackage{float}                          % To specify the location of figures
@@ -40,14 +40,14 @@
 \pagestyle{fancy}
 
 % -- Code and code formatting
-\usepackage{minted} % To insert code
-\usemintedstyle[julia]{gruvbox-light} % Code theme and language
-\definecolor{bg}{rgb}{0.98, 0.97, 0.88} % Code block background
+\usepackage{minted}                         % To insert code
+\usemintedstyle[julia]{gruvbox-light}       % Code theme and language
+\definecolor{bg}{rgb}{0.98, 0.97, 0.88}     % Code block background
 
-\usepackage{fontspec}   % To allow the use of monospace fonts
+\usepackage{fontspec}                       % To allow the use of monospace fonts
 \setmonofont{JuliaMono}[Path=./codefonts/, Extension=.ttf, UprightFont=*-Regular, ItalicFont=*-RegularItalic, Scale=0.75]
 
-\usepackage{fancyvrb}   % To change line number font
+\usepackage{fancyvrb}                       % To change line number font
 \renewcommand{\theFancyVerbLine}{\textcolor{gray}{\footnotesize\texttt{\arabic{FancyVerbLine}}}}
 
 % -- Bilbiography preferences

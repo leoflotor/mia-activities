@@ -219,4 +219,4 @@ function gaussianCloud(avg_vec, cov_mat; tol=0.1, density=0.05, azimuth=0.2, ele
     return fig
 end
 
-end # module
+end # module BayesianImageAnalysis

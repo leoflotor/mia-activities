@@ -1,0 +1,113 @@
+% -- Document configuration
+\input{preamble.tex}
+
+\newcommand{\diannao}{\texttt{diannao}}
+\newcommand{\hongdiannao}{\texttt{hongdiannao}}
+
+% -- Document
+\begin{document}
+
+\thispagestyle{empty}
+
+%Title
+\begin{center}
+\textsc{\theinstitution}\\[2mm]
+
+\thedepartment
+
+\rule{0.6\textwidth}{0.5pt}\\[2mm]
+
+\thecourse \\[4mm]
+
+{\Large \textbf{\thetitle}}\\[2mm]
+
+\theauthor \\[2mm]
+
+{\small \today}
+\end{center}
+\medskip
+
+% -- 
+\vspace{1cm}
+
+\textbf{%
+Programar un algoritmo de su elección (no tan sencillo) y analizarlo de la siguiente forma:}
+\begin{enumerate}
+    \item Graficar el tiempo de ejecución en función de $N$,
+    \item sobre los mismos ejes graficar 2 cotas superiores y dos cotas inferiores,
+    \item repetir el punto 1 y 2 ejecutando el programa en otra computadora de distinto desempeño,
+    \item analizar los resultados y discutirlos. Escribir de la manera más completa las características de las 2 computadoras.
+\end{enumerate}
+
+\vspace{1cm}
+
+El algoritmo que se eligió fue computar un fractal, más específicamente, el ...
+
+El extracto de código que se muestra a continuación es una representación del modo de trabajo que se lleva en \code{julia} usando el REPL\footnote{REPL es un acrónimo para Read-Eval-Print loop.}, asemeja un ambiente de trabajo y ejecución de comandos en la terminal.
+\begin{listing}[ht!]
+    \begin{minted}[
+        frame=none,
+        % obeytabs=false,
+        breaklines,
+        tabsize=4,
+        % linenos=true,
+        % numbersep=-10pt,
+        baselinestretch=1,
+        firstnumber=last,
+        bgcolor=bg,
+    ]{julia}
+    julia> ns = 10:10:400                       # valores que puede tomar N
+    julia> reps = 10                            # numero de repeticiones
+    julia> timings = zeros(length(ns), 2)       # arreglo bidimensional
+    julia> for rep in 1:reps
+                for (index, n) in enumerate(ns)
+                    time = @elapsed mf.fractalCMap(n, n, maxiter=100)
+                    if rep == 1
+                        timings[index, 1] = n
+                    end
+                    timings[index, 2] += time
+                end
+            end
+    julia> timings[:,2] = timings[:,2] / reps   # promedio de tiempo
+    \end{minted}
+\end{listing}
+
+Para graficar el tiempo de ejecución se hicieron 10 repeticiones indicadas por \code{reps}, y se definió una variable \code{ns} para guardar el conjunto de valores que puede tomar $N = 10,\ 20,\ 30,\ \ldots,\ 400$. La variable \code{timings} guarda en la primera columna el valor de $N$, mientras que en la segunda columna guarda el tiempo $t(N)$ que le toma al algoritmo computar el fractal. Cada iteración del \code{loop} se suman los tiempos $t(N)$ a sus respectivas entradas, y al final toda la columna de tiempos se divide entre la cantidad de repeticiones \code{reps} lo que resulta en tiempos promedio $\tilde{t}(N)$.
+
+Las características de las computadoras usadas, {\diannao} y {\hongdiannao}, se muestran en la \cref{fig:diannao-specs,fig:hongdiannao-specs}, respectivamente.
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[scale=0.23]{../figures/diannao-specs}
+    \caption{características del ordenador {\diannao}.}
+    \label{fig:diannao-specs}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[scale=0.23]{../figures/hongdiannao-specs}
+    \caption{características del ordenador {\hongdiannao}.}
+    \label{fig:hongdiannao-specs}
+\end{figure}
+
+% \pagebreak
+% -- BIBLIOGRAFIA
+% \nocite{*} % to call all references even if they are not cited in the text
+% \bibliography{references.bib}
+
+\pagebreak
+% -- CODIGO
+\vspace{1cm}
+\section*{Apéndice}
+\inputminted[
+    frame=none,
+    % obeytabs=false,
+    breaklines,
+    tabsize=4,
+    linenos=true,
+    % numbersep=-10pt,
+    baselinestretch=1,
+    firstnumber=last,
+    bgcolor=bg,
+]{julia}{\codepath}
+
+
+\end{document}
