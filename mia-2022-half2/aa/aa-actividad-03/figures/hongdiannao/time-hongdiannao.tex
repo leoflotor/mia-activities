@@ -1,0 +1,58 @@
+\documentclass[tikz]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{plotmarks}
+\usetikzlibrary{math}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+\newcommand{\expnumber}[2]{{#1}\mathrm{e}{#2}}
+
+
+\begin{document}
+\begin{tikzpicture}
+    \tikzmath {
+        function cotaSupCubic(\x) {
+            return \x^3 / 900000000;
+        };
+        function cotaSupCuad(\x) {
+            return \x^2 / 950000 ;
+        };
+        function cotaInfMix(\x) {
+            return \x * (ln(\x^2) / ln(2)) / 20000 ;
+        };
+        function cotaInfLineal(\x) {
+            return \x / 1200 ;
+        };
+    }
+    \begin{axis}[name=hongdiannaotimes,
+        width=11cm, 
+        mark size=2.5pt,
+        xmajorgrids=true,
+        ymajorgrids=true,
+        grid style=dashed,
+        xtick distance=200,
+        % ytick distance=2,
+        xlabel={$N$},
+        ylabel={$t(N)$},
+        legend pos=north west,
+        ]
+        % Grafica de datos originales
+        \addplot[only marks, mark=diamond, mark repeat=2] table[header=false, x index=0, y index=1, col sep=comma] {./../../data/timings-hongdiannao-1600.csv};
+        % Cota superior cubica
+        \addplot[domain={0:1600}, color=black!100] {cotaSupCubic(x)};
+        % Cota superior cubica
+        \addplot[domain={0:1600}, color=gray!90] {cotaSupCuad(x)};
+        % Cota inferior mezclada
+        \addplot[domain={0:1600}, color=black!100, dashed] {cotaInfMix(x)};
+        % Cota inferior lineal
+        \addplot[domain={0:1600}, color=gray!90, dashed] {cotaInfLineal(x)};
+        % Nombres de las graficas en orden
+        \addlegendentry{$\tilde{t}(N)$}
+        \addlegendentry{$x^3\ /\ \expnumber{9}{8}$}
+        \addlegendentry{$x^2\ /\ \expnumber{9.5}{5}$}
+        \addlegendentry{$x\ log(x^2)\ /\ \expnumber{2}{4}$}
+        \addlegendentry{$x\ /\ \expnumber{1.2}{3}$}
+    \end{axis}
+\end{tikzpicture}
+\end{document}
