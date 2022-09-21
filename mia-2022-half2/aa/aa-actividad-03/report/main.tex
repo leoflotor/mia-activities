@@ -56,9 +56,9 @@ El extracto de código que se muestra a continuación es una representación del
         firstnumber=last,
         bgcolor=bg,
     ]{julia}
-    julia> ns = 10:10:400                       # valores que puede tomar N
-    julia> reps = 10                            # numero de repeticiones
-    julia> timings = zeros(length(ns), 2)       # arreglo bidimensional
+    julia> ns = 10:10:1600;                     # valores que puede tomar N
+    julia> reps = 20;                           # numero de repeticiones
+    julia> timings = zeros(length(ns), 2);      # arreglo bidimensional
     julia> for rep in 1:reps
                 for (index, n) in enumerate(ns)
                     time = @elapsed mf.fractalCMap(n, n, maxiter=100)
@@ -68,22 +68,33 @@ El extracto de código que se muestra a continuación es una representación del
                     timings[index, 2] += time
                 end
             end
-    julia> timings[:,2] = timings[:,2] / reps   # promedio de tiempo
+    julia> timings[:,2] = timings[:,2] / reps;  # promedio de tiempo
+    julia> timings = vcat([0 0], timings);      # agregar entrada extra para el tiempo cero
+    julia> nvalues = timings[:,1];              # lista de iteraciones
+    julia> time = timings[:,2];                 # lista de tiempos
     \end{minted}
 \end{listing}
 
-Para graficar el tiempo de ejecución se hicieron 10 repeticiones indicadas por \code{reps}, y se definió una variable \code{ns} para guardar el conjunto de valores que puede tomar $N = 10,\ 20,\ 30,\ \ldots,\ 400$. La variable \code{timings} guarda en la primera columna el valor de $N$, mientras que en la segunda columna guarda el tiempo $t(N)$ que le toma al algoritmo computar el fractal. Cada iteración del \code{loop} se suman los tiempos $t(N)$ a sus respectivas entradas, y al final toda la columna de tiempos se divide entre la cantidad de repeticiones \code{reps} lo que resulta en tiempos promedio $\tilde{t}(N)$.
+Para graficar el tiempo de ejecución se hicieron 20 repeticiones indicadas por \code{reps}, y se definió una variable \code{ns} para guardar el conjunto de valores que puede tomar $N = 10,\ 20,\ 30,\ \ldots,\ 1600$. La variable \code{timings} guarda en la primera columna el valor de $N$, mientras que en la segunda columna guarda el tiempo $t(N)$ que le toma al algoritmo computar el fractal. Por cada iteración del \code{loop} se suman los tiempos $t(N)$ a sus respectivas entradas, y al final toda la columna de tiempos se divide entre la cantidad de repeticiones \code{reps} lo que resulta en tiempos promedio $\tilde{t}(N)$. Se usaron los tiempos promedio debido a que si hay procesos en ejecución en los ordenadores pueden generar cambios en los tiempos de cómputo.
+
+Los tiempos de ejecución en el ordenador {\diannao} se pueden observar en la \cref{fig:times-hongdiannao} donde las dos líneas continuas representan las cotas superiores, mientras que las líneas no continuas con las pertenecientes a las cotas inferiores. Se tuvo que utilizar un factor de escalamiento para los cuatro casos ya que los tiempos eran muy pequeños incluso para el caso en el que $N = 1600$ donde el tamaño del fractal corresponderia a una imagen de $1600 \times 1600$ pixeles con un número de iteraciones máximo de 100.
+\begin{figure}[ht!]
+    \centering
+    \includestandalone[scale=1, mode=buildnew]{../figures/times/time-diannao}
+    \caption{Tiempos de ejecución usando \hongdiannao.}
+    \label{fig:times-hongdiannao}
+\end{figure}
 
 Las características de las computadoras usadas, {\diannao} y {\hongdiannao}, se muestran en la \cref{fig:diannao-specs,fig:hongdiannao-specs}, respectivamente.
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.23]{../figures/diannao-specs}
+    \includegraphics[scale=0.2]{../figures/diannao-specs}
     \caption{características del ordenador {\diannao}.}
     \label{fig:diannao-specs}
 \end{figure}
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.23]{../figures/hongdiannao-specs}
+    \includegraphics[scale=0.2]{../figures/hongdiannao-specs}
     \caption{características del ordenador {\hongdiannao}.}
     \label{fig:hongdiannao-specs}
 \end{figure}
