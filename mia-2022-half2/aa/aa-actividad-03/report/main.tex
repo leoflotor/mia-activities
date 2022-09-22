@@ -41,7 +41,7 @@ Programar un algoritmo de su elección (no tan sencillo) y analizarlo de la sigu
 
 \vspace{1cm}
 
-El algoritmo que se eligió fue computar un fractal, más específicamente, el fractal que se genera a partir del set de Mandelbrot. Las propiedades del fractal de Mandelbrot han sido estudiadas considerablemente, tan es así que en este trabajo se usa para estudiar los efector computacionales de implementar un algoritmo para generarlo.
+El algoritmo que se eligió fue computar un fractal, más específicamente, el fractal que se genera a partir del set de Mandelbrot. Las propiedades del fractal de Mandelbrot han sido estudiadas considerablemente, tan es así que en este trabajo se usa para estudiar los efectos computacionales de implementar un algoritmo para generarlo.
 
 \begin{figure}[ht!]
     \centering
@@ -62,31 +62,31 @@ Primero se debe comenzar con una representación del espacio como se muestra en 
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.8]{../figures/grid-translated/grid-translated}
+    \includegraphics[scale=0.75]{../figures/grid-translated/grid-translated}
     \caption{Traslación aplicada al espacio discretizado.}
     \label{fig:grid-moved}
 \end{figure}
 
 En este punto todavía es algo confuso sobre cómo trabajar con los índices de la matriz para generar las coordenadas necesarias para realizar el cómputo de $z_i$. Es importante clarificar que el eje-$y$ es el eje de la componente imaginaria de $z_i$, $Im(z_i)$, mientras que en el eje-$x$ se encuentran las componentes reales $Re(z_i)$ ¿Que tal si se hace una traslación de las coordenadas para que un vértice de nuestro espacio discretizado coincida con el origen de coordenadas? La traslación elegida fue $x' = x - l_x$, y $y' = y - l_y$. Nótese que por la restricción inicial $|z_i| \leq 2$ se deriva que $l_x \leq 2$ y $l_y \leq 2$.
 
-Después de la traslación, \cref{fig:grid-moved}, pareciera ser mas intuitivo cómo debe uno moverse en el espacio para moverse entre vertices de pixeles. Por ejemplo, si quisiera moverme al pixel en la primera fila y tercera columna hay dos opciones. Si comenzara a moverme en el vértice superior izquierdo de mi espacio podría moverme una distancia $3 \Delta x$ y ninguna en $y$ lo que me posicionaría tocando al pixel $[1,\ 3]$ en su vértice superior derecho, o podría moverme $2 \Delta x$ y $\Delta y$ para encontrarme en el vértice inferior izquierdo del mismo pixel. Nuestra intuición va bien encaminada, solamente necesita de un paso más.
+Después de la traslación, \cref{fig:grid-moved}, pareciera ser mas intuitivo cómo debe uno moverse en el espacio para moverse entre vértices de pixeles. Por ejemplo, si quisiera moverme al pixel en la primera fila y tercera columna hay dos opciones. Si comenzara a moverme en el vértice superior izquierdo de mi espacio podría moverme una distancia $3 \Delta x$ y ninguna en $y$ lo que me posicionaría tocando al pixel $[1,\ 3]$ en su vértice superior derecho, o podría moverme $2 \Delta x$ y $\Delta y$ para encontrarme en el vértice inferior izquierdo del mismo pixel. Nuestra intuición va bien encaminada, solamente necesita de un paso más.
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.8]{../figures/small-grid/small-grid}
+    \includegraphics[scale=0.75]{../figures/small-grid/small-grid}
     \caption{Movimiento entre los vértices de pixeles en una fila cualquiera dentro de la imagen.}
     \label{fig:small-grid}
 \end{figure}
 
-No se ha mencionado porque ha sido ilustrado en las \cref{fig:grid,fig:grid-moved} pero los pixeles representan un movimiento desde un vértice a otro vértice de tamaños $\Delta x$ o $\Delta y$ dependiendo si nos movemos a lo largo del eje-$x$ o del eje-$y$. Donde,
+No se ha mencionado porque ha sido ilustrado en las \cref{fig:grid,fig:grid-moved} pero los pixeles representan un movimiento desde un vértice a otro vértice de tamaños $\Delta x$ o $\Delta y$ dependiendo si nos movemos a lo largo del eje-$x$ ó del eje-$y$, donde
 \begin{equation*}
     \begin{split}
         \Delta x & = \frac{2 l_x}{n_x}\ , \\
         \Delta y & = \frac{2 l_y}{n_y}\ ,
     \end{split}
 \end{equation*}
-y $n_x$, $n_y$, representan el número de divisiones del espacio lo cual es quivalente al número de pixeles en el que se divide la imagen a lo largo de los ejes.
+y $n_x$, $n_y$, representan el número de divisiones del espacio lo cual es equivalente al número de pixeles en el que se divide la imagen a lo largo de los ejes.
 
-Retomando el ejemplo anterior, las dos maneras de comenzar el movimiento entre vértices se ilustra en la \cref{fig:small-grid} para una fila cualquiera de pixeles dentro de la imagen, lo mismo aplica para el movimiento para una columna cualquiera dentro de pixeles. Ahora los índices que se tenian en un inicio nos dicen algo, dependiendo del índice será la posicion en la que estaremos con movimientos de longitus $\Delta x$,
+Retomando el ejemplo anterior, las dos maneras de comenzar el movimiento entre vértices se ilustra en la \cref{fig:small-grid} para una fila cualquiera de pixeles dentro de la imagen, lo mismo aplica para el movimiento entre pixeles en una columna cualquiera. Ahora, los índices que se tenían en un inicio nos dicen algo, dependiendo del índice será la posicion en la que estaremos con movimientos de longitud $\Delta x$,
 \begin{equation*}
     \begin{split}
         x_{i-1} & = (i - 1) \Delta x\ , \\
@@ -98,12 +98,12 @@ donde $i=1, 2, 3, \ldots, N$. Además, $N$ puede ser $n_x$ ó $n_y$ dependiendo 
     \begin{split}
         x_{c}^{i} & = \frac{x_i + x_{i-1}}{2} = \frac{i \Delta x (i-1) \Delta x}{2}\ , \\
         & = \Delta x \frac{(2i - 1)}{2} = \frac{2 l_x}{2} \frac{(2i - 1)}{2}\ ,\\
-        x_{c}^{i} & = \frac{l_x}{n} (2i - 1)\ .
+        x_{c}^{i} & = \frac{l_x}{n_x} (2i - 1)\ .
     \end{split}
 \end{equation*}
 De igual manera,
 \begin{equation*}
-    y_{c}^{i} = \frac{l_x}{n} (2i - 1)\ .
+    y_{c}^{i} = \frac{l_y}{n_y} (2i - 1)\ .
 \end{equation*}
 De aquí que podemos acceder a cualquier elemento dentro de nuestra matriz de pixeles partiendo de sus índices para obtener sus coordenadas $(x_{c}^{i}, y_{c}^{i})$ ¿Recuerda usted la traslación hecha anteriormente? Tenemos que regresar a nuestro sistema de coordenadas iniciales, esto se obtiene al movernos de regreso una distancia $l_x$ en el eje-$x$, y una distancia $l_y$ sobre el eje-$y$,
 \begin{equation}
@@ -152,23 +152,23 @@ Para graficar el tiempo de ejecución se hicieron 20 repeticiones indicadas por 
 
 \begin{figure}[ht!]
     \centering
-    \includestandalone[scale=0.95, mode=buildnew]{../figures/diannao/time-diannao}
+    \includestandalone[scale=0.9, mode=buildnew]{../figures/diannao/time-diannao}
     \caption{Tiempos de ejecución usando {\diannao}.}
     \label{fig:times-diannao}
 \end{figure}
 
 Los tiempos de ejecución en el ordenador {\diannao} se pueden observar en la \cref{fig:times-diannao} donde las dos líneas continuas representan las cotas superiores, mientras que las líneas no continuas son las pertenecientes a las cotas inferiores. Se tuvo que utilizar un factor de escalamiento para los cuatro casos ya que los tiempos eran muy pequeños incluso para el caso en el que $N = 1600$ donde el tamaño del fractal corresponderia a una imagen de $1600 \times 1600$ pixeles con un número de iteraciones máximo de 100.
 
-Para ambos casos, tanto para el cómputo con {\diannao} y con {\hongdiannao}, el comportamiento del tiempo $t$ respecto a $N$ se comporta de manera cuadrática. Si se mira el módulo incluído en el apéndice se podrá observar que el algoritmo incluye dos \code{for} loops principales en los que se accede a la informacion de una matriz inicialmente definida con pixeles al negro \code{RGB(0, 0, 0)} por lo que este es un comportamiento esperado. Se calculan las coordenadas anteriormente mencionadas $c = (x', y')$ dependiendo del índice del elemento al que se accede en la matriz, y para acceder a estos elementos se itera mediante dos \code{for} loops, uno para las columnas y otro para las filas. 
+Para ambos casos, tanto para el cómputo con {\diannao} y con {\hongdiannao}, el comportamiento del tiempo $t$ respecto a $N$ se comporta de manera cuadrática. Si se mira el módulo incluído en el apéndice se podrá observar que el algoritmo incluye dos \code{for} loops principales en los que se accede a la informacion de una matriz inicialmente definida con pixeles al negro \code{RGB(0, 0, 0)} por lo que este es un comportamiento esperado. Se calcularon las coordenadas anteriormente mencionadas $c = (x', y')$ dependiendo del índice del elemento al que se accede en la matriz, y para acceder a estos elementos se itera mediante dos \code{for} loops, uno para las columnas y otro para las filas. Al mismo tiempo se debe tener en cuenta el número máximo de iteraciones de $z_i$ ya que eso influye en el tiempo asintótico representado por $O(n_x \cdot n_y \cdot i_{max})$.
 
 De manera similar, los tiempos de ejecución usando {\hongdiannao} se muestran en la \cref{fig:times-hongdiannao}. Claramente hay una diferencia notable en la magnitud de los tiempos medidos entre los dos ordenadores. Esto es evidenciable al mirar las especificaciones técnicas de ambos las cuales están incluidas más adelante.
 \begin{figure}[ht!]
     \centering
-    \includestandalone[scale=0.95, mode=buildnew]{../figures/hongdiannao/time-hongdiannao}
+    \includestandalone[scale=0.9, mode=buildnew]{../figures/hongdiannao/time-hongdiannao}
     \caption{Tiempos de ejecución usando {\hongdiannao}.}
     \label{fig:times-hongdiannao}
 \end{figure}
-Las características de las computadoras usadas, {\diannao} y {\hongdiannao}, se muestran en la \cref{fig:diannao-specs,fig:hongdiannao-specs}, respectivamente. Ambos son ordenadores propios, {\hongdiannao} es una laptop adquirida en el año 2014 mientras que {\diannao} es un equipo adquirido en el 2019. La diferencia en sus componentes, principalmente CPU's y medios de almacenamiento, es notoria. Mientras que {\hongdiannao} tiene un disco duro que data del 2014, no se ha cambiado (y posiblemente se hayan deteriorado sus velocidades de lectura y escritura), {\diannao} usa un SSD (solid state drive). El SSD de {\diannao} y su CPU i7 le proporcionan mejor rapidez en comparación con el otro ordenador para esta tarea.
+Las características de las computadoras usadas, {\diannao} y {\hongdiannao}, se muestran en la \cref{fig:diannao-specs,fig:hongdiannao-specs}, respectivamente. Ambos son ordenadores propios, {\hongdiannao} es una laptop adquirida en el año 2014 mientras que {\diannao} es un equipo adquirido en el 2019. La diferencia en sus componentes, principalmente CPU's y medios de almacenamiento, es notoria. Mientras que {\hongdiannao} tiene un disco duro que data del 2014, no se ha cambiado (y posiblemente se hayan deteriorado sus velocidades de lectura y escritura), {\diannao} usa un SSD (solid state drive). El SSD de {\diannao} y su CPU i7 le proporcionan mayor rapidez en comparación con el otro ordenador para esta tarea.
 
 \begin{figure}[ht!]
     \centering

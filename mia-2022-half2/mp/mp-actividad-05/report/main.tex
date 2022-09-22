@@ -93,7 +93,15 @@ Los eigenvalores de $\Sigma_1$ son $\lambda_1 = 0.0033$, $\lambda_2 = 0.0197$, $
     \end{bmatrix}.
 \end{align*}
 
-% angulos para imagenes [-0.3, 0.3, 0.65]
+De estos vectores se puede observar aquel con mayor porcentaje de información,
+\begin{align*}
+    \frac{\lambda_1}{\sum \lambda_i} & = 0.0334\ , \\
+    \frac{\lambda_2}{\sum \lambda_i} & = 0.1997\ , \\
+    \frac{\lambda_3}{\sum \lambda_i} & = 0.7667 .
+\end{align*}
+Donde el vector $\vec{u}_3$ es aquel que cumple con esta condición con un porcentaje del $76\%$ de la varianza de los datos.
+
+
 La nube de pixeles de la \cref{fig:akira-bike} se muestra en la \cref{fig:nube-pixeles-akira} con 3 angulos de vista distintos para poder observar mejor la nube y su vector promedio. También se incluyen los eigenvectores de la imagen a partir del vector promedio.
 \begin{figure}[ht!]
     \centering
@@ -134,9 +142,9 @@ Además de las nubes de pixeles se decidó graficar un espacio de probabilidad d
     \label{fig:nube-gaussiana-akira}
 \end{figure}
 La ecuación que se usó para las nubes gaussianas de probabilidad es
-\begin{equation}
+\begin{equation*}
     \mathcal{N}(\vec{x}|\vec{\mu}, \Sigma) = \frac{1}{(2 \pi)^{D/2} |\Sigma|^{1/2}} \exp\left\{-\frac{1}{2} (\vec{x} - \vec{\mu})^{t} \Sigma^{-1} (\vec{x} - \vec{\mu}) \right\}\ ,
-\end{equation}
+\end{equation*}
 donde $D$ es la dimensión de los vectores $\vec{x}$ y $\vec{\mu}$, y la matriz $\Sigma$ tiene dimensión $D \times D$.
 
 La segunda imagen que se utilizó es una pintura hecha por el artista \href{https://twitter.com/DaBroque}{Kate da Broque}\footnote{https://linktr.ee/katedabroque}. Esta imagen se muestra en la \cref{fig:kate-da-broque}, tiene aproximadamente $1.2E7$ pixeles y las dimensiones de la imagen son $(4096, 2958)$.
@@ -190,6 +198,14 @@ Los eigenvalores de $\Sigma_2$ son $\lambda_1 = 0.0010$, $\lambda_2 = 0.0334$, $
         0.4624
     \end{bmatrix}.
 \end{align*}
+
+Además, el vector con mayor porcentaje de información es aquel que corresponde a $\lambda_3$, i.e. $\vec{v}_3$,
+\begin{align*}
+    \frac{\lambda_1}{\sum \lambda_i} & = 0.0035\ , \\
+    \frac{\lambda_2}{\sum \lambda_i} & = 0.1169\ , \\
+    \frac{\lambda_3}{\sum \lambda_i} & = 0.8795 ,
+\end{align*}
+con un porcentaje de casi el $88\%$ de la información.
 
 La nube de pixeles, con su vector promedio y eigenvectores, de la \cref{fig:kate-da-broque} se muestran en la \cref{fig:nube-pixeles-kate}.
 \begin{figure}[ht!]
@@ -281,6 +297,14 @@ Los eigenvalores de $\Sigma_3$ son $\lambda_1 = 0.0002$, $\lambda_2 = 0.0022$, $
     \end{bmatrix}.
 \end{align*}
 
+De manera similar a los casos anteriores, se computa el porcentaje de información,
+\begin{align*}
+    \frac{\lambda_1}{\sum \lambda_i} & = 0.0508\ , \\
+    \frac{\lambda_2}{\sum \lambda_i} & = 0.0559\ , \\
+    \frac{\lambda_3}{\sum \lambda_i} & = 0.8931 .
+\end{align*}
+De donde resulta que el vector con mayor porcentaje de información es $\vec{w}_3$, con un porcentaje del $89\%$.
+
 Se puede observar en la \cref{fig:nube-pixeles-eva} como solo se ocupan los las coordenadas de pixeles al rojo únicamente. No se logra apreciar tan claramente el vector promedio ni los eigenvectores pero se encuentran dentro de la nube de pixeles. Se logra observar en el ángulo de $-0.3\pi$ que la punta del vector está casí a la mitad de la nube de rojos, hubiese sido extraño que este no fuese el caso y marcaría un problema en la lógica del programa de haber sido así.
 \begin{figure}[ht!]
     \centering
@@ -349,7 +373,7 @@ Las dimensiones de la imagen mostrada en la \cref{fig:kids} son de $(547, 974)$,
     \end{bmatrix}.
 \end{align*}
 
-Los eigenvalores de $\Sigma_4$ son $\lambda_1 = 0.0002$, $\lambda_2 = 0.0022$, $\lambda_3 = 0.0351$, y sus respectivos eigenvectores son
+Los eigenvalores de $\Sigma_4$ son $\lambda_1 = 0.0041$, $\lambda_2 = 0.0162$, $\lambda_3 = 0.1230$, y sus respectivos eigenvectores son
 \begin{align*}
     \vec{s_1} & =
     \begin{bmatrix}
@@ -370,6 +394,14 @@ Los eigenvalores de $\Sigma_4$ son $\lambda_1 = 0.0002$, $\lambda_2 = 0.0022$, $
         0.4837 \\
     \end{bmatrix}.
 \end{align*}
+
+Los porcentajes de información de los eigenvalores de esta imagen son,
+\begin{align*}
+    \frac{\lambda_1}{\sum \lambda_i} & = 0.0286\ , \\
+    \frac{\lambda_2}{\sum \lambda_i} & = 0.1130\ , \\
+    \frac{\lambda_3}{\sum \lambda_i} & = 0.8583 .
+\end{align*}
+De donde el mayor porcentaje es de $85\%$ y corresponde al vector $\vec{s}_3$.
 
 Finalmente, en la \cref{fig:nube-pixeles-kids,fig:nube-gaussiana-kids} se muestran las nubes de pixeles y de probabilidad, respectivamente.
 \begin{figure}[ht!]
