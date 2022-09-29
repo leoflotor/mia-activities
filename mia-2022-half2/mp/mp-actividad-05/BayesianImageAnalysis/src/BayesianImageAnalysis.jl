@@ -25,6 +25,9 @@ Pixel and image operations
 
 Converts Julia's pixel format to a vector of Float64's to avoid overflow.
 
+# Arguments
+- pixel
+
 # Examples
 ```jldoctest
 julia> p = RGB(0.5, 0.5, 0.5)
@@ -80,6 +83,14 @@ function covarianceMatrix(img, avg_vec)
 end
 
 # Correlation matrix elements
+"""
+    r(i, j, mat)
+
+This obscure function is just a helper funcion to compute
+the elements of the correlation matrix.
+
+Not intended for `usr` use.
+"""
 r(i, j, mat) = mat[i,j] / sqrt(mat[i,i] * mat[j,j])
 
 function correlationMatrix(covMat)
@@ -220,3 +231,4 @@ function gaussianCloud(avg_vec, cov_mat; tol=0.1, density=0.05, azimuth=0.2, ele
 end
 
 end # module BayesianImageAnalysis
+

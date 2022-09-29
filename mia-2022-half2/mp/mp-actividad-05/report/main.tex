@@ -93,14 +93,13 @@ Los eigenvalores de $\Sigma_1$ son $\lambda_1 = 0.0033$, $\lambda_2 = 0.0197$, $
     \end{bmatrix}.
 \end{align*}
 
-De estos vectores se puede observar aquel con mayor porcentaje de información,
+De estos eigenvalores se puede observar aquel con mayor porcentaje de varianza es $\lambda_3$,
 \begin{align*}
     \frac{\lambda_1}{\sum \lambda_i} & = 0.0334\ , \\
     \frac{\lambda_2}{\sum \lambda_i} & = 0.1997\ , \\
     \frac{\lambda_3}{\sum \lambda_i} & = 0.7667 .
 \end{align*}
-Donde el vector $\vec{u}_3$ es aquel que cumple con esta condición con un porcentaje del $76\%$ de la varianza de los datos.
-
+Donde su vector correspondiente $\vec{u}_3$, y $\lambda_3$, cumplen con esta condición con un porcentaje del $76\%$ de la varianza de los datos.
 
 La nube de pixeles de la \cref{fig:akira-bike} se muestra en la \cref{fig:nube-pixeles-akira} con 3 angulos de vista distintos para poder observar mejor la nube y su vector promedio. También se incluyen los eigenvectores de la imagen a partir del vector promedio.
 \begin{figure}[ht!]
@@ -199,13 +198,13 @@ Los eigenvalores de $\Sigma_2$ son $\lambda_1 = 0.0010$, $\lambda_2 = 0.0334$, $
     \end{bmatrix}.
 \end{align*}
 
-Además, el vector con mayor porcentaje de información es aquel que corresponde a $\lambda_3$, i.e. $\vec{v}_3$,
+Además, el vector con mayor porcentaje de varianza es aquel que corresponde a $\lambda_3$, i.e. $\vec{v}_3$,
 \begin{align*}
     \frac{\lambda_1}{\sum \lambda_i} & = 0.0035\ , \\
     \frac{\lambda_2}{\sum \lambda_i} & = 0.1169\ , \\
     \frac{\lambda_3}{\sum \lambda_i} & = 0.8795 ,
 \end{align*}
-con un porcentaje de casi el $88\%$ de la información.
+con un porcentaje de casi el $88\%$ de la varianza.
 
 La nube de pixeles, con su vector promedio y eigenvectores, de la \cref{fig:kate-da-broque} se muestran en la \cref{fig:nube-pixeles-kate}.
 \begin{figure}[ht!]
@@ -297,13 +296,13 @@ Los eigenvalores de $\Sigma_3$ son $\lambda_1 = 0.0002$, $\lambda_2 = 0.0022$, $
     \end{bmatrix}.
 \end{align*}
 
-De manera similar a los casos anteriores, se computa el porcentaje de información,
+De manera similar a los casos anteriores, se computa el porcentaje de varianza,
 \begin{align*}
     \frac{\lambda_1}{\sum \lambda_i} & = 0.0508\ , \\
     \frac{\lambda_2}{\sum \lambda_i} & = 0.0559\ , \\
     \frac{\lambda_3}{\sum \lambda_i} & = 0.8931 .
 \end{align*}
-De donde resulta que el vector con mayor porcentaje de información es $\vec{w}_3$, con un porcentaje del $89\%$.
+De donde resulta que el vector con mayor porcentaje de varianza es $\vec{w}_3$, con un porcentaje del $89\%$. Incluso se puede observar que la primer entrada de $\vec{w}_3$, componente que corresponde al rojo, que es la de mayor magnitud entre las entradas de dicho vector. De la matriz de covarianza $\Sigma_3$ se observa que la entrada del primer renglon y primera fila, $\sigma_{rr}$, tiene la covarianza más alta mientras que es completamente lo contrario para las demás.
 
 Se puede observar en la \cref{fig:nube-pixeles-eva} como solo se ocupan los las coordenadas de pixeles al rojo únicamente. No se logra apreciar tan claramente el vector promedio ni los eigenvectores pero se encuentran dentro de la nube de pixeles. Se logra observar en el ángulo de $-0.3\pi$ que la punta del vector está casí a la mitad de la nube de rojos, hubiese sido extraño que este no fuese el caso y marcaría un problema en la lógica del programa de haber sido así.
 \begin{figure}[ht!]
@@ -395,7 +394,7 @@ Los eigenvalores de $\Sigma_4$ son $\lambda_1 = 0.0041$, $\lambda_2 = 0.0162$, $
     \end{bmatrix}.
 \end{align*}
 
-Los porcentajes de información de los eigenvalores de esta imagen son,
+Los porcentajes de la varianza de los eigenvalores de esta imagen son,
 \begin{align*}
     \frac{\lambda_1}{\sum \lambda_i} & = 0.0286\ , \\
     \frac{\lambda_2}{\sum \lambda_i} & = 0.1130\ , \\
@@ -441,6 +440,8 @@ Finalmente, en la \cref{fig:nube-pixeles-kids,fig:nube-gaussiana-kids} se muestr
 \end{figure}
 
 Tiene sentido pensar que las nubes de probabilidad gaussianas se localizen en alrededor de la posición del vector promedio y además que se extiendan a ocupar las posiciones de sus nubes de pixeles. No se puede apreciar si dichas nubes gaussianas presentan rotaciones sobre los ejes de sus vectores promedio $\vec{m}_i$ pero se espera que este sea el caso debido a que deberian de expandirse en las direcciones de sus respectivos eigenvectores. Nótese que los eigenvectores, en todos los casos, fueron escalados por un factor de $1/10$ en las visualizaciones únicamente.
+
+Aunque es importante tener en cuenta que una gaussiana no siempre es suficiente para representar de forma fidedigna las nubes de probabilidad. Esto es cierto para la ultima nube de probabilidad mostrada en la \cref{fig:nube-gaussiana-kids} que se alínea con el vector promedio únicamente pero no parece incluir a esas trazas de colores en las demás direcciones que también deberían de ser consideradas. Podría usarse una combinación lineal de gaussianas que se ajusten a esas trazas para poder obtener una nube de probabilidad más acertada, aunque en el momento presente no cuento con el conocimiento para realizar dicho análisis.
 
 Se desarrolló un pequeño módulo para analizar imágenes usando el lengauge de programación \textit{Julia} \cite{Bezanson_Julia_A_fresh_2017} basándose en la teoría vista en clase, y en el libro añadido en las referencias \cite{richards2006remote}. Adicionalmente, las visualizaciones se realizaron usando la librería \textit{GLMakie} \cite{DanischKrumbiegel2021}, también parte de \textit{Julia}.
 
