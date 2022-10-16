@@ -3,16 +3,17 @@ module NormalDist
 using StatsBase
 using Plots
 using LaTeXStrings
+using LazyGrids # To generate lazy grids with low memory allocation
 
 
 """
-    normalDist(x, μ, σ)
+    normalDist(x::Real, μ, σ)
 
-Computes the corresponding probability of a single point `x` using a
-normal distribution with a given mean `μ` and the squared root of the
+Computes the corresponding probability of a single point `x` using a 
+normal distribution with a given mean `μ` and the squared root of the 
 variance `σ`.
 """
-function normalDist(x, μ, σ)
+function normalDist(x::Real, μ, σ)
     exparg = - (x - μ)^2 / (2 * σ^2)
     den = sqrt(2 * π * σ^2)
     return exp(exparg) / den
@@ -20,183 +21,195 @@ end
 
 
 """
- likelihood(dataset, μ, σ)
+    normalDist(xpts::Array, μ, σ)
 
-Computes the likelihood of the parameters `μ` and `σ` for a given `dataset`, 
-{x1, x2, ..., xn}.
+Computes the corresponding probability from a list of points `xpts` using a 
+normal distribution with a given mean `μ` and the squared root of the 
+variance `σ`.
 """
-function likelihood(dataset, μ, σ)
-    npts = length(dataset) 
-    exparg = - sum((dataset .- μ).^2) / (2 * σ^2)
-    den = sqrt(2 * π * σ^2)^npts
+function normalDist(xpts::Union{Array, StepRangeLen}, μ, σ)
+    return normalDist.(xpts, μ, σ)
+end
 
+
+"""
+    likelihood(xpts, μ, σ)
+
+Computes the likelihood of a given array of points `xpts` with respect of
+a normal distribution with parameters `μ` and `σ`.
+"""
+function likelihood(xpts, μ, σ)
+    npts = length(xpts) 
+    exparg = - sum((xpts .- μ).^2) / (2 * σ^2)
+    den = (2 * π * σ^2)^(npts / 2)
     return exp(exparg) / den
 end
 
 
 """
-    maxμ(xvals)
+    maxμ(xpts)
 
 Computes the mean value `μ` that maximizes the likelihood.
 """
-function maxμ(xvals)
-    return sum(xvals) / length(xvals)
+function maxμ(xpts)
+    npts = length(xpts)
+    return sum(xpts) / npts
 end
 
 
 """
-    maxσ(xvals)
+    maxσ(xpts)
 
 Computes the squared-root of the variance `σ` that maximizes 
 the likelihood.
 """
-function maxσ(xvals)
-    return sum((xvals .- maxμ(xvals)).^2) / length(xvals) |> sqrt
+function maxσ(xpts)
+    npts = length(xpts)
+    return (sum((xpts .- maxμ(xpts)).^2) / npts) |> sqrt
 end
 
 
 """
-    randomSample(xvals, weights, npts)
+    randomSample(xpts, weights, npts)
     
-Returns the desired number of points `npts` from a data set `xvals` {xi}, 
-taking into account the weights from any given distribution. This function 
-will call itself recursively until all points are unique.
-
-Maybe there is a better way to ensure no-repeated points, though.
+Returns the desired number of points `npts` from a list of points `xpts`, 
+taking into account a list of their weights `weights` from any given 
+distribution.
 """
-function randomSample(xvals, weights, npts)
-    indexes = sample(1:length(weights), Weights(weights), npts)
-
-    if allunique(indexes)
-        return xvals[indexes]
-    end
-    
-    randomSample(xvals, weights, npts)
+function randomSample(xpts, weights, npts)
+    return sample(xpts, Weights(weights), npts)
 end
 
-
-function originalDist(μ0, σ0)
-    inflim = μ0 - 3.5 * σ0
-    suplim = μ0 + 3.5 * σ0
-    xvals = range(inflim, suplim, 1000)
-    weights = normalDist.(xvals, μ0, σ0)
-
-    return Dict(
-        :μ => μ0, 
-        :σ => σ0, 
-        :inflim => inflim,
-        :suplim => suplim,
-        :xvals => xvals,
-        :weights => weights
+function plotNormal(x, w)
+    fig = plot(
+        tickfont=(12, "Computer Modern"),
+        xlim = (x[begin], x[end]),
+        ylim = (-0.05, 0.45),
+        dpi = 400,
+        size = (600, 400),
     )
-end
 
-
-function guessedDist(μi, σi, data; samplepoints = 10)
-    # Compute sample data from original distribution
-    xs = randomSample(data[:xvals], data[:weights], samplepoints)
-    ws = normalDist.(xs, μi, σi)
-
-    # Compute the likelihood of the sample data with respect of the 
-    # guessed distribution
-    lh = likelihood(xs, μi, σi)
-    
-    # Compute the weights of the guessed distribution
-    weights = normalDist.(data[:xvals], μi, σi)
-
-    return Dict(
-        :μ => μi,
-        :σ => σi,
-        :inflim => data[:inflim],
-        :suplim => data[:suplim],
-        :xvals => data[:xvals],
-        :weights => weights,
-        :xsample => xs,
-        :wsample => ws,
-        :lh => lh,
-        :npts => samplepoints
-    )
-end
-
-
-function maxDist(data; samplepoints = 10) 
-    # Compute sample data from original distribution
-    xs = randomSample(data[:xvals], data[:weights], samplepoints)
-    μi = maxμ(xs)
-    σi = maxσ(xs)
-    ws = normalDist.(xs, μi, σi)
-
-    # Compute the likelihood of the sample data with respect of the 
-    # maximized distribution
-    lh = likelihood(xs, μi, σi)
-
-    # Compute the weights of the maximized distribution
-    weights = normalDist.(data[:xvals], μi, σi)
-    return Dict(
-        :μ => μi,
-        :σ => σi,
-        :inflim => data[:inflim],
-        :suplim => data[:suplim],
-        :xvals => data[:xvals],
-        :weights => weights,
-        :xsample => xs,
-        :wsample => ws,
-        :lh => lh,
-        :npts => samplepoints
-    )
-end
-
-
-function plotGuess(guess; max = false)
-    theme(:dao)
-    
-    roundμ = round(guess[:μ], sigdigits=4)
-    roundσ = round(guess[:σ], sigdigits=4)
-    roundlh = round(guess[:lh], sigdigits=2)
-
-    myplot = plot()
-
-    xs = guess[:xsample]
-    ws = guess[:wsample]
-
-    for i in 1:guess[:npts]
-        plot!(
-            [xs[i], xs[i]], 
-            [0, ws[i]], 
-            label = "",
-            linecolor = :blue
-        )
-    end
-
-    plot!(guess[:xvals], guess[:weights], 
-        xlim = (guess[:inflim], guess[:suplim]), 
-        ylim = (-0.05, 1),
+    plot!(x, w, 
         linecolor = :red,
         lw = 2.5, 
         label = "", 
         xlabel = L"x",
-        ylabel = L"Pr(x | μ, σ^2)", 
-        title = max == false ? 
-            L"Pr(x_{1 \ldots N} | μ, σ^2) = " * "$(roundlh); " * 
-            L"μ = " * "$(roundμ); " * 
-            L"σ = " * "$(roundσ)" : 
-            L"Pr(x_{1 \ldots N} | \hat{μ}, \hat{σ}^2) = " * "$(roundlh); " * 
-            L"μ = " * "$(roundμ); " * 
-            L"σ = " * "$(roundσ)",
+        ylabel = L"Norm_{x}[\mu, \sigma^2]",
         xtickfontsize = 13, 
         ytickfontsize = 13, 
         xguidefontsize = 15, 
         yguidefontsize = 15,
-        titlefontsize = 13
-    )
-    
-    scatter!(xs, zeros(guess[:npts]), label="", 
-        mc = :blue,
-        msc = :white,
-        msw = 2
+        titlefontsize = 13,
     )
 
-    return myplot
+    return fig
+end
+
+function plotGuess(xsample, wsample, x, w, lh, μi, σi; maxlh = false)
+    npts = length(xsample)
+
+    roundμ = round(μi, sigdigits=4)
+    roundσ = round(σi, sigdigits=4)
+    roundlh = round(lh, sigdigits=1)
+
+    # theme(:ggplot2)
+    fig = plot(
+        tickfont=(12, "Computer Modern"),
+        xlim = (x[begin], x[end]),
+        ylim = (-0.05, 0.45),
+        dpi = 400,
+        size = (600, 400),
+    )
+
+    for i in 1:npts
+        plot!(
+            [xsample[i], xsample[i]], 
+            [0, wsample[i]], 
+            label = "",
+            linecolor = :blue,
+            linealpha = 0.6,
+        )
+    end
+    
+    # Just some formatting depending on if the maximum likelihood is
+    # ploted or not
+    μstr = maxlh == false ? "μ" : raw"\hat{μ}"
+    σstr = maxlh == false ? "σ" : raw"\hat{σ}"
+    title = raw"Pr(x_{1 \ldots" * "$(npts)" * raw"} |" * μstr * raw", " *
+        σstr * raw"^2) = " * "$(roundlh)" * raw"; " * μstr * " = " * 
+        "$(roundμ); " * σstr * raw" = " * "$(roundσ)"
+    ylabel = raw"Pr(x | " * "$(μstr)" * ", " * "$(σstr)" * raw"^2)"
+    plot!(x, w, 
+        linecolor = :red,
+        lw = 2.5, 
+        label = "", 
+        xlabel = L"x",
+        ylabel = latexstring(ylabel),
+        title = latexstring(title),
+        xtickfontsize = 13, 
+        ytickfontsize = 13, 
+        xguidefontsize = 15, 
+        yguidefontsize = 15,
+        titlefontsize = 13,
+    )
+
+    scatter!(xsample, zeros(npts),
+        label = "", 
+        mc = :blue,     # marker color
+        msc = :white,   # marker stroke color
+        msw = 2,        # marker stroke width
+    )
+
+    return fig
+end
+
+
+function plotHeat(μi, σi, μmax, σmax, μrange, σrange, lhmesh, npts)
+    title = raw"Pr(x_{1\ldots" * "$(npts)" * raw"} | μ, σ^2)"
+    fig = plot(
+        xlim = (σrange[begin], σrange[end]),
+        ylim = (μrange[begin], μrange[end]),
+        dpi = 400,
+        size = (600, 400),
+        xlabel = L"\sigma", 
+        ylabel = L"\mu",
+        title = latexstring(title),
+        xguidefontsize = 17, 
+        yguidefontsize = 17,
+        tickfont = (12, "Computer Modern"),
+        grid = :dash,
+        gridlinewidth = 0.6,
+        gridalpha = 0.95,
+        minorgrid = :dash,
+        minorgridlinewidth = 0.4,
+        minorticks = 2,
+        minorgridalpha = 0.95,
+        legend = :topleft,
+    )
+
+    heatmap!(σrange, μrange, lhmesh, 
+        c = cgrad(:thermal, rev = false, alpha=0.9), # colormap
+        colorbar = :none,
+    )
+    
+    scatter!(σi, μi, 
+        label = L"\{μ_{i}\ ,\ σ_{i}\}",
+        mc = :magenta,
+        ms = 5,
+        msw = 1,
+        msc = :black,
+    )
+
+    scatter!([σmax], [μmax], 
+        label = L"\{\hat{μ}\ ,\ \hat{σ}\}",
+        mc = :cyan,
+        ms = 5,
+        shape = :star5,
+        msw = 1,
+        msc = :black
+    )
+    
+    return fig
 end
 
 

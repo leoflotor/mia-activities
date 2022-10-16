@@ -50,9 +50,12 @@
 \usepackage{fancyvrb}                       % To change line number font
 \renewcommand{\theFancyVerbLine}{\textcolor{gray}{\footnotesize\texttt{\arabic{FancyVerbLine}}}}
 
+\definecolor{light-gray}{gray}{0.95}        % Color, box and style to show small code thingys inside normal text
+\newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
+
 % -- Bilbiography preferences
 \usepackage[square,numbers]{natbib}
-\bibliographystyle{apalike}
+\bibliographystyle{unsrt}
 
 % -- Footnotes without numbering
 \newcommand\nnfootnote[1]{%
@@ -75,7 +78,7 @@
 % -- Problem solution
 \newenvironment{solution}
 {\begin{quote}
-\textbf{Solution:}\medskip
+\textbf{Solución:}\medskip
 
 }
 {
@@ -97,9 +100,9 @@
 % -- Author information
 \title{Actividad 6}
 \author{Leonardo Flores Torres}
-\newcommand\theinstitution{Universidad Veracruzna}
+\newcommand\theinstitution{Universidad Veracruzana}
 \newcommand\thedepartment{Inteligencia Artificial}
 \newcommand\thecourse{Métodos Probabilísticos}
 
 % -- Paths
-% \newcommand\codepath{../BayesianImageAnalysis/src/BayesianImageAnalysis.jl}
+\newcommand\codepath{../NormalDist/src/NormalDist.jl}
