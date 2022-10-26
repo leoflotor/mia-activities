@@ -1,0 +1,430 @@
+% -- Document configuration
+\input{preamble.tex}
+
+% -- Document
+\begin{document}
+
+\thispagestyle{empty}
+
+%Title
+\begin{center}
+\textsc{\theinstitution}\\[2mm]
+
+\thedepartment
+
+\rule{0.6\textwidth}{0.5pt}\\[2mm]
+
+\thecourse \\[4mm]
+
+{\Large \textbf{\thetitle}}\\[2mm]
+
+\theauthor \\[2mm]
+
+{\small \today}
+\end{center}
+\medskip
+
+% -- 
+\vspace{1cm}
+
+\begin{enumerate}
+    \item Programe en Prolog un algoritmo de unificación. A reportar \textbf{(50 puntos)}:
+    \begin{enumerate}
+        \item el algoritmo elegido comentado;
+        \item su código, también comentado;
+        \item Los siguientes ejemplos de la ejecución:
+        \begin{enumerate}
+            \item $q(Y, g(a, b))$, $p(g(X, X), Y)$.
+            \item $r(a, b, c)$, $r(X, Y, Z)$.
+            \item $mayor(padre(Y), Y)$, $mayor(padre(Z), juan)$.
+            \item $conoce(padre(X), X)$, $conoce(W, W)$.
+        \end{enumerate}
+    \end{enumerate}
+    %
+    \item Implemente las siguientes operaciones sobre conjuntos representados como listas \textbf{(20 puntos)}:
+    \begin{itemize}
+        \item Subconjunto:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{prolog}
+            ?- subset([1,3], [1,2,3,4]).
+            true.
+            ?- subset([], [1,2]).
+            true.
+        \end{minted}
+        %
+        \item Intersección:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{prolog}
+            ?- inter([1,2,3], [2,3,4], L).
+            L = [2, 3].
+        \end{minted}
+        %
+        \item Unión:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{prolog}
+            ?- union([1,2,3,4], [2,3,4,5], L).
+            L = [1, 2, 3, 4, 5].
+        \end{minted}
+        %
+        \item Diferencia:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{prolog}
+            ?- dif([1,2,3,4], [2,3,4,5], L).
+            L = [1].
+            ?- dif([1,2,3], [1,4,5], L).
+            L = [2, 3].
+        \end{minted}
+    \end{itemize}
+    %
+    \item Escriba un predicado que convierta números naturales de Peano a su equivalente decimal. Posteriormente implemente la suma y la resta entre dos números de Peano \textbf{(10 puntos)}. Por ejemplo:
+    \begin{minted}[
+        frame=none,
+        autogobble,
+        obeytabs=false,
+        breaklines,
+        tabsize=4,
+        linenos=true,
+        % numbersep=-10pt,
+        baselinestretch=1,
+        firstnumber=1,
+        bgcolor=bg!70,
+        ]{prolog}
+        ?- peanoToNat(s(s(s(0))), N).
+        N = 3.
+        ?- peanoToNat(0, N).
+        N = 0.
+        ?- sumaPeano(s(s(0)), s(0), R).
+        R = s(s(s(0))).
+        ?- restaPeano(s(s(0)), s(0), R).
+        R = s(0).
+    \end{minted}
+    \begin{solution}
+        Primero definí una manera de convertir números naturales en la representación de Peano:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{prolog}
+            %%% natToPeano/2 Computes the conversion of natural numbers to their Peano representation
+            %%% Ejemplo:
+            % ?- natToPeano(3, X).
+            % X = s(s(s(0))) .
+            natToPeano(0, 0).
+            natToPeano(N, s(X)) :-
+                N > 0,
+                N1 is N - 1,
+                natToPeano(N1, X).
+        \end{minted}
+        Con la regla \code{natToPeano/2} traté de hacer otra regla \code{peanoToNat/2} para encontrar el número natural correspondiente a un número de Peano pero no obtenia resultados satisfactorios:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{prolog}
+            peanoToNat(P, N) :-
+                natToPeano(N, P).
+        \end{minted}
+        Por lo que definí una regla distinta para este inciso:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{prolog}
+            %%% peanoToNat/2 computes the respective natural number of a Peano number
+            %%% Example:
+            % ?- peanoToNat(s(s(s(0))), X).
+            % X = 3.
+            peanoToNat(0, 0).
+            peanoToNat(s(X), N) :-
+                peanoToNat(X, N1),
+                N is N1 + 1.
+        \end{minted}
+        Recordando un poco acerca de los comentarios hechos en clase sobre la librería de dominios finitos decidí utilizarla solo para hacer una definición alternativa de las dos reglas anteriormente definidas:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{prolog}
+            %%% With finite domains
+            %%% natToPeano_fd/2 computes the conversion of a natural number to its Peano representation
+            natToPeano_fd(0, 0).
+            natToPeano_fd(N, s(X)) :-
+                N #> 0,
+                N1 #= N - 1,
+                natToPeano_fd(N1, X).
+            % peanoToNat_fd/2 computes the conversion of a Peano number to its natural number equivalent
+            peanoToNat_fd(S, N) :-
+                natToPeano_fd(N, S).
+        \end{minted}
+        De esta manera sí puedo utilizar \code{natToPeano\_fd/2} para definir \code{peanoToNat\_fd/2}. Cabe mencionar que el resto de las operaciones requeridad para este inciso se elaboraron tomando las reglas que no utilizan la librería de dominio finito.
+
+        La operación de suma se implementó con la siguiente regla:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{prolog}
+            %%% addPeano/3 adds S2 to S1, S3 = S1 + S2
+            addPeano(S1, S2, S3) :-
+                peanoToNat(S1, N1),
+                peanoToNat(S2, N2),
+                N3 is N1 + N2,
+                natToPeano(N3, S3).
+        \end{minted}
+    \end{solution}
+    %
+    \item Escriban un predicado \code{pino/1} cuyo argumento es un entero positivo y su salida es como sigue \textbf{(10 puntos)}:
+    \begin{minted}[
+        frame=none,
+        autogobble,
+        obeytabs=false,
+        breaklines,
+        tabsize=4,
+        linenos=true,
+        % numbersep=-10pt,
+        baselinestretch=1,
+        firstnumber=1,
+        bgcolor=bg!70,
+        ]{prolog}
+        ?- pino(5).
+            *
+           * *
+          * * *
+         * * * *
+        * * * * *
+        true.
+    \end{minted}
+    \begin{solution}
+        El programa para solucionar este inciso se muestra a continuación:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{prolog}
+            % pine/1 creates a pine on a desired number of levels specified by Levels
+            pine(Levels) :- pine(0, Levels), !.
+
+            % pine/2 iterates through the lines appending spaces each line to center the stars
+            pine(C, X) :- C < X, 
+                C1 is C+1,
+                Y1 is X - C1,
+                spaces(Y1),
+                stars(0, C),
+                pine(C1, X).
+            pine(C, X) :- C >= X.
+
+            % spaces/1 writes N spaces on demand
+            spaces(0) :- write('').
+            spaces(N) :-
+                N1 is N - 1,
+                N1 >= 0,
+                write(' '),
+                spaces(N1).
+
+            % stars/2 writes stars on demand on one line only and writes a new line after it has finished
+            stars(X, Y) :- X =< Y,
+                X1 is X + 1,
+                write('* '),
+                stars(X1, Y).
+            stars(X, Y) :- X > Y, nl.
+        \end{minted}
+        Haciendo un query en Prolog para un pino de 7 pisos da el siguien resultado:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{prolog}
+            ?- pine(7).
+                  * 
+                 * * 
+                * * * 
+               * * * * 
+              * * * * * 
+             * * * * * * 
+            * * * * * * * 
+            true.
+        \end{minted}
+        Jugando un poco con el programa se puede hacer un pino borracho:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{prolog}
+            ?- pine(7).
+                  *     
+                 *     *     
+                *     *     *     
+               *     *     *     *     
+              *     *     *     *     *     
+             *     *     *     *     *     *     
+            *     *     *     *     *     *     *     
+            true.
+        \end{minted}
+    \end{solution}
+    %
+    \item Escriba un programa que regrese en su segundo argumento la lista de todas las permutaciones de la lista que es su primer argumento \textbf{(10 puntos)}. Por ejemplo:
+    \begin{minted}[
+        frame=none,
+        autogobble,
+        obeytabs=false,
+        breaklines,
+        tabsize=4,
+        linenos=true,
+        % numbersep=-10pt,
+        baselinestretch=1,
+        firstnumber=1,
+        bgcolor=bg!70,
+        ]{prolog}
+        ?- perms([1,2,3], L).
+        L = [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1],
+             [3, 1, 2], [3, 2, 1]].
+    \end{minted}
+    \begin{solution}
+        Se hizo uso de \code{findall/3} y \code{permutation/2} definidas en la librería estándar de Prolog para realizar este ejercicio. Donde \code{findall/3} crea una lista de todas las instancias donde una meta definida tenga éxito, en este caso la meta es \code{permutation/2}.
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{prolog}
+            %%% perms/2 computes the all possible permutations of List in Perms.
+            %%% Ejemplo:
+            % ?- perms([1,2,3], L).
+            % L = [[1, 2, 3], [1, 3, 2], [2, 1, 3], 
+            %      [3, 1, 2], [2, 3, 1], [3, 2, 1]].
+            perms(List, Perms) :-
+                findall(Perm, permutation(Perm, List), Perms).
+        \end{minted}
+        Se mostraran un par de ejemplos de uso aparte del mostrado en el enunciado de la tarea el cual es incluido dentro de los comentarios de la solución:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{prolog}
+            ?- perms([1,2], L); true.
+            L = [[1, 2], [2, 1]] .
+            ?- perms([1,2,3], L).
+            L = [[1, 2, 3], [1, 3, 2], [2, 1, 3], [3, 1, 2], [2, 3, 1], [3, 2, 1]].
+            ?- perms([1,2,3,4], L); true.
+            L = [[1, 2, 3, 4], [1, 2, 4, 3], [1, 3, 2, 4], [1, 4, 2, 3], [1, 3, 4, 2], [1, 4, 3|...], [2, 1|...], [2|...], [...|...]|...] [write]
+            L = [[1, 2, 3, 4], [1, 2, 4, 3], [1, 3, 2, 4], [1, 4, 2, 3], [1, 3, 4, 2], [1, 4, 3, 2], [2, 1, 3, 4], [2, 1, 4, 3], [3, 1, 2, 4], [4, 1, 2, 3], [3, 1, 4, 2], [4, 1, 3, 2], [2, 3, 1, 4], [2, 4, 1, 3], [3, 2, 1, 4], [4, 2, 1, 3], [3, 4, 1, 2], [4, 3, 1, 2], [2, 3, 4, 1], [2, 4, 3, 1], [3, 2, 4, 1], [4, 2, 3, 1], [3, 4, 2, 1], [4, 3, 2, 1]] .
+        \end{minted}
+        Para la última meta se especificó como \code{perms([1,2,3,4], L); true.} para poder tener la oportunidad de escribir \code{w} y mostrar la lista completa de permutaciones.
+    \end{solution}
+\end{enumerate}
+
+% \vspace{1cm}
+% \pagebreak
+
+\bibliography{references.bib}
+
+\end{document}

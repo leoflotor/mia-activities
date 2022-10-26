@@ -214,5 +214,8 @@ function doit(nrows, ncols, start, finish, density, diags)
 
     return dist, path, nh, idmat, adjmat, startid, finishid
 end
+
+# julia> dist, path, nh, idmat, adjmat, sid, fid 
+# = sp.doit(40, 40, [4,1], [35,37], 0.1, false); sp.plot(nh)
     
 end # module ShortestPath
