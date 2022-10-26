@@ -246,6 +246,28 @@
                 N3 is N1 + N2,
                 natToPeano(N3, S3).
         \end{minted}
+        De manera similar, la operación de resta entre dos números de Peano se muestra a continuación:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{prolog}
+            %%% substractPeano/3 substracts S2 to S1, S3 = S1 - S2
+            substractPeano(S1, S2, S3) :-
+                peanoToNat(S1, N1),
+                peanoToNat(S2, N2),
+                N1 > N2,
+                N3 is N1 - N2,
+                natToPeano(N3, S3).
+        \end{minted}
+        Para ambas operaciones consideré oportuno hacer el cambio de ambos números de peano a su respectivo número natural, realizar la operación correspondiente y regresar a la representación de Peano.
     \end{solution}
     %
     \item Escriban un predicado \code{pino/1} cuyo argumento es un entero positivo y su salida es como sigue \textbf{(10 puntos)}:
