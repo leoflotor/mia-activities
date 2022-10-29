@@ -2,10 +2,11 @@
 %%% It is assumed that the usr took care to represent them as sets with unique elements.
 
 
-%%% union1/3 computes the union operation between two lists and returns
+%%% union1/3 computes the union operation between two sets and returns
 %%% the same elements as union/3 predefined in prolog
+%%% Example:
 % ?- union1([1,2,3,4], [2,3,4,5], L).
-% L = [5, 1, 2, 3, 4] .
+% L = [1, 2, 3, 4, 5] .
 union1(X, Y, Z) :-
     union1aid(X, Y, Z1), !,
     sort(Z1, Z).
@@ -17,15 +18,15 @@ union1aid(X, [Y|Ys], Xs) :-
     member(Y, X),
     union1aid(X, Ys, Xs).
 
-
 %%% union2/3 makes use of union/3 already predefined inside prolog
+%%% Example:
 % ?- union2([1,2,3,4], [2,3,4,5], L).
 % L = [1, 2, 3, 4, 5].
 union2(X, Y, Z) :-
     union(X, Y, Z).
 
 
-%%% intersection1/3
+%%% intersection1/3 computes the intersection operation between two sets represented as lists
 % ?- intersection1([1,2,3], [2,3,4], L).
 % L = [2, 3].
 intersection1(X, Y, Z) :-
@@ -47,17 +48,23 @@ intersection2(X, Y, Z) :-
     intersection(X, Y, Z).
 
 
-%%% subset/2
+%%% subset/2 returns the truth value if a given set is subset of another set, both sets represented as lists
+%%% Examples:
+% ?- subset1([1,3], [1,2,3,4]).
+% true.
+% ?- subset1([], [1,2]).
+% true.
 subset1([], _).
 subset1([X|Xs], Y) :-
     member(X, Y), !,
     subset1(Xs, Y).
 
+%%% subset2/2 makes use of subset/2 already predefined inside Prolog
 subset2(X, Y) :-
     subset(X, Y).
 
 
-%%% difference/3
+%%% difference/3 computes the difference between two given sets represented as lists
 difference1(X, Y, Z) :- 
     difference1aid(X, Y, Z), !.
 difference1aid([], _, []).

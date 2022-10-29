@@ -31,14 +31,149 @@
     \item Programe en Prolog un algoritmo de unificación. A reportar \textbf{(50 puntos)}:
     \begin{enumerate}
         \item el algoritmo elegido comentado;
+        \begin{solution}
+            El algoritmo de unificación elegido fue el visto durante las lecturas de  clase \cite{guerra2022pia}:
+            \begin{minted}[
+                frame=none,
+                autogobble,
+                obeytabs=false,
+                breaklines,
+                tabsize=4,
+                linenos=true,
+                % numbersep=-10pt,
+                baselinestretch=1,
+                firstnumber=1,
+                bgcolor=bg!70,
+                ]{prolog}
+                function Unifica(E)
+                    repeat
+                        (s = t) <- seleccionar(E)
+                        % Primero se verifica que el functor de ambos terminos sea el mismo y que tengan aridad mayor o igual a cero
+                        if f(s1, ..., sn) = f(t1, ..., tn) (n ≥ 0) then
+                            % Si es el caso entonces se compara subtérmino a subtérmino
+                            remplazar (s = t) por s1 = t1, ..., sn = tn
+                        % En caso de no ser el mismo la unificación falla
+                        else if f(s1, ..., sm) = g(t1, ..., tn) (f/m != g/n) then
+                            return(fallo)
+                        % Si ambos términos son variables y además son la misma variable entonces se puede quitar del resto del proceso de unificación
+                        else if X = X then 
+                            remover la X = X
+                        % Si es el caso en que solo uno de los terminos es una variable, el del lado derecho, entonces se cambia de orden
+                        else if t = X then
+                            remplazar t = X por X = t
+                        % Si es el caso en que el termino de la izquierda es una variable y el de la derecha no es una variable se debe realizar el chequeo de que la variable no sea subtérmino dentro del otro término
+                        else if X = t then
+                            % Si la variable aparece como subtérmino entonces la unificación falla
+                            if subtermino(X, t) then
+                                return(fallo)
+                            % Si no es subtérmino entonces se remplaza toda ocurrencia de X por el otro término
+                            else remplazar todo X por t
+                            end if
+                        end if
+                    % Se repiten las acciones anteriormente mencionadas hasta que ya no se pueda realizar más acción alguna
+                    until no hay acción posible para E
+                end function
+            \end{minted}
+        \end{solution}
+        %
         \item su código, también comentado;
+        \begin{solution}
+            \begin{minted}[
+                frame=none,
+                autogobble,
+                obeytabs=false,
+                breaklines,
+                tabsize=4,
+                linenos=true,
+                % numbersep=-10pt,
+                mathescape,
+                baselinestretch=1,
+                firstnumber=1,
+                bgcolor=bg!70,
+                ]{prolog}
+                %%% Autor: Leonardo Flores Torres
+                %%% Curso: Programacion para la Inteligencia Artificial
+                %%% Profesor: Alejandro Guerra Hernández
+                %%% Implementación del algoritmo de unificación
+
+                % Caso inicial: comienza el proceso de unificación comparando la cabeza de las metas, sus subtérminos y su aridad $\label{line:unifypls}$
+                unify(T1, T2) :-
+                    compound(T1), 
+                    compound(T2),
+                    T1=..[F|Args1],
+                    T2=..[F|Args2],
+                    length(Args1, Len), 
+                    length(Args2, Len),
+                    maplist(unify, Args1, Args2).
+
+                % Caso: T1 es una variable y T2 un termino compuesto, se hace chequeo de ocurrencias para verificar que T1 no sea un subtermino en T2. $\label{line:varcompound}$
+                unify(T1, T2) :-
+                    var(T1),
+                    compound(T2),
+                    unify_with_occurs_check(T1, T2).
+
+                % Caso: T1 es un atomo y T2 es una variable $\label{line:atomovar}$
+                unify(T1, T2) :-
+                    atomic(T1),
+                    var(T2),
+                    T2 = T1.
+
+                % Caso: T1 es una variable y T2 es un atomo $\label{line:varatomo}$
+                unify(T1, T2) :-
+                    var(T1),
+                    atomic(T2),
+                    T1 = T2.
+
+                % Caso: T1 es una variable y T2 tambien pero son diferentes $\label{line:varvar}$
+                unify(T1, T2) :-
+                    var(T1),
+                    var(T2),
+                    T1 = T2.
+
+                % Caso: T1 y T2 son el mismo y ademas son variables
+                unify(T, T) :- var(T).
+            \end{minted}
+            Se tomó como referencia el material de clase \cite{guerra2022pia}, y lo discutido durante las lecturas de la misma materia. También se revisó material incluido como respuesta en una página web \cite{stack2021unification}. El primer caso se muestra en la línea \ref{line:unifypls}, aquí es donde primero se unifican las cabezas de las metas, en caso de ser iguales y de tener la misma aridad se procede con el algoritmo de unificación. Si es el caso en que se se procede con el algoritmo entonces se realiza un mapeo para aplicar el algoritmo de unificación ahora a todos los subtérminos por pares.
+            
+            La línea \ref{line:varcompound} cubre el punto cuando es el caso que hay una variable y un término compuesto, es aquí que se hace el chequeo de ocurrencias. El caso de la linea \ref{line:atomovar} es aquel donde un término es una constante y el otro término es una variable, más específicamente en el orden $t = X$, lo que se hace es invertir la relación a $X = t$. De manera similar, en la línea \ref{line:varatomo} se maneja el caso entre variable y constante cuando $X = t$. Finalmente, los útimos dos casos a partir de la línea \ref{line:varvar} son cuando ambos términos son variables, cuando son diferentes se toma $X = Y$ y se pueden remplazar las ocurrencias de $Y$ por $X$, y cuando son iguales se puede remover la variable del resto del proceso de unificación. 
+        \end{solution}
         \item Los siguientes ejemplos de la ejecución:
         \begin{enumerate}
             \item $q(Y, g(a, b))$, $p(g(X, X), Y)$.
             \item $r(a, b, c)$, $r(X, Y, Z)$.
-            \item $mayor(padre(Y), Y)$, $mayor(padre(Z), juan)$.
-            \item $conoce(padre(X), X)$, $conoce(W, W)$.
+            \item $\text{mayor}(\text{padre}(Y), Y)$, $\text{mayor}(\text{padre}(Z), \text{juan})$.
+            \item $\text{conoce}(\text{padre}(X), X)$, $\text{conoce}(W, W)$.
         \end{enumerate}
+        \begin{solution}
+            Los ejemplos de ejecución del algoritmo de unificación se han puesto juntos y se muestran a continuación:
+            \begin{minted}[
+                frame=none,
+                autogobble,
+                obeytabs=false,
+                breaklines,
+                tabsize=4,
+                linenos=true,
+                % numbersep=-10pt,
+                baselinestretch=1,
+                firstnumber=1,
+                bgcolor=bg!70,
+                ]{prolog}
+                ?- unify(q(Y, g(a, b)), p(g(X, X), Y)).
+                false.
+
+                ?- unify(r(a, b, c), r(X, Y, Z)).
+                X = a,
+                Y = b,
+                Z = c .
+
+                ?- unify(mayor(padre(Y), Y), mayor(padre(Z), juan)).
+                Y = Z, Z = juan .
+
+                ?- unify(conoce(padre(X), X), conoce(W, W)).
+                false.
+            \end{minted}
+            En el primer caso falla porque las cabezas de ambas metas son distintas, \code{q} y \code{p}; el segundo caso unifica la cabeza de ambas metas, y además unifican término por término, como todos los términos son constantes de un lado y variables del otro unifican rápidamente y se hace el cambio de \code{t = X} por \code{X = t}; en el cuarto es donde sucede el chequeo de ocurrencias y falla.
+        \end{solution}
     \end{enumerate}
     %
     \item Implemente las siguientes operaciones sobre conjuntos representados como listas \textbf{(20 puntos)}:
@@ -61,6 +196,37 @@
             ?- subset([], [1,2]).
             true.
         \end{minted}
+        \begin{solution}
+            La regla que computa el valor de verdad respecto a si un conjunto es subconjunto de otro, \code{subset1/2}, se muestra a continuación:
+            \begin{minted}[
+                frame=none,
+                autogobble,
+                obeytabs=false,
+                breaklines,
+                tabsize=4,
+                linenos=true,
+                % numbersep=-10pt,
+                baselinestretch=1,
+                firstnumber=1,
+                bgcolor=bg!70,
+                ]{prolog}
+                %%% subset/2 returns the truth value if a given set is subset of another set, both sets represented as lists
+                %%% Examples:
+                % ?- subset1([1,3], [1,2,3,4]).
+                % true.
+                % ?- subset1([], [1,2]).
+                % true.
+                subset1([], _).
+                subset1([X|Xs], Y) :-
+                    member(X, Y), !,
+                    subset1(Xs, Y).
+
+                %%% subset2/2 makes use of subset/2 already predefined inside Prolog
+                subset2(X, Y) :-
+                    subset(X, Y).
+            \end{minted}
+            Además, se incluyó una regla extra, \code{subset2/2}, que hace uso de la función ya definida en Prolog. En los comentarios de \code{subset1/2} se muestra la solución a la meta requerida para este inciso.
+        \end{solution}
         %
         \item Intersección:
         \begin{minted}[
@@ -78,6 +244,43 @@
             ?- inter([1,2,3], [2,3,4], L).
             L = [2, 3].
         \end{minted}
+        \begin{solution}
+            La implementación de la regla que computa la intersección entre dos conjuntos representados como listas, \code{intersection1/2}, se muestra a continuación:
+            \begin{minted}[
+                frame=none,
+                autogobble,
+                obeytabs=false,
+                breaklines,
+                tabsize=4,
+                linenos=true,
+                % numbersep=-10pt,
+                baselinestretch=1,
+                firstnumber=1,
+                bgcolor=bg!70,
+                ]{prolog}
+                %%% intersection1/3 computes the intersection operation between two sets represented as lists
+                % ?- intersection1([1,2,3], [2,3,4], L).
+                % L = [2, 3].
+                intersection1(X, Y, Z) :-
+                    intersection1aid(X, Y, Z), !.
+                % base case
+                intersection1aid(_, [], []).
+                % case when Y is a member of Y
+                intersection1aid(X, [Y|Ys], [Y|Zs]) :-
+                    member(Y, X),
+                    intersection1aid(X, Ys, Zs).
+                % case when Y is not a member of X
+                intersection1aid(X, [_|Ys], Zs) :-
+                    intersection1aid(X, Ys, Zs).
+
+                %%% intersection2/3 makes use of intersection/3 alaready predefined inside prolog
+                % ?- intersection2([1,2,3], [2,3,4], L).
+                % L = [2, 3].
+                intersection2(X, Y, Z) :-
+                    intersection(X, Y, Z).
+            \end{minted}
+            Se excribió una regla desde primeros principios que hiciera la intersección, \code{intersection1}, y también se incluyó otra regla, \code{intersection2/2}, que hiciera uso de la ya definida en la librería de Prolog.
+        \end{solution}
         %
         \item Unión:
         \begin{minted}[
@@ -95,6 +298,45 @@
             ?- union([1,2,3,4], [2,3,4,5], L).
             L = [1, 2, 3, 4, 5].
         \end{minted}
+        \begin{solution}
+            Para este inciso se definieron dos reglas principales, la primera es una implementación de la operación unión entre subconjuntos y la segunda es una regla usando la definición incluída en la librería de Prolog:
+            \begin{minted}[
+                frame=none,
+                autogobble,
+                obeytabs=false,
+                breaklines,
+                tabsize=4,
+                linenos=true,
+                % numbersep=-10pt,
+                baselinestretch=1,
+                firstnumber=1,
+                bgcolor=bg!70,
+                ]{prolog}
+                %%% union1/3 computes the union operation between two sets and returns
+                %%% the same elements as union/3 predefined in prolog
+                %%% Example:
+                % ?- union1([1,2,3,4], [2,3,4,5], L).
+                % L = [1, 2, 3, 4, 5] .
+                union1(X, Y, Z) :-
+                    union1aid(X, Y, Z1), !,
+                    sort(Z1, Z).
+                union1aid(X, [], X).
+                union1aid(X, [Y|Ys], [Y|Xs]) :-
+                    not(member(Y, X)),
+                    union1aid(X, Ys, Xs).
+                union1aid(X, [Y|Ys], Xs) :-
+                    member(Y, X),
+                    union1aid(X, Ys, Xs).
+
+                %%% union2/3 makes use of union/3 already predefined inside prolog
+                %%% Example:
+                % ?- union2([1,2,3,4], [2,3,4,5], L).
+                % L = [1, 2, 3, 4, 5].
+                union2(X, Y, Z) :-
+                    union(X, Y, Z).
+            \end{minted}
+            Uno puede corroborar que si se borra el \code{sort/2} de \code{union1/3} el resultado es el mismo que el mostrado en el ejemplo, solo con la diferencia de que los elementos no están ordenados. De hecho, el ejemplo que se menciona en el comentario de ambas reglas es el que se menciona para corroborar este inciso.
+        \end{solution}
         %
         \item Diferencia:
         \begin{minted}[
@@ -114,6 +356,50 @@
             ?- dif([1,2,3], [1,4,5], L).
             L = [2, 3].
         \end{minted}
+        \begin{solution}
+            La regla definida para calcular la diferencia entre dos conjuntos se muestra a continuación:
+            \begin{minted}[
+                frame=none,
+                autogobble,
+                obeytabs=false,
+                breaklines,
+                tabsize=4,
+                linenos=true,
+                % numbersep=-10pt,
+                baselinestretch=1,
+                firstnumber=1,
+                bgcolor=bg!70,
+                ]{prolog}
+                %%% difference/3 computes the difference between two given sets represented as lists
+                difference1(X, Y, Z) :- 
+                    difference1aid(X, Y, Z), !.
+                difference1aid([], _, []).
+                difference1aid([X|Xs], Y, Z) :-
+                    member(X, Y),
+                    difference1aid(Xs, Y, Z).
+                difference1aid([X|Xs], Y, [X|Zs]) :-
+                    difference1(Xs, Y, Zs).
+            \end{minted}
+            Probando las metas con los conjuntos mencionados para este inciso se obtiene la respuesta esperada:
+            \begin{minted}[
+                frame=none,
+                autogobble,
+                obeytabs=false,
+                breaklines,
+                tabsize=4,
+                linenos=true,
+                % numbersep=-10pt,
+                baselinestretch=1,
+                firstnumber=1,
+                bgcolor=bg!70,
+                ]{prolog}
+                ?- difference1([1,2,3], [1,4,5], L).
+                L = [2, 3].
+                ?- difference1([1,2,3,4], [2,3,4,5], L).
+                L = [1].
+            \end{minted}
+            Quisiera mencionar que para algunas de estas soluciones tomé como guía una preguntas en la red sobre como unir listas en prolog \cite{stack2017union} y otra sobre como encontrar la intersección entre dos listas \cite{stack2012intersection}.
+        \end{solution}
     \end{itemize}
     %
     \item Escriba un predicado que convierta números naturales de Peano a su equivalente decimal. Posteriormente implemente la suma y la resta entre dos números de Peano \textbf{(10 puntos)}. Por ejemplo:
@@ -139,7 +425,7 @@
         R = s(0).
     \end{minted}
     \begin{solution}
-        Primero definí una manera de convertir números naturales en la representación de Peano:
+        Los números de Peano son una representación de los números naturales, y como tal pueden tomar valores negaticos, esto se tomó en cuenta para la implementación de las reglas de este inciso. Primero definí una manera de convertir números naturales en la representación de Peano:
         \begin{minted}[
             frame=none,
             autogobble,
@@ -152,14 +438,21 @@
             firstnumber=1,
             bgcolor=bg!70,
             ]{prolog}
-            %%% natToPeano/2 Computes the conversion of natural numbers to their Peano representation
-            %%% Ejemplo:
+            %%% Withouth finite domains
+            %%% natToPeano/2 computes the conversion of natural numbers to their Peano representation, it also deals with negative natural numbers
+            %%% Examples:
             % ?- natToPeano(3, X).
             % X = s(s(s(0))) .
+            % ?- natToPeano(-3, X).
+            % X = -s(s(s(0))) .
             natToPeano(0, 0).
             natToPeano(N, s(X)) :-
-                N > 0,
+                N >= 0,
                 N1 is N - 1,
+                natToPeano(N1, X).
+            natToPeano(N, -s(X)) :-
+                N < 0,
+                N1 is - N - 1,
                 natToPeano(N1, X).
         \end{minted}
         Con la regla \code{natToPeano/2} traté de hacer otra regla \code{peanoToNat/2} para encontrar el número natural correspondiente a un número de Peano pero no obtenia resultados satisfactorios:
@@ -191,12 +484,17 @@
             firstnumber=1,
             bgcolor=bg!70,
             ]{prolog}
-            %%% peanoToNat/2 computes the respective natural number of a Peano number
-            %%% Example:
+            %%% peanoToNat/2 computes the respective natural number of a Peano number, it also deals with negative Peano numbers
+            %%% Examples:
             % ?- peanoToNat(s(s(s(0))), X).
             % X = 3.
+            % ?- peanoToNat(-s(s(s(0))), X).
+            % X = - 3.
             peanoToNat(0, 0).
             peanoToNat(s(X), N) :-
+                peanoToNat(X, N1),
+                N is N1 + 1.
+            peanoToNat(-s(X), -N) :-
                 peanoToNat(X, N1),
                 N is N1 + 1.
         \end{minted}
@@ -239,7 +537,16 @@
             firstnumber=1,
             bgcolor=bg!70,
             ]{prolog}
-            %%% addPeano/3 adds S2 to S1, S3 = S1 + S2
+            %%% addPeano/3 adds S2 to S1, S3 = S1 + S2, it can deal with positive and negative Peano numbers alike
+            %%% Examples:
+            % ?- addPeano(s(0), 0, X).
+            % X = s(0) .
+            % ?- addPeano(s(0), s(s(0)), X).
+            % X = s(s(s(0))) .
+            % ?- addPeano(-s(0), s(s(0)), X).
+            % X = s(0) .
+            % ?- addPeano(s(0), -s(s(0)), X).
+            % X = -s(0) .
             addPeano(S1, S2, S3) :-
                 peanoToNat(S1, N1),
                 peanoToNat(S2, N2),
@@ -259,15 +566,23 @@
             firstnumber=1,
             bgcolor=bg!70,
             ]{prolog}
-            %%% substractPeano/3 substracts S2 to S1, S3 = S1 - S2
+            %%% substractPeano/3 substracts S2 to S1, S3 = S1 - S2; it can deal with operations between positive and negative numbers alike
+            %%% Examples:
+            % ?- substractPeano(s(0), 0, X).
+            % X = s(0) .
+            % ?- substractPeano(0, s(0), X).
+            % X = -s(0) .
+            % ?- substractPeano(s(0), s(s(0)), X).
+            % X = -s(0) .
+            % ?- substractPeano(s(0), -s(s(0)), X).
+            % X = s(s(s(0))) .
             substractPeano(S1, S2, S3) :-
                 peanoToNat(S1, N1),
                 peanoToNat(S2, N2),
-                N1 > N2,
                 N3 is N1 - N2,
                 natToPeano(N3, S3).
         \end{minted}
-        Para ambas operaciones consideré oportuno hacer el cambio de ambos números de peano a su respectivo número natural, realizar la operación correspondiente y regresar a la representación de Peano.
+        Para ambas operaciones consideré oportuno hacer el cambio de ambos números de peano a su respectivo número natural, realizar la operación correspondiente y regresar a la representación de Peano. La operación resta entre números de peano se consideró como una operación en la que el orden importa, esto es, $p_1 - p_2$ donde $p_1$ es el número al que se le resta, y ambos números de Peano pueden ser tanto positivos como negativos. Además, si no quisiera tomarse en consideración el órden de la operación como en \code{substractPeano/2} podría tomarse la regla \code{addPeano/2} para asignarle un signo negativo al número de Peano deseado y así tener un equivalente de la resta. No se incluyeron casos de prueba como para otros incisos ya que se muestran como comentarios de sus respectivas reglas. Para responder a este inciso se tomó como referencia una pregunta de la web \cite{stack2012peano} y un repositorio de GitHub \cite{git2016peano}.
     \end{solution}
     %
     \item Escriban un predicado \code{pino/1} cuyo argumento es un entero positivo y su salida es como sigue \textbf{(10 puntos)}:
@@ -355,7 +670,7 @@
             * * * * * * * 
             true.
         \end{minted}
-        Jugando un poco con el programa se puede hacer un pino borracho:
+        Jugando un poco con el programa se puede hacer un pino inclinado:
         \begin{minted}[
             frame=none,
             autogobble,
@@ -378,6 +693,7 @@
             *     *     *     *     *     *     *     
             true.
         \end{minted}
+        Tomé como referencias de apoyo unas preguntas en la red, \cite{stack2014pine} y \cite{stack2021pine}, para guiarme al responder este inciso.
     \end{solution}
     %
     \item Escriba un programa que regrese en su segundo argumento la lista de todas las permutaciones de la lista que es su primer argumento \textbf{(10 puntos)}. Por ejemplo:
@@ -440,7 +756,7 @@
             L = [[1, 2, 3, 4], [1, 2, 4, 3], [1, 3, 2, 4], [1, 4, 2, 3], [1, 3, 4, 2], [1, 4, 3|...], [2, 1|...], [2|...], [...|...]|...] [write]
             L = [[1, 2, 3, 4], [1, 2, 4, 3], [1, 3, 2, 4], [1, 4, 2, 3], [1, 3, 4, 2], [1, 4, 3, 2], [2, 1, 3, 4], [2, 1, 4, 3], [3, 1, 2, 4], [4, 1, 2, 3], [3, 1, 4, 2], [4, 1, 3, 2], [2, 3, 1, 4], [2, 4, 1, 3], [3, 2, 1, 4], [4, 2, 1, 3], [3, 4, 1, 2], [4, 3, 1, 2], [2, 3, 4, 1], [2, 4, 3, 1], [3, 2, 4, 1], [4, 2, 3, 1], [3, 4, 2, 1], [4, 3, 2, 1]] .
         \end{minted}
-        Para la última meta se especificó como \code{perms([1,2,3,4], L); true.} para poder tener la oportunidad de escribir \code{w} y mostrar la lista completa de permutaciones.
+        Para la última meta se especificó como \code{perms([1,2,3,4], L); true.} para poder tener la oportunidad de escribir \code{w} y mostrar la lista completa de permutaciones. Para resolver este inciso tomé como referencias algunas preguntas en la web, \cite{stack2011perms} y \cite{stack2012perms}.
     \end{solution}
 \end{enumerate}
 

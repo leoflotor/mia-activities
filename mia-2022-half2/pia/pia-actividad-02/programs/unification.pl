@@ -1,8 +1,9 @@
 %%% Autor: Leonardo Flores Torres
 %%% Curso: Programacion para la Inteligencia Artificial
 %%% Profesor: Alejandro Guerra Hernández
-%%% Version extendida del programa de la familia
+%%% Implementación del algoritmo de unificación
 
+% Caso inicial: comienza el proceso de unificación comparando la cabeza de las metas, sus subtérminos y su aridad.
 unify(T1, T2) :-
     compound(T1), 
     compound(T2),
@@ -11,17 +12,6 @@ unify(T1, T2) :-
     length(Args1, Len), 
     length(Args2, Len),
     maplist(unify, Args1, Args2).
-
-% unify(T1, T2) :-
-%     functor(T1, F, N),
-%     functor(T2, F, N).
-
-% unify(T1, T2) :-
-%     var(T1),
-%     compound(T2),
-%     T2 =.. [F|Args],
-%     not(member(T1, Args)),
-%     T1 = T2.
 
 % Caso: T1 es una variable y T2 un termino compuesto, se hace chequeo de ocurrencias para verificar que T1 no sea un subtermino en T2.
 unify(T1, T2) :-
