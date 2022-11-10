@@ -28,7 +28,7 @@ imgPixelCount(img) = reduce(*, size(img))
 
 randomPixelSampling(img, n) = sample(img, n, replace=false)
 
-uniquePixels(img) = unique(img)
+# uniquePixels(img) = unique(img)
 
 
 function rawPixelIndexes(img)
@@ -91,16 +91,15 @@ function pixelSet(coordinates, img)
 end
 
 
-function heatMaps(skindist, bgdist; rev=true)
-    cmap = :RdPu # :PuRd
-    cmap = rev ? Reverse(cmap) : cmap # :RdYlBu :PuRd
-    skin, ax1 = heatmap(skindist |> x -> rotr90(x), colormap=cmap)
-    bg, ax2 = heatmap(bgdist |> x -> rotr90(x), colormap=cmap)
+function heatMap(dist; rev=true, cmap=:YlOrRd)
+    cmap = rev ? Reverse(cmap) : cmap
+    res = size(dist) |> x -> (x[2], x[1])
+    fig = Figure(resolution = res)
+    ax = GLMakie.Axis(fig[1,1])
+    heatmap!(dist |> x -> rotr90(x), colormap=cmap)
+    hidedecorations!(ax)
 
-    hidedecorations!(ax1)
-    hidedecorations!(ax2)
-
-    return (skin=skin, bg=bg)
+    return fig
 end
 
 
@@ -129,6 +128,26 @@ function gaussianDist(pixel::RGB{N0f8}, avg_vec, cov_mat)
     num = exp(exp_arg)
     den = (2 * pi)^(dim / 2) * sqrt(det(cov_mat))
     return num / den
+end
+
+
+function probabilityDistributions(img, μskin, μbg, Σskin, Σbg, λp)
+    prioriskin = λp
+    prioribg = 1 - prioriskin
+
+    distSkin(pixel) = gaussianDist(pixel, μskin, Σskin)
+    distBG(pixel) = gaussianDist(pixel, μbg, Σbg)
+
+    posteriorSkin(pixel) = (distSkin(pixel) * prioriskin) / 
+        ((distSkin(pixel) * prioriskin) + (distBG(pixel) * prioribg))
+    posteriorBG(pixel) = (distBG(pixel) * prioribg) / 
+        ((distSkin(pixel) * prioriskin) + (distBG(pixel) * prioribg))
+
+    distskin = distSkin.(img)
+    distbg = distBG.(img)
+    postskin = posteriorSkin.(img)
+    postbg = posteriorBG.(img)
+    return distskin, distbg, postskin, postbg
 end
 
 

@@ -34,7 +34,7 @@
         \begin{equation}
             \text{Norm}_{x}[\sigma, \mu] = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left[- \frac{1}{2} \frac{(x - \mu)^2}{\sigma^2}\right],
         \end{equation}
-        donde $\mu$ es la media y $\sigma$ es la desviación estándar. Se generó una distribución normal univariada centrada en $\mu_0  = 5$ con desviación estándar $\sigma_0 = 1.5$, como se muestra en la \cref{fig:original}, con dominio $D_0 : \{x\ |\ x \in \left[\mu_0 - 3.5 \sigma_0,\ \mu_0 + 3.5 \sigma_0\right]\}$. De esta distribución normal se realizó un muestreo para extraer un número $N = 30$ de datos los cuales son el conjunto de entrenamiento $\{x_i\}_{i=1}^{30}$ usado en el resto de los incisos a responder en esta actividad.
+        donde $\mu$ es la media y $\sigma$ es la desviación estándar. Se generó una distribución normal univariada centrada en $\mu_0  = 5$ con desviación estándar $\sigma_0 = 1.5$, como se muestra en la \cref{fig:original}, con dominio $D_0 : \{x\ |\ x \in \left[\mu_0 - 4 \sigma_0,\ \mu_0 + 4 \sigma_0\right]\}$. De esta distribución normal se realizó un muestreo para extraer un número $N = 30$ de datos los cuales son el conjunto de entrenamiento $\{x_i\}_{i=1}^{30}$ usado en el resto de los incisos a responder en esta actividad.
         \begin{figure}[ht!]
             \centering
             \includegraphics[scale=0.4]{../figures/original.pdf}
@@ -160,13 +160,42 @@
             \label{fig:gaussianas}
         \end{figure}
 
-        Nótese que para el conjunto de puntos muestreados $\{x_i\}_{i=1}^{30}$ se obtiene un buen valor para la verosimilitud, con parámetros $\{\hat{\mu} = 5.053,\ \hat{\sigma} = 1.885\}$.
+        Nótese que para el conjunto de puntos muestreados $\{x_i\}_{i=1}^{30}$ se obtiene un buen valor para la verosimilitud, con parámetros $\{\hat{\mu} = 5.149,\ \hat{\sigma} = 1.7\}$ aunque estos valores dependen en gran medida de lo puntos dentro del conjunto muestreal.
+
+        Por completez se agrega el ejemplo de como computar la distribución con los parámetros mostrados en la \cref{fig:gaussiana_max}:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            mathescape,
+            ]{julia}
+            julia> begin
+                   # Parametros para el caso de maximizacion
+                   μi = nd.maxμ(xsample)
+                   σi = nd.maxσ(xsample)
+                   # probabilidades asociadas al conjunto muestreal
+                   wsample = nd.normalDist(xsample, μi, σi)
+                   # Computo de la gaussiana con parametros maximizados
+                   wi = nd.normalDist(x0, μi, σi)
+                   # Likelihood de los datos xsample respecto a los parametros
+                   lh = nd.likelihood(xsample, μi, σi)
+                   # Grafica de la gaussiana
+                   fig = nd.plotGuess(xsample, wsample, x0, wi, lh, μi, σi; maxlh = true)
+                   end
+        \end{minted}
 
     \end{solution}
     \item Genere el mapa térmico de las probabilidades considerando $\mu \in \left[2.5, 6.5\right]$, y $\sigma \in \left[0, 2\right]$, dividiendo ambos intervalos en 10 partes. Coloque un marcador en el punto de máxima verosimilitud.
     \item Calcule, usando el método de Maximum Likelihood, los parámetros $\hat{\mu}$ y $\hat{\sigma}^2$ que tanto coincide con el mapa térmico.
     \begin{solution}
-        Los incisos 3 y 4 se resolvieron de manera conjunta ya que al añadir un marcador en el mapa de calor que indique donde se encuentra el punto de máxima verosimilitud este se tuvo que haber computado de antemano. Me tomé la libertad de cambiar el número de divisiones a 30 en que se subdividen los intervalos para $\mu$ y $\sigma$. La instrucción escrita en \code{julia} que genera el mapa de calor se muestra a continuación:
+        Los incisos 3 y 4 se resolvieron de manera conjunta ya que al añadir un marcador en el mapa de calor que indique donde se encuentra el punto de máxima verosimilitud este se tuvo que haber computado de antemano. Me tomé la libertad de cambiar el número de divisiones a 150 en que se subdividen los intervalos para $\mu$ y $\sigma$. La instrucción escrita en \code{julia} que genera el mapa de calor se muestra a continuación:
         \begin{minted}[
             frame=none,
             autogobble,
@@ -181,7 +210,7 @@
             ]{julia}
             julia> begin 
                    # Numero de particiones para los intervalos de μ y σ
-                   partitions = 30
+                   partitions = 150
                    # Intervalos de μ y σ
                    μint = (2.5, 6.5)
                    σint = (0, 2)
@@ -210,7 +239,34 @@
             \caption{Mapa de calor incluyendo las verosimilitudes de sus respectivos parámetros.}
             \label{fig:heatmap}
         \end{figure}
-        Los valores para las verosimilitudes de cada uno de los casos se puede observar en el título de las \cref{fig:gaussiana_1,fig:gaussiana_2,fig:gaussiana_3,fig:gaussiana_max} con sus respectivos parámetros. El muestreo no es perfecto, mientras más puntos se obtengan para el muestreo mejor será la aproximación para la máxima verosimilitud. Aún así, mientras computaba las distribuciones gaussianas $G_{x}(\mu_i, \sigma_i)$ me encontraba seguido con el caso de que el la máxima verosimilitud era menor que la verosimilitud para el caso $\{\mu_3 = 5.1, \sigma_3 = 1.4\}$. Atribuyo este comportamiento como resultado del muestreo, pero la máxima verosimilitud siempre parecía encontrarse en el centro del elipsoide del mapa de calor.
+        Los valores para las verosimilitudes de cada uno de los casos se puede observar en el título de las \cref{fig:gaussiana_1,fig:gaussiana_2,fig:gaussiana_3,fig:gaussiana_max} con sus respectivos parámetros. El muestreo no es perfecto, mientras más puntos se obtengan para el muestreo mejor será la aproximación para la máxima verosimilitud. Aún así, al computar las distribuciones gaussianas $G_{x}(\mu_i, \sigma_i)$ surgia frecuentemente el caso en que la máxima verosimilitud era menor que la verosimilitud para el caso $\{\mu_3 = 5.1, \sigma_3 = 1.4\}$. Atribuyo este comportamiento como resultado del muestreo, pero la máxima verosimilitud siempre parecía encontrarse en el centro del elipsoide del mapa de calor.
+
+        Incluso se puede encontrar el valor del máximo likelihood correspondiente al mallado, se usa la función \code{argmax} sobre la variable donde se guardó el mallado la cual regresa índices y éstos se usan para encontrar los valores correspondientes de $\mu$ y $\sigma$ en ese punto de la malla.
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            ]{julia}
+            julia> μmeshi, σmeshi = argmax(lhmesh) |> x -> (μrange[x[1]], σrange[x[2]])
+            (5.153333333333333, 1.7)
+
+            julia> μmax, σmax
+            (5.149274637318659, 1.700282387563139)
+
+            julia> abs(μmeshi - μmax)
+            0.0040586960146740125
+
+            julia> abs(σmeshi - σmax)
+            0.00028238756313903046
+        \end{minted}
+        Se puede observar que la diferencia para $\mu$ es de 0.4 porciento, mientras que la diferencia de $\sigma$ es del  0.02 porciento. Para concluir con el trabajo solamente se quisiera recordar al lector que las instrucciones mencionadas sobre como se calcularon los distintos pasos de la actividad se hicieron dentro del \code{REPL} de \code{julia}, también se incluye el módulo desarrollado para esta actividad en el Apéndice.
     \end{solution}
 \end{enumerate}
 

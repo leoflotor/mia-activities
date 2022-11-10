@@ -9,6 +9,7 @@ Required libraries
 using Images
 using Plots
 using StatsBase: sample
+using Graphs: Graph, dijkstra_shortest_paths
 
 
 #==============================
@@ -133,6 +134,24 @@ function adjacencyMatrix(nrows, ncols;
     end
 
     return adjmat
+end
+
+
+function findPath(adjmat, ncols; start=start, finish=finish)
+    startid = start |> x -> id(x[1], x[2], ncols)
+    finishid = finish |> x -> id(x[1], x[2], ncols)
+
+    graph = Graph(adjmat)
+    dijkstra_paths = dijkstra_shortest_paths(graph, startid)
+    
+    path = []
+    node = finishid
+    while node != 0
+        append!(path, node)
+        node = dijkstra_paths.parents[node]
+    end
+    
+    return path
 end
 
 
