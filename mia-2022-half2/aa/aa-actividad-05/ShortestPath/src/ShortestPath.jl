@@ -9,7 +9,8 @@ Required libraries
 using Images
 using Plots
 using StatsBase: sample
-using Graphs: Graph, dijkstra_shortest_paths
+using Graphs: dijkstra_shortest_paths
+using SimpleWeightedGraphs: SimpleWeightedGraph
 
 
 #==============================
@@ -17,12 +18,13 @@ Image operations
 ===============================#
 
 
-function visualize(neighborhood)
+function visualize(neighborhood; size=(600,600))
     fig = plot(neighborhood, 
-        ticks=false, 
-        xaxis=false, yaxis=false,
-        background_color=:transparent,
-        foreground_color=:black,
+        ticks = false, 
+        axis = false,
+        background_color = :transparent,
+        foreground_color = :black,
+        size = size,
     )
     return fig
 end
@@ -141,77 +143,22 @@ function findPath(adjmat, ncols; start=start, finish=finish)
     startid = start |> x -> id(x[1], x[2], ncols)
     finishid = finish |> x -> id(x[1], x[2], ncols)
 
-    graph = Graph(adjmat)
-    dijkstra_paths = dijkstra_shortest_paths(graph, startid)
+    graph = SimpleWeightedGraph(adjmat) # A weighted graph is needed
+    dijkstra = dijkstra_shortest_paths(graph, startid)
     
-    path = []
+    path_nodes = []
     node = finishid
+    distance = dijkstra.dists[finishid]
     while node != 0
-        append!(path, node)
-        node = dijkstra_paths.parents[node]
+        append!(path_nodes, node)
+        node = dijkstra.parents[node]
     end
     
-    return path
+    return path_nodes, distance
 end
 
 
-function findAll(adjmat; 
-    start::Int=start, finish=nothing
-)
-    n = size(adjmat)[1]            # number of nodes
-
-    dist = ones(n) * Inf            # all distances are initialized to inf
-    dist[start] = adjmat[start, start]
-    
-    visited = BitArray(undef, n)    # bitarray to represent visited nodes initialized all as false
-    # visited = [false for _ in 1:n]
-    parent = ones(n) * (-1)
-    path = fill(Int[], n)
-    # path = [[] for _ in 1:n]
-
-    for _ in 1:n-1
-        minix = Inf
-        u = 1
-        
-        for v in 1:n
-            if iszero(visited[v]) && dist[v] <= minix
-                minix = dist[v]
-                u = v
-            end
-        end
-
-        visited[u] = true
-
-        for v in 1:n
-            if (iszero(visited[v]) && !iszero(adjmat[u,v]) 
-                && dist[u] + adjmat[u,v] < dist[v])
-                parent[v] = u
-                dist[v] = dist[u] + adjmat[u,v]
-            end
-        end
-    end
-
-    for i in 1:n
-        j = i
-        s = []
-
-        while parent[j] != -1
-            append!(s, j)
-            j = parent[j] |> Int
-        end
-
-        append!(s, start)
-        path[i] = s |> reverse
-    end
-
-    if !isnothing(finish)
-        return dist[finish], path[finish]
-    end
-
-    return dist, path
-end
-
-
+# DEPRECATED
 function doit(nrows, ncols, start, finish, density, diags)
     # nrows = 7
     # ncols = 11

@@ -3,13 +3,13 @@
 % -- Input and language settings
 % \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
-\decimalpoint                             % From bable package to use points instead of commas in decimals
+\decimalpoint                             % From babel package to use points instead of commas in decimals
 
 % -- Page and line settings
 \usepackage{geometry}
 \geometry{letterpaper, 
     % margin=2cm, 
-    left=2cm, right=2cm,
+    left=3cm, right=3cm,
     top=1.2cm, bottom=1.2cm,
     includefoot, 
     includehead}
@@ -70,7 +70,7 @@
 
 \lhead{\theinstitution\ -- \thedepartment}
 \chead{}
-\rhead{\thecourse\ -- \thetitle}
+\rhead{Programación para la IA\ -- \thetitle}
 \lfoot{}
 \cfoot{\thepage}
 \rfoot{}
@@ -83,7 +83,7 @@
 }
 {
 
-% \hfill\rule{0.5\textwidth}{0.5pt}
+\hfill\rule{0.5\textwidth}{0.5pt}
 \end{quote}}
 
 % -- Equation result
@@ -98,17 +98,13 @@
 \newcommand{\txtgray}[1]{\textcolor{gray}{#1}}
 
 % -- Author information
-\title{Actividad 6}
+\title{Actividad 3}
 \author{Leonardo Flores Torres}
 \newcommand\theinstitution{Universidad Veracruzana}
 \newcommand\thedepartment{Inteligencia Artificial}
-\newcommand\thecourse{Métodos Probabilísticos}
+\newcommand\thecourse{Programación para la Inteligencia Artificial}
 
 % -- Paths
-\newcommand\codepath{../ShortestPath/src/ShortestPath.jl}
-
-% -- Colors
-\definecolor{start}{rgb}{0.91764, 0.41176, 0.38431}
-\definecolor{finish}{rgb}{0.66274, 0.71372, 0.39607}
-\definecolor{path}{rgb}{0.96862, 0.78039, 0.60392}
-\definecolor{obstacle}{rgb}{0.70196, 0.18039, 0.41568}
+\newcommand\codesolfirst{../programs/movingout.pl}
+\newcommand\codesolsecond{../programs/busquedaPrimeroMejor.pl}
+\newcommand\codesolthird{../programs/id3Improved.pl}

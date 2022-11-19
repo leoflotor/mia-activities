@@ -27,32 +27,15 @@
 % -- 
 \vspace{1cm}
 
+Adaptar el algoritmo de Dijkstra para que trabaje en una rejilla donde se defina el punto inicial $(r_i, c_i)$ y el punto final $(r_f, c_f)$ y encuentre la ruta óptima con las siguientes variantes,
 \begin{enumerate}
-    \item Ajuste de distribuciones de probabilidad a datos de entrenamiento y la distribución predictiva para una distribución Gaussiana unidimensional. Defina $N > 10$ puntos aleatorios extraídos de una distribución gaussiana $\text{G}_{x}(\mu_0, \sigma_0)$, con $\mu_0 = 5$ y $\sigma_0 = 1.5$, $\text{RandomG}_{x}(\sigma_0, \mu_0)$.
+    \item usar 4 vecinos con distancias unitarias,
+    \item usar 8 vecinos,
+    \item incluir la posibilidad de encontrar obstáculos.
     \begin{solution}
-        Una distribución normal univariada $\text{Norm}_{x}[\sigma, \mu]$ está dada por
-        \begin{equation}
-            \text{Norm}_{x}[\sigma, \mu] = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left[- \frac{1}{2} \frac{(x - \mu)^2}{\sigma^2}\right],
-        \end{equation}
-        donde $\mu$ es la media y $\sigma$ es la desviación estándar. Se generó una distribución normal univariada centrada en $\mu_0  = 5$ con desviación estándar $\sigma_0 = 1.5$, como se muestra en la \cref{fig:original}, con dominio $D_0 : \{x\ |\ x \in \left[\mu_0 - 3.5 \sigma_0,\ \mu_0 + 3.5 \sigma_0\right]\}$. De esta distribución normal se realizó un muestreo para extraer un número $N = 30$ de datos los cuales son el conjunto de entrenamiento $\{x_i\}_{i=1}^{30}$ usado en el resto de los incisos a responder en esta actividad.
-        \begin{figure}[ht!]
-            \centering
-            \includegraphics[scale=0.4]{../figures/original.pdf}
-            \caption{Distribución gaussiana de probabilidad usada para extrar los datos de entrenamiento.}
-            \label{fig:original}
-        \end{figure}
-        
-        Solamente para clarificar, los parámetros que maximizan la verosimilitud $\{\hat{\mu}, \hat{\sigma}\}$ se encuentran al computar las derivadas e igualando a cero para encontrar un máximo, respecto a cada uno de los parámetros $\{\mu, \sigma\}$, del producto de las verosimilitudes individuales para cada uno de los puntos del conjunto muestreal $\{x_i\}_{i=1}^{N}$. Como se está usando una distribución normal univariada se tiene que la verosimilitud es igual a
-        \begin{equation}
-            \text{Pr}(x_{1 \ldots N} | \mu, \sigma^2) = \prod\limits_{i=1}^{N}\text{Norm}_{x_i} \left[\mu, \sigma^2\right].
-        \end{equation}
-        Después de encontrar las derivadas respecto a cada uno de los parámetros e igualando a cero se obtiene que los parámetros que maximizan la verosimilitud son
-        \begin{align}
-            \hat{\mu} & = \frac{1}{N} \sum\limits_{i=1}^{N} x_i\ ,\\
-            \hat{\sigma}^2 & = \frac{1}{N} \sum\limits_{i=1}^{N} \left(x_i - \hat{\mu}\right)^2\ .
-        \end{align}
-        
-        Para generar estos datos se definen los parámetros iniciales \code{$\mu_0$} y \code{$\sigma_0$}, se define el dominio en \code{x0}, y el muestreo se computa en \code{xsample}. También se computan los valores de la gaussiana en el dominio, i.e., $\text{G}_{x_0}(\mu_0, \sigma_0)$. Es importante mencionar que el dominio será el mismo en todas las demás distribuciones que se generen, esto quiere decir $D_i = D_0$ para $i = 1, 2, 3$ donde $i$ denota el conjunto de condiciones $\{\mu_i,\ \sigma_i\}$ mencionadas en el segundo inciso de la actividad.
+        El módulo desarrollado, \code{ShortestPath}, para resolver esta actividad se muestra en el apéndice de este trabajo. El algoritmo de Dijkstra no fue implementado sino que se utilizó una librería ya desarrollada en \code{julia} que permite el uso de grafos y además incluye la implementación de distintos algoritmos de recorrido y búsqueda de los caminos más cortos, como lo es el de Dijkstra.
+
+        La manera de utilizar el módulo, \code{ShortestPath}, en el \code{REPL} de \code{julia} se muestra a continuación. Primero se define el tamaño de la rejilla en \code{nrows} y \code{ncols}, y con estas variables se computa la representación de índices de los elementos de la rejilla, aunque resulta ser impractica de visualizar mientras más el número más vecinos hay en total dentro de la vecindad.
         \begin{minted}[
             frame=none,
             autogobble,
@@ -65,108 +48,16 @@
             firstnumber=1,
             bgcolor=bg!70,
             ]{julia}
-            julia> using Revise, NormalDist; nd = NormalDist;
-            julia> begin
-                   # Parametros iniciales de la gaussiana
-                   μ0 = 5
-                   σ0 = 1.5
-                   # Dominio de la gaussiana original
-                   x0 = range(μ0 - 4 * σ0, μ0 + 4 * σ0, 2000)
-                   # Evaluacion de la gaussiana en el dominio G(x0)
-                   w0 = nd.normalDist(x0, μ0, σ0)
-                   # Numero de puntos para muestreo
-                   npts = 30
-                   # Muestreo de puntos
-                   xsample = nd.randomSample(x0, w0, npts)
-                   # Grafica de la gaussiana
-                   fig = nd.plotNormal(x0, w0)
-                   end
-        \end{minted}
-        Nótese que en ningún momento se ha mencionado que es necesario restringir el conjunto de entrenamiento a valores únicos, por lo que está permitido tener puntos repetidos dentro del conjunto aleatorio de entrenamiento $\{x_i\}_{i}^{30}$.
-    \end{solution}
-    \item Grafique 3 figuras como la lámina 16 del Prince, diapositiva 4, donde se muestren los $N$ puntos, y los valores del likelihood para 3 Gaussianas considerando
-    \begin{enumerate}
-        \item $\mu_1 = 3$, $\sigma_1 = 1$,
-        \item $\mu_2 = 6$, $\sigma_2 = 1.6$,
-        \item $\mu_3 = 5.1$, $\sigma_3 = 1.4$.
-    \end{enumerate}
-    Grafique las Gaussianas sobre los puntos de entrenamiento y su ordenada para cada Gaussiana, $\text{Gauss}_{x}(\mu_i, \sigma_i)$.
-    \begin{solution}
-        Un ejemplo de como se computaron todas las distribuciones se muestra a continuación:
-        \begin{minted}[
-            frame=none,
-            autogobble,
-            obeytabs=false,
-            breaklines,
-            tabsize=4,
-            linenos=true,
-            % numbersep=-10pt,
-            baselinestretch=1,
-            firstnumber=last,
-            bgcolor=bg!70,
-            mathescape,
-            ]{julia}
-            julia> begin
-                   # Parametros para el i-esimo caso
-                   μi = 6       # parametro μi $\label{line:mui}$
-                   σi = 1.6     # parametro σi $\label{line:sigmai}$
-                   # Evaluacion de la i-esima gaussiana con nuevos parametros sobre el conjunto de datos muestreados
-                   wsample = nd.normalDist(xsample, μi, σi)
-                   # Computo de la i-esima gaussiana con nuevos parametros
-                   wi = nd.normalDist(x0, μi, σi)
-                   # Likelihood de los datos xsample respecto a los i-esimos parametros
-                   lh = nd.likelihood(xsample, μi, σi)
-                   # Grafica de la i-esima gaussiana con los datos muestreados
-                   fig = nd.plotGuess(xsample, wsample, x0, wi, lh, μi, σi; maxlh = false)
-                   end
-        \end{minted}
-        Las gaussianas obtenidas con sus respectivos parámetros se muestran en la \cref{fig:gaussianas}, donde también se incluyó la gráfica para la gaussiana con los parámetros que maximizan la verosimilitud $\{\hat{\mu},\ \hat{\sigma}\}$. Además, cada gráfica incluye su verosimilitud dependiendo de sus parámetros $Pr(x_{1 \ldots 30} |\ \mu_i,\ \sigma_{i}^2)$. Para el caso de $\{\hat{\mu},\ \hat{\sigma}\}$ sólamente se realizaron las siguientes asignaciones \code{μi = nd.maxμ(xsample)} y \code{σi = nd.maxσ(xsample)} en las lineas \ref{line:mui} y \ref{line:sigmai}, y se cambia el parámetro \code{maxlh = true} de la función donde se genera la gráfica para decir al programa que cambie el título de la gráfica.
-        \begin{figure}[H]
-            \centering
-            \begin{subfigure}{\textwidth}
-                \centering
-                \includegraphics[scale=0.4]{../figures/dist_1.pdf}
-                \caption{Distribución $G_{x}(\mu_1, \sigma_1)$ para los parámetros $\mu_1 = 3$, $\sigma_1 = 1$.}
-                \label{fig:gaussiana_1}
-            \end{subfigure}
-        \end{figure}
-        \begin{figure}[H]
-            \ContinuedFloat
-            \begin{subfigure}{\textwidth}
-                \centering
-                \includegraphics[scale=0.4]{../figures/dist_2.pdf}
-                \caption{Distribución $G_{x}(\mu_2, \sigma_2)$ para los parámetros $\mu_2 = 6$, $\sigma_2 = 1.6$.}
-                \label{fig:gaussiana_2}
-            \end{subfigure}
-        \end{figure}
-        \begin{figure}[H]
-            \ContinuedFloat
-            \begin{subfigure}{\textwidth}
-                \centering
-                \includegraphics[scale=0.4]{../figures/dist_3.pdf}
-                \caption{Distribución $G_{x}(\mu_3, \sigma_3)$ para los parámetros $\mu_3 = 5.1$, $\sigma_3 = 1.4$.}
-                \label{fig:gaussiana_3}
-            \end{subfigure}
-        \end{figure}
-        \begin{figure}[H]
-            \ContinuedFloat
-            \begin{subfigure}{\textwidth}
-                \centering
-                \includegraphics[scale=0.4]{../figures/dist_max.pdf}
-                \caption{Distribución $G_{x}(\hat{\mu}, \hat{\sigma})$ para los parámetros que maximizan el likelihood, $\hat{\mu}$, $\hat{\sigma}$.}
-                \label{fig:gaussiana_max}
-            \end{subfigure}
-            \caption{Gráficas de las gaussianas requeridas para el segundo punto de la actividad con sus respectivos parámetros.}
-            \label{fig:gaussianas}
-        \end{figure}
+            julia> nrows = 40; ncols = 40;
 
-        Nótese que para el conjunto de puntos muestreados $\{x_i\}_{i=1}^{30}$ se obtiene un buen valor para la verosimilitud, con parámetros $\{\hat{\mu} = 5.053,\ \hat{\sigma} = 1.885\}$.
+            julia> idarray = [i for i in 1:(ncols * nrows)] |> x -> reshape(x, ncols, nrows) |> transpose;
 
-    \end{solution}
-    \item Genere el mapa térmico de las probabilidades considerando $\mu \in \left[2.5, 6.5\right]$, y $\sigma \in \left[0, 2\right]$, dividiendo ambos intervalos en 10 partes. Coloque un marcador en el punto de máxima verosimilitud.
-    \item Calcule, usando el método de Maximum Likelihood, los parámetros $\hat{\mu}$ y $\hat{\sigma}^2$ que tanto coincide con el mapa térmico.
-    \begin{solution}
-        Los incisos 3 y 4 se resolvieron de manera conjunta ya que al añadir un marcador en el mapa de calor que indique donde se encuentra el punto de máxima verosimilitud este se tuvo que haber computado de antemano. Me tomé la libertad de cambiar el número de divisiones a 30 en que se subdividen los intervalos para $\mu$ y $\sigma$. La instrucción escrita en \code{julia} que genera el mapa de calor se muestra a continuación:
+            julia> start = [10, 3]; finish = [35, 37];
+        \end{minted}
+
+        Una vecindad es el nombre dado a la rejilla tomando en cuenta los puntos libres por los que se puede transitar, y los obstáculos, que son puntos imposibles de alcanzar. Además, los obstáculos se eligen de pixeles de manera aleatoria de la rejilla inicialmente libre, esto quiere decir que todos los pixeles son alzancables al inicio, se hace un muestreo aleatorio y aquellos elegidos cambian su estado a obstáculos. El argumento \code{obsdensity} de la función \code{neighborhood} indica la densidad de obstáculos deseada entre $[0, 1]$. 
+
+        Se computó una vecindad con los puntos de partida inicial y final mostrados en \code{start} y \code{finish}, respectivamente, y una densidad de obstáculos del $0.25$. También se hizo una copia profunda de la vecindad \code{nh} en \code{nhdiag} ya que se obtuvieron las matrices de adyacencia para los casos donde el movimiento se puede dar sin y con diagonales en la misma rejilla, para 4 y 8 vecinos, respectivamente.
         \begin{minted}[
             frame=none,
             autogobble,
@@ -179,41 +70,93 @@
             firstnumber=last,
             bgcolor=bg!70,
             ]{julia}
-            julia> begin 
-                   # Numero de particiones para los intervalos de μ y σ
-                   partitions = 30
-                   # Intervalos de μ y σ
-                   μint = (2.5, 6.5)
-                   σint = (0, 2)
-                   # Deltas de μ y σ
-                   dμ = (μint[2] - μint[1]) / partitions
-                   dσ = (σint[2] - σint[1]) / partitions
-                   # Dominios de μ y σ
-                   μrange = range(μint[1] + dμ/2, μint[2] - dμ/2, partitions)
-                   σrange = range(σint[1] + dσ/2, σint[2] - dσ/2, partitions)
-                   # Mallado para obtener un espacio bidimensional
-                   (μmesh, σmesh) = nd.ndgrid(μrange, σrange)
-                   # Valores del likelihood en el mallado
-                   lhmesh = nd.likelihood.(Ref(xsample), μmesh, σmesh)
-                   # Parametros que maximizan el likelihood y el likelihood maximo
-                   μmax = nd.maxμ(xsample)
-                   σmax = nd.maxσ(xsample)
-                   lhmax = nd.likelihood(xsample, μmax, σmax)
-                   # Grafica del mallado
-                   fig = nd.plotHeat([3, 6, 5.1], [1, 1.6, 1.4], μmax, σmax, μrange, σrange, lhmesh, npts)
-                   end
+            julia> nh, obs = sp.neighborhood(nrows, ncols; start=start, finish=finish, obsdensity=0.25); sp.visualize(nh)
+
+            julia> nhdiag = deepcopy(nh);
+
+            julia> adjmat = sp.adjacencyMatrix(nrows, ncols; obstacles=obs, allowdiags=false);
+
+            julia> adjmatdiag = sp.adjacencyMatrix(nrows, ncols; obstacles=obs, allowdiags=true);
         \end{minted}
-        El mapa de calor se muestra en la \cref{fig:heatmap}. El punto de máxima verosimilitud con parámetros $\{\hat{\mu}, \hat{\sigma}\}$ está marcado con una estrella de color cyan, mientras que los demás puntos marcados con círculos color magenta corresponden a las verosimilitudes con sus conjuntos respectivos de parámetros $\{\mu_i, \sigma_i\}$.
+
+        Las matrices de adyacencia guardadas en las variables \code{adjmat} y \code{adjmatdiag} requieren como argumentos la lista de obstaculos en \code{obstacles}, si las diagonales son permitidas o no en \code{allowdiags}, y el número de filas y de columnas. Estos dos primeros argumentos son posicionales mientras que los primeros dos mencionados son argumentos de palabra clave, se observa la división entre un tipo de argumentos y otro con un \code{;} dentro de los argumentos de una función.
+
+        Posteriormente se obtienen los caminos y las distancias de esos caminos con la función \code{findPath}; se computaron los caminos sin diagonales en \code{path} y con diagonales en \code{pathdiag}, con sus repectivas matrices de adyacencia. Para terminar, los caminos se usan para cambiar el estado de los pixeles en las vecindades \code{nh} y \code{nhdiag} con la función \code{updateneighborhood!}. Nótese que la función lleva un signo de admiración \code{!} al final de su nombre para denotar que es una función que modifica alguno de sus argumentos.
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            ]{julia}
+            julia> path, dist = sp.findPath(adjmat, ncols; start=start, finish=finish);
+
+            julia> pathdiag, distdiag = sp.findPath(adjmatdiag, ncols; start=start, finish=finish);
+
+            julia> sp.updateneighborhood!(nhdiag, pathdiag); sp.visualize(nhdiag)
+
+            julia> sp.updateneighborhood!(nh, path); sp.visualize(nh)
+
+            julia> dist
+            59.0
+
+            julia> distdiag
+            46.11269837220809
+        \end{minted}
+
+        En la \cref{fig:rejilla_40x40} se muestran las imágenes para una rejilla de $40 \times 40$ incluyendo el caso en que el movimiento hacia vecinos solamente se da horizontal y verticalmente, \cref{fig:nodiags_obs_25percent_40x40}, y el caso en que el movimiento diagonal está permitido, \cref{fig:diags_obs_25percent_40x40}. Las distancias del recorrido en cada una de ellas son de $50$ unidades sin diagonales en la \cref{fig:nodiags_obs_25percent_40x40}, y de $46.11$ unidades considerando diagonales en la \cref{fig:diags_obs_25percent_40x40}.
         \begin{figure}[ht!]
             \centering
-            \includegraphics[scale=0.5]{../figures/heatmap.pdf}
-            \caption{Mapa de calor incluyendo las verosimilitudes de sus respectivos parámetros.}
-            \label{fig:heatmap}
+            \begin{subfigure}{0.4\textwidth}
+                \centering
+                \includegraphics[scale=0.3]{../figures/path_01.png}
+                \caption{4 vecinos (diagonales no permitidas); $\text{distancia} = 59 u$.}
+                \label{fig:nodiags_obs_25percent_40x40}
+            \end{subfigure}
+            \hspace{1cm}
+            %
+            \begin{subfigure}{0.4\textwidth}
+                \centering
+                \includegraphics[scale=0.3]{../figures/path_01_diag.png}
+                \caption{8 vecinos (diagonales permitidas); $\text{distancia} = 46.1126 u$.}
+                \label{fig:diags_obs_25percent_40x40}
+            \end{subfigure}
+            \caption{Rejilla de $40 \times 40$ con obstaculos al $25\%$.}
+            \label{fig:rejilla_40x40}
         \end{figure}
-        Los valores para las verosimilitudes de cada uno de los casos se puede observar en el título de las \cref{fig:gaussiana_1,fig:gaussiana_2,fig:gaussiana_3,fig:gaussiana_max} con sus respectivos parámetros. El muestreo no es perfecto, mientras más puntos se obtengan para el muestreo mejor será la aproximación para la máxima verosimilitud. Aún así, mientras computaba las distribuciones gaussianas $G_{x}(\mu_i, \sigma_i)$ me encontraba seguido con el caso de que el la máxima verosimilitud era menor que la verosimilitud para el caso $\{\mu_3 = 5.1, \sigma_3 = 1.4\}$. Atribuyo este comportamiento como resultado del muestreo, pero la máxima verosimilitud siempre parecía encontrarse en el centro del elipsoide del mapa de calor.
+
+        Los pixeles mostrados en color \fcolorbox{black}{black}{\rule{0pt}{4pt}\rule{4pt}{0pt}} son los pixeles libres por los que se puede transitar mientras que los mostrados de color los pixeles de color \fcolorbox{black}{obstacle}{\rule{0pt}{4pt}\rule{4pt}{0pt}} son los obstáculos; el pixel de color \fcolorbox{black}{start}{\rule{0pt}{4pt}\rule{4pt}{0pt}} es el punto de partida definido en \code{start}, el pixel de color \fcolorbox{black}{finish}{\rule{0pt}{4pt}\rule{4pt}{0pt}} es el punto de llegada definido en \code{finish}, y los pixeles de color \fcolorbox{black}{path}{\rule{0pt}{4pt}\rule{4pt}{0pt}} muestran el camino atravesado para llegar a la meta.
+
+        Esta implementación permite utilizar dimensiones para la rejilla diferentes de $n \times n$, esto quiere decir que se pueden elegir un número diferente de filas que de columnas, y viceversa. Un ejemplo de esto se muestra en la \cref{fig:rejilla_20x35}, con 20 filas y 35 columnas. El camino sin diagonales permitidas es de 50 unidades, mientras que aquel en que se permiten las diagonales tiene longitud de 36.87 unidades.
+        \begin{figure}[ht!]
+            \centering
+            \begin{subfigure}{0.4\textwidth}
+                \centering
+                \includegraphics[scale=0.3]{../figures/path_02.png}
+                \caption{4 vecinos (diagonales no permitidas); $\text{distancia} = 50 u$.}
+            \end{subfigure}
+            \hspace{1cm}
+            %
+            \begin{subfigure}{0.4\textwidth}
+                \centering
+                \includegraphics[scale=0.3]{../figures/path_02_diag.png}
+                \caption{8 vecinos (diagonales no permitidas); $\text{distancia} = 36.87 u$.}
+            \end{subfigure}
+            \caption{Rejilla de $20 \times 35$ con obstáculos del $30\%$.}
+            \label{fig:rejilla_20x35}
+        \end{figure}
+
+        Por completez quisiera explicar la manera en como se computa la matriz de adyacencia, necesaria para pasarla como argumento a las funciones que se encargan de las operaciones para grafos. El problema se reduce a tener una rejilla de la forma 
+        
     \end{solution}
 \end{enumerate}
 
+\clearpage
 \section*{Apéndice}
 \inputminted[
     frame=none,
