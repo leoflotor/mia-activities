@@ -18,13 +18,17 @@
 % -- Required packages
 \usepackage{xcolor}
 \usepackage[many]{tcolorbox}
+\usepackage{blkarray}                       % Allow matrices with row and column labels
 \usepackage{mathtools,amsfonts,amsmath}     % Loads amsmath if not already loaded
 \allowdisplaybreaks                         % To allow page breaks if equations are too long
 \usepackage[parfill]{parskip}               % No indent and separation lines for paragraphs
 \usepackage{cancel}                         % To cancel math terms
 \usepackage[shortlabels]{enumitem}          % To handle enumerations
 \usepackage{tikz}
-\usetikzlibrary{automata, arrows.meta, positioning}
+\usetikzlibrary{plotmarks}
+\usetikzlibrary{math}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
 \usepackage[mode=buildnew]{standalone}      % To import figures in standalone files
 \usepackage[hidelinks]{hyperref}
 \usepackage[spanish]{cleveref}              % To use autocompleted reference labels, language must be change as in babel package
@@ -98,11 +102,11 @@
 \newcommand{\txtgray}[1]{\textcolor{gray}{#1}}
 
 % -- Author information
-\title{Actividad 6}
+\title{Actividad 5}
 \author{Leonardo Flores Torres}
 \newcommand\theinstitution{Universidad Veracruzana}
 \newcommand\thedepartment{Inteligencia Artificial}
-\newcommand\thecourse{Métodos Probabilísticos}
+\newcommand\thecourse{Análisis de Algoritmos}
 
 % -- Paths
 \newcommand\codepath{../ShortestPath/src/ShortestPath.jl}

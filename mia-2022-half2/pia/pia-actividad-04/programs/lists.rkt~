@@ -1,0 +1,19 @@
+#lang racket
+(require racket/match)
+(require racket/list)
+
+(define (perms lst)
+  (match lst
+    [(list x)  (list (list x))]
+    [(list x y)(list (list x y)
+                     (list y x))]
+    [xs (foldr append empty
+               (map (λ (x)
+                      (map (curry cons x)
+                           (perms (remove x xs)))) xs))]
+    )
+  )
+
+(define (perms2 lst)
+  (permutations lst)
+  )

@@ -158,30 +158,4 @@ function findPath(adjmat, ncols; start=start, finish=finish)
 end
 
 
-# DEPRECATED
-function doit(nrows, ncols, start, finish, density, diags)
-    # nrows = 7
-    # ncols = 11
-
-    # start = [6,1]
-    # finish = [2,10]
-
-    startid = id(start[1], start[2], ncols)
-    finishid = id(finish[1], finish[2], ncols)
-
-    idmat = [i for i in 1:(ncols*nrows)] |> x -> reshape(x, ncols, nrows) |> transpose
-    nh, obs = neighborhood(nrows, ncols; start=start, finish=finish, obsdensity=density)
-
-    adjmat = adjacencyMatrix(nrows, ncols; obstacles=obs, allowdiags=diags)
-    dist, path = findAll(adjmat; start=startid, finish=finishid)
-
-    updateneighborhood!(nh, path)
-    visualize(nh)
-
-    return dist, path, nh, idmat, adjmat, startid, finishid
-end
-
-# julia> dist, path, nh, idmat, adjmat, sid, fid 
-# = sp.doit(40, 40, [4,1], [35,37], 0.1, false); sp.plot(nh)
-    
 end # module ShortestPath
