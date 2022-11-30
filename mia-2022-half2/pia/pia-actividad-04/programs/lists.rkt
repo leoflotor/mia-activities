@@ -4,7 +4,6 @@
 ;; Course: Programming for Artificial Intelligence
 ;; --------------------------------------------------------------------------------------
 
-#;(require br/macro)
 
 ;; TRIVIAL EXAMPLE.
 ;; my-listsum just sums recursively all elements of a list.
@@ -97,7 +96,6 @@ results.
     )
   )
 
-
 ;; The general idea of the algorith to compute the permutations of a list is explained
 ;; below.
 ;; For each of the n elements in the list, first find all the permutations of the
@@ -117,7 +115,6 @@ results.
                 empty
                 (splice (cons head l) (first tail) (rest tail)))))]))
 
-
 #;(define (all-permutations lst)
   (cond ((empty? lst) empty)
         ((null (cdr list)) (list list))
@@ -125,55 +122,3 @@ results.
              append (mapcar (lambda (l) (cons element l))
                             (all-permutations (remove element list)))))))
 
-
-;; MACRO EXAMPLE.
-;; Got it from: https://beautifulracket.com/explainer/macros.html
-#;(define-macro (report EXPR)
-  #'(begin
-      ; EXPR used as literal data, and quoted as a datum
-      (displayln (format "input was ~a" 'EXPR))
-      EXPR)) ; EXPR used for its result
-
-#;(define-syntax-rule (report EXPR)
-  #'(begin
-      ; EXPR used as literal data, and quoted as a datum
-      (displayln (format "input was ~a" 'EXPR))
-      EXPR)) ; EXPR used for its result
-
-#;(define-syntax-rule (swap x y)
-  (let ([tmp x])
-    (set! x y)
-    (set! y tmp)))
-
-#;(define-syntax-rule (repeat n expr)
-  (if (not (equal? n 0))
-      (writeln (repeat (- n 1) expr))
-      ))
-
-#;(define-syntax-rule (repeat val ntimes)
-  (let ([lst '()])
-    (if (> ntimes 0)
-        (cons val (repeat val (- ntimes 1)))
-        empty)))
-
-#;(define-syntax-rule (repeat count EXPR)
-  #'(begin
-      EXPR))
-
-(define-syntax-rule (repeat reps expr)
-  (for ([i (in-range reps)]) (displayln expr)))
-
-(define-syntax-rule (repeat2 reps expr)
-  (for/list ([i (in-range 0 reps)]) (displayln expr)))
-
-#;(build-list reps values)
-
-
-#;(do ([i 0 (+ i 1)])
-  ((= i 10) empty)
-  (displayln (print 'hi)))
-
-#;(let ([aaa '(print 'hi)])
-    (do ([i 0 (+ i 1)])
-      ([= i 10] null)
-      (list (displayln (eval aaa)))))

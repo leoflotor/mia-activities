@@ -1,8 +1,6 @@
 module ApproxPie
 
-# using Plots
 using Random
-# using Distributed
 
 # Distance from the origin to a point
 dist_from_origin(point) = point[1]^2 + point[2]^2
@@ -62,27 +60,13 @@ function rngHalton(nvals)
     return numbers
 end
 
-# I dont want to choose the base every time! Imagine that `rand` is the action
-# of a usr that chooses a different base, kind of.
-# rngHalton(nvals) = rngHaltonHelper(nvals; base=rand(2:150))
-
 # Julia's default random number generator
-# rngJulia(nvals; seed=rand(2:150)) = rand(MersenneTwister(seed), Float64, nvals)
-function rngJulia(nvals)
-    seed = rand(2:150)
+rngJulia(nvals) = rand(Float64, nvals)
+# function rngJulia(nvals)
+#     seed = rand(2:150)
 
-    return rand(MersenneTwister(seed), Float64, nvals)
-end
-
-function getPoints(npoints)
-    # s = 2
-    # rndgrid = s .* rand(Float64, (npoints, 2)) .- s / 2
-
-    rndgrid = rand(Float64, (npoints, 2))
-    points = map(x -> (x[1], x[2]), eachrow(rndgrid))
-    
-    return points
-end
+#     return rand(MersenneTwister(seed), Float64, nvals)
+# end
 
 function classifyPoints(points)
     inside_circle = filter(x -> dist_from_origin(x) <= 1, points)
@@ -118,18 +102,17 @@ function piesApprox(npoints; rng="julia")
     methods = Dict(
         "julia" => rngJulia, 
         "halton" => rngHalton,
-        "lcg" => rngLcg
-    )
+        "lcg" => rngLcg)
+
     method = methods[rng]
-    pies = []
+    xvalues = method(npoints)
+    yvalues = method(npoints)
 
-    for i in 1:npoints
-        xs = method(i)
-        ys = method(i)
-
-        classify = classifyPoints(xs, ys)
-        pie = pieApprox(classify)
-        push!(pies, (i, pie))
+    pies = zeros(npoints)
+    for i in eachindex(pies)
+        classify = classifyPoints(xvalues[begin:i], yvalues[begin:i])
+        pie = pieApprox(classify) 
+        pies[i] = pie
     end
 
     return pies
