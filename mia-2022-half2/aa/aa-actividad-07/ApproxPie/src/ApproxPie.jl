@@ -1,6 +1,8 @@
 module ApproxPie
 
-using Plots
+# using Plots
+using Random
+# using Distributed
 
 # Distance from the origin to a point
 dist_from_origin(point) = point[1]^2 + point[2]^2
@@ -20,10 +22,10 @@ function rngLcg(nvals)
     m = 2^32
     a = 1103515245
     c = 12345
-    seed = time() * 1000    # current system's time in micro seconds
+    # The power of the distributed computing 
+    seed = time() * 1000 |> BigFloat   # current system's time in micro seconds times 1000
 
     numbers = zeros(nvals)
-
     for i in eachindex(numbers)
         seed = (a * seed + c) % m
         numbers[i] = seed / m
@@ -39,14 +41,15 @@ end
 Returns a list of pseudo-random numbers generated using the Halton sequence. The
 default `base` is 2.
 """
-function rngHaltonHelper(nvals; base=2)
+function rngHalton(nvals)
+    base = rand(2:150)
     numbers = zeros(nvals)
 
     for i in eachindex(numbers)
         f = 1
         r = 0
-        indx = i
 
+        indx = i
         while indx > 0
             f = f / base
             r = r + f * (indx % base)
@@ -61,10 +64,15 @@ end
 
 # I dont want to choose the base every time! Imagine that `rand` is the action
 # of a usr that chooses a different base, kind of.
-rngHalton(nvals) = rngHaltonHelper(nvals; base=rand(2:150))
+# rngHalton(nvals) = rngHaltonHelper(nvals; base=rand(2:150))
 
 # Julia's default random number generator
-rngJulia(nvals) = rand(Float64, nvals)
+# rngJulia(nvals; seed=rand(2:150)) = rand(MersenneTwister(seed), Float64, nvals)
+function rngJulia(nvals)
+    seed = rand(2:150)
+
+    return rand(MersenneTwister(seed), Float64, nvals)
+end
 
 function getPoints(npoints)
     # s = 2
@@ -106,7 +114,7 @@ function pieApprox(classification)
     return 4 * count_circle / count_square
 end
 
-function piesApprox(npoints, rng="julia")
+function piesApprox(npoints; rng="julia")
     methods = Dict(
         "julia" => rngJulia, 
         "halton" => rngHalton,
