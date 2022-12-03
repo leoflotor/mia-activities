@@ -84,41 +84,17 @@ results.
           (my-difference-rec (my-remove-rec (first lstb) lsta) (rest lstb))
           (my-difference-rec lsta (rest lstb)))))
 
-; Compute permutations of a list. Wtf?
-#;(define (perms lst)
-  (match lst
-    [(list x)  (list (list x))]
-    [(list x y) (list (list x y) (list y x))]
-    [xs (foldr append empty
-               (map (λ (x)
-                      (map (curry cons x)
-                           (perms (remove x xs)))) xs))]
-    )
-  )
 
 ;; The general idea of the algorith to compute the permutations of a list is explained
 ;; below.
 ;; For each of the n elements in the list, first find all the permutations of the
-;; remaining n-1 elements. Then, prepend the element to each permutation. Finally,
-;: return a list of all resulting permutations.
-(define (my-permutations lst)
-  (cond [(empty? lst) empty]
-        [(empty? (rest lst)) (list lst)]
-        [else
-         (let splice ([l '()]
-                      [head (first lst)]
-                      [tail (rest lst)])
-           (append
-            (map (λ (x) (cons head x))
-                 (my-permutations (append l tail)))
-            (if (empty? tail)
-                empty
-                (splice (cons head l) (first tail) (rest tail)))))]))
-
-#;(define (all-permutations lst)
-  (cond ((empty? lst) empty)
-        ((null (cdr list)) (list list))
-        (t (loop for element in list
-             append (mapcar (lambda (l) (cons element l))
-                            (all-permutations (remove element list)))))))
-
+;; remaining n-1 elements. Then, prepend the current element to each permutation. Finally,
+;; return a list of all resulting permutations.
+(define (permutations lst)
+  (if (empty? lst) '(())
+      (apply append
+             (map (λ (element)
+                    (map (λ (permutation)
+                           (cons element permutation))
+                         (permutations (remove element lst))))
+                  lst))))

@@ -20,10 +20,10 @@ elements only.
   (loop for item in lsta
     always (my-member item lstb)))
 
-;; my-subsett just collects the items from a list lsta that appear in another list 
+;; my-subset2 just collects the items from a list lsta that appear in another list 
 ;; lstb, if those items are the same as those in lsta then lsta is subset of lstb.
 ;; Although, the function my-subset is cleaner, more lispy even?
-(defun my-subsett (lsta lstb)
+(defun my-subset2 (lsta lstb)
   (if 
     (equal 
       lsta

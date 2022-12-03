@@ -1,7 +1,5 @@
 module ShortestPath
 
-# NOTE: There are strange cases where findAll does not work.
-
 #==============================
 Required libraries
 ===============================#
@@ -12,11 +10,9 @@ using StatsBase: sample
 using Graphs: dijkstra_shortest_paths
 using SimpleWeightedGraphs: SimpleWeightedGraph
 
-
 #==============================
 Image operations
 ===============================#
-
 
 function visualize(neighborhood; size=(600,600))
     fig = plot(neighborhood, 
@@ -24,6 +20,7 @@ function visualize(neighborhood; size=(600,600))
         axis = false,
         background_color = :transparent,
         foreground_color = :black,
+        gridalpha = 1,   # temporal fix to grid over plot
         size = size,
     )
     return fig
@@ -35,13 +32,11 @@ Map generation and operations
 
 id(row, col, ncols) = col + ncols * (row - 1)
 
-
 function posbyid(id::Int, ncols::Int)
     col = iszero(id % ncols) ? ncols : id % ncols
     row = 1 + (id - col) / ncols |> Int
     return row, col
 end
-
 
 function neighborhood(nrows::Int, ncols::Int; 
     start=nothing, finish=nothing, obsdensity=0
@@ -64,7 +59,6 @@ function neighborhood(nrows::Int, ncols::Int;
     return canvas, obstacles
 end
 
-
 function updateneighborhood!(neighborhood, path)
     ncols = size(neighborhood)[2]
     pathcoordinates = posbyid.(path, ncols) .|> x -> CartesianIndex(x)
@@ -73,7 +67,6 @@ function updateneighborhood!(neighborhood, path)
     neighborhood[pathcoordinates[end]] = RGB(234/255, 105/255, 98/255)
     neighborhood[pathcoordinates[begin+1:end-1]] .= RGB(247/255, 199/255, 154/255)
 end
-
 
 #==============================
 Neighbors and path finding
@@ -138,7 +131,6 @@ function adjacencyMatrix(nrows, ncols;
     return adjmat
 end
 
-
 function findPath(adjmat, ncols; start=start, finish=finish)
     startid = start |> x -> id(x[1], x[2], ncols)
     finishid = finish |> x -> id(x[1], x[2], ncols)
@@ -156,6 +148,5 @@ function findPath(adjmat, ncols; start=start, finish=finish)
     
     return path_nodes, distance
 end
-
 
 end # module ShortestPath

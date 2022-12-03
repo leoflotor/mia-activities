@@ -466,6 +466,8 @@ Adaptar el algoritmo de Dijkstra para que trabaje en una rejilla donde se defina
             firstnumber=1,
             bgcolor=bg!70,
             ]{julia}
+            julia> using ShortestPath; sp = ShortestPath;
+
             julia> nrows = 40; ncols = 40;
 
             julia> idarray = [i for i in 1:(ncols * nrows)] |> x -> reshape(x, ncols, nrows) |> transpose;
@@ -497,7 +499,7 @@ Adaptar el algoritmo de Dijkstra para que trabaje en una rejilla donde se defina
             julia> adjmatdiag = sp.adjacencyMatrix(nrows, ncols; obstacles=obs, allowdiags=true);
         \end{minted}
 
-        Las matrices de adyacencia guardadas en las variables \code{adjmat} y \code{adjmatdiag} requieren como argumentos la lista de obstaculos en \code{obstacles}, si las diagonales son permitidas o no en \code{allowdiags}, y el número de filas y de columnas. Estos dos primeros argumentos son posicionales mientras que los primeros dos mencionados son argumentos de palabra clave, se observa la división entre un tipo de argumentos y otro con un \code{;} dentro de los argumentos de una función.
+        Las matrices de adyacencia guardadas en las variables \code{adjmat} y \code{adjmatdiag} requieren como argumentos la lista de obstáculos en \code{obstacles}, si las diagonales son permitidas o no en \code{allowdiags}, y el número de filas y de columnas. Estos dos primeros argumentos son posicionales mientras que los primeros dos mencionados son argumentos de palabra clave, se observa la división entre un tipo de argumentos y otro con un \code{;} dentro de los argumentos de una función.
 
         Posteriormente se obtienen los caminos y las distancias de esos caminos con la función \code{findPath}; se computaron los caminos sin diagonales en \code{path} y con diagonales en \code{pathdiag}, con sus repectivas matrices de adyacencia. Para terminar, los caminos se usan para cambiar el estado de los pixeles en las vecindades \code{nh} y \code{nhdiag} con la función \code{updateneighborhood!}. Nótese que la función lleva un signo de admiración \code{!} al final de su nombre para denotar que es una función que modifica alguno de sus argumentos.
         \begin{minted}[
@@ -543,7 +545,7 @@ Adaptar el algoritmo de Dijkstra para que trabaje en una rejilla donde se defina
                 \caption{8 vecinos (diagonales permitidas); $\text{distancia} = 46.1126 u$.}
                 \label{fig:diags_obs_25percent_40x40}
             \end{subfigure}
-            \caption{Rejilla de $40 \times 40$ con una densidad de obstaculos al $25\%$.}
+            \caption{Rejilla de $40 \times 40$ con una densidad de obstáculos al $25\%$.}
             \label{fig:rejilla_40x40}
         \end{figure}
 
@@ -570,20 +572,54 @@ Adaptar el algoritmo de Dijkstra para que trabaje en una rejilla donde se defina
             \label{fig:rejilla_20x35}
         \end{figure}
 
-        Para finalizar quisiera agregar un par de comentarios extras acerca de la matriz de adyacencia, y porque la representación elegida es útil. Lo primero es que la matriz de adyacencia es una matriz cuadrada de $n \times n$ donde $n$ es el número de pixeles dentro de la imágen independientemente de si son o no obstáculos. La representación elegida a partir de identificadores permite fácilmente acceder a un arreglo bidimensional tomando los identificadores como índices de una matriz, la matriz de adyacencia. Por ejemplo,
+        Quisiera agregar un par de comentarios extras acerca de la matriz de adyacencia, hablar acerca de porqué la representación elegida es útil. Lo primero es que la matriz de adyacencia es una matriz cuadrada de $n \times n$ donde $n$ es el número de pixeles dentro de la imágen independientemente de si son o no obstáculos. La representación elegida a partir de identificadores permite fácilmente acceder a un arreglo bidimensional tomando los identificadores como índices de una matriz, la matriz de adyacencia. Por ejemplo,
         \begin{equation*}
-        \begin{blockarray}{c c c c c c}
-            & 1 & 2 & 3 & \hdots & n \\
-            \begin{block}{c (c c c c c)}
-                1 & v(1,1) & v(1,2) & v(1,3) & \hdots & v(1,n) \\
-                2 & v(2,1) & v(2,2) & v(2,3) & \hdots & v(2,n) \\
-                3 & v(3,1) & v(3,2) & v(3,3) & \hdots & v(3,n) \\
-                \vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
-                n & v(n,1) & v(n,2) & v(n,3) & \hdots & v(n,n) \\
+        \begin{blockarray}{c c c c c c c}
+            & 1 & 2 & 3 & 4 & \hdots & n \\
+            \begin{block}{c (c c c c c c)}
+                1 & v(1,1) & v(1,2) & v(1,3) & v(1,4) & \hdots & v(1,n) \\
+                2 & v(2,1) & v(2,2) & v(2,3) & v(2,4) & \hdots & v(2,n) \\
+                3 & v(3,1) & v(3,2) & v(3,3) & v(3,4) & \hdots & v(3,n) \\
+                4 & v(4,1) & v(4,2) & v(4,3) & v(4,4) & \hdots & v(4,n) \\
+                \vdots & \vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+                n & v(n,1) & v(n,2) & v(n,3) & v(n,4) & \hdots & v(n,n) \\
             \end{block}
         \end{blockarray}
         \end{equation*}
-        donde $v(i,j)$ en realidad denota el $j-\text{ésimo}$ vecino del pixel con identificador $i$. De esta manera, se puede acceder al arreglo bidimensional equivalente a la matriz de adyacencia en \code{julia} como \code{adjmat[i,j]} y así agregar o quitar vecinos sin realizar transformaciones extras a los índices de los pixeles en la imágen original. Si se quisieran agregar los vecinos del pixel con identificador $i=1$ bastaría con computarlos de acuerdo a las restricciones explicadas al inicio de la actividad y agregarlos a la matriz de adyacencia como \code{idjmat[1,j]} para todo $j$ dentro del conjunto de identificadores. Lo segundo y último es que gracias a la representación usada se pueden fácilmente generar mapas de pixeles de diferentes dimensiones $n \times m$ donde $n \neq m$, aunque seguimos restringidos a tener mapas rectangulares pero no solamente cuadrados. Una idea interesante podría ser la implementación de mapas diferentes al caso rectangular como podría serlo el movimiento dentro de un espacio tridimensional.
+        donde $v(i,j)$ en realidad denota el $j-\text{ésimo}$ vecino del pixel con identificador $i$. De esta manera, se puede acceder al arreglo bidimensional equivalente a la matriz de adyacencia en \code{julia} como $v(\text{row}, \text{column})$ y así agregar o quitar vecinos sin realizar transformaciones extras a los índices de los pixeles en la imágen original. Si se quisieran agregar los vecinos del pixel con identificador $i=1$ bastaría con computarlos de acuerdo a las restricciones explicadas al inicio de la actividad y agregarlos a la matriz de adyacencia como $v(1, j)$ para todo $j$ dentro del conjunto de identificadores, $j = (1,\ldots,n_{\text{total}})$. Lo segundo es que gracias a la representación usada se pueden fácilmente generar mapas de pixeles de diferentes dimensiones $n \times m$ donde $n \neq m$, aunque seguimos restringidos a tener mapas rectangulares pero no solamente cuadrados. Una idea interesante podría ser la implementación de mapas diferentes al caso rectangular como podría serlo el movimiento dentro de un espacio tridimensional.
+
+        De lo anteriormente mencionado, si se conocen los identificadores de los obstáculos, entonces las entradas de la matriz $v(k, j)$ serían igual a cero para todo $j$ dentro del conjunto de identificadores y para todo $k$ dentro del conjunto de los identificadores de los obstáculos ya que esas entradas corresponden a las filas de las interacciones de los obstaculos con otros. Lo mismo se aplicaría para las interacciones de otros pixeles con los obstáculos representadas por $v(i, k)$, también serían iguales a cero. De esta manera se tendrían filas y columnas enteras iguales a cero las cuales las cuales son aquellas en las $k$-ésimas posiciones dentro de la matriz para ambos casos. Por ejemplo, si el conjunto de los obstáculos fuera igual a $\text{obs} = \{2, 4\}$, entonces la matriz mostrada anteriormente se veria como,
+        \begin{equation*}
+            \begin{blockarray}{c c c c c c c}
+                & 1 & 2 & 3 & 4 & \hdots & n \\
+                \begin{block}{c (c c c c c c)}
+                    1 & v(1,1) & 0 & v(1,3) & 0 & \hdots & v(1,n) \\
+                    2 & 0 & 0 & 0 & 0 & \hdots & 0 \\
+                    3 & v(3,1) & 0 & v(3,3) & 0 & \hdots & v(3,n) \\
+                    4 & 0 & 0 & 0 & 0 & \hdots & 0 \\
+                    \vdots & \vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+                    n & v(n,1) & 0 & v(n,3) & 0 & \hdots & v(n,n) \\
+                \end{block}
+            \end{blockarray}\ .
+            \end{equation*}
+
+        \begin{figure}[ht!]
+            \centering
+            \begin{subfigure}{0.4\textwidth}
+                \centering
+                \includegraphics[scale=0.3]{../figures/path_03.png}
+                \caption{4 vecinos (diagonales no permitidas); $\text{distancia} = 58 u$.}
+            \end{subfigure}
+            \hspace{1cm}
+            %
+            \begin{subfigure}{0.4\textwidth}
+                \centering
+                \includegraphics[scale=0.3]{../figures/path_03_diag.png}
+                \caption{8 vecinos (diagonales no permitidas); $\text{distancia} = 46.87 u$.}
+            \end{subfigure}
+            \caption{Rejilla de $40 \times 20$ con una densidad de obstáculos del $325\%$.}
+            % \label{fig:rejilla_20x35}
+        \end{figure}
     \end{solution}
 \end{enumerate}
 

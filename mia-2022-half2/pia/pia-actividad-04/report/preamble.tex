@@ -1,0 +1,115 @@
+\documentclass{article}
+
+% -- Input and language settings
+% \usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint                             % From babel package to use points instead of commas in decimals
+
+% -- Page and line settings
+\usepackage{geometry}
+\geometry{letterpaper, 
+    % margin=2cm, 
+    left=3cm, right=3cm,
+    top=1.2cm, bottom=1.2cm,
+    includefoot, 
+    includehead}
+\renewcommand{\baselinestretch}{1.2}
+
+% -- Required packages
+\usepackage{xcolor}
+\usepackage[many]{tcolorbox}
+\usepackage{mathtools,amsfonts,amsmath}     % Loads amsmath if not already loaded
+\allowdisplaybreaks                         % To allow page breaks if equations are too long
+\usepackage[parfill]{parskip}               % No indent and separation lines for paragraphs
+\usepackage{cancel}                         % To cancel math terms
+\usepackage[shortlabels]{enumitem}          % To handle enumerations
+\usepackage{tikz}
+\usetikzlibrary{automata, arrows.meta, positioning}
+\usepackage[mode=buildnew]{standalone}      % To import figures in standalone files
+\usepackage[hidelinks]{hyperref}
+\usepackage[spanish]{cleveref}              % To use autocompleted reference labels, language must be change as in babel package
+\usepackage{caption}                        % Caption and subcaption to allow subfigures
+\usepackage{subcaption}
+\usepackage{float}                          % To specify the location of figures
+\usepackage{multicol}                       % To use multicolumns
+\usepackage[bottom]{footmisc}               % To locate footnotes at the bottom
+
+% -- Title and heading settings
+\usepackage{titling}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+% -- Code and code formatting
+\usepackage{minted}                         % To insert code
+\usemintedstyle[julia]{gruvbox-light}       % Code theme and language
+\definecolor{bg}{rgb}{0.98, 0.97, 0.88}     % Code block background
+
+\usepackage{fontspec}                       % To allow the use of monospace fonts
+\setmonofont{JuliaMono}[Path=./codefonts/, Extension=.ttf, UprightFont=*-Regular, ItalicFont=*-RegularItalic, Scale=0.75]
+
+\usepackage{fancyvrb}                       % To change line number font
+\renewcommand{\theFancyVerbLine}{\textcolor{gray}{\footnotesize\texttt{\arabic{FancyVerbLine}}}}
+
+\definecolor{light-gray}{gray}{0.95}        % Color, box and style to show small code thingys inside normal text
+\newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
+
+% -- Bilbiography preferences
+\usepackage[square,numbers]{natbib}
+\bibliographystyle{unsrt}
+
+% -- Footnotes without numbering
+\newcommand\nnfootnote[1]{%
+  \begin{NoHyper}
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \end{NoHyper}
+}
+
+% -- Theorems
+\newtheorem{theorem}{Theorem}
+
+\lhead{\theinstitution\ -- \thedepartment}
+\chead{}
+\rhead{Programación para la IA\ -- \thetitle}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+
+% -- Problem solution
+\newenvironment{solution}
+{\begin{quote}
+\textbf{Solución:}\medskip
+
+}
+{
+
+\hfill\rule{0.5\textwidth}{0.5pt}
+\end{quote}}
+
+% -- Equation result
+\newcommand{\result}[1]
+{
+\tcbhighmath[colframe=white, colback=gray!15, sharp corners]
+{#1}
+}
+
+% -- Function definitions
+\newcommand{\dprod}[2]{{#1} \cdot {#2}}
+\newcommand{\txtgray}[1]{\textcolor{gray}{#1}}
+
+% -- Author information
+\title{Actividad 4}
+\author{Leonardo Flores Torres}
+\newcommand\theinstitution{Universidad Veracruzana}
+\newcommand\thedepartment{Inteligencia Artificial}
+\newcommand\thecourse{Programación para la Inteligencia Artificial}
+
+% -- Paths
+\newcommand\codelists{../programs/lists.rkt}
+\newcommand\codelistslisp{../programs/lists.lsp}
+\newcommand\codebooks{../programs/bookrecord.lsp}
+\newcommand\codemacro{../programs/mymacro.lsp}
+
+% Remove red color boxes of "syntax errors" in minted
+\AtBeginEnvironment{minted}{%
+  \renewcommand{\fcolorbox}[4][]{#4}}

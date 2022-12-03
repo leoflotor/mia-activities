@@ -61,12 +61,12 @@ function rngHalton(nvals)
 end
 
 # Julia's default random number generator
-rngJulia(nvals) = rand(Float64, nvals)
-# function rngJulia(nvals)
-#     seed = rand(2:150)
+# rngJulia(nvals) = rand(Float64, nvals)
+function rngJulia(nvals)
+    seed = rand(2:1500)
 
-#     return rand(MersenneTwister(seed), Float64, nvals)
-# end
+    return rand(MersenneTwister(seed), Float64, nvals)
+end
 
 function classifyPoints(points)
     inside_circle = filter(x -> dist_from_origin(x) <= 1, points)

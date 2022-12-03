@@ -1,0 +1,856 @@
+% -- Document configuration
+\input{preamble.tex}
+
+% -- Document
+\begin{document}
+
+\thispagestyle{empty}
+
+%Title
+\begin{center}
+\textsc{\theinstitution}\\[2mm]
+
+\thedepartment
+
+\rule{0.6\textwidth}{0.5pt}\\[2mm]
+
+\thecourse \\[4mm]
+
+{\Large \textbf{\thetitle}}\\[2mm]
+
+\theauthor \\[2mm]
+
+{\small \today}
+\end{center}
+\medskip
+
+% -- 
+\vspace{1cm}
+
+Primero, antes de comenzar con las soluciones a la actividad presente, quisiera mencionar que el uso de \code{sbcl} en realidad fue hasta los últimos incisos de esta tarea. Personalmente, encontré \code{racket} bastante atractivo como para continuar estudiándolo y usándolo en proyectos personales en donde usaría algo como \code{python}, o incluso en un carácter más serio. Algunas referencias usadas para aprender y consultar dudas de \code{racket} fueron \cite{matthew2016beautiful} y \cite{matthias2018htdp}.
+\vspace{1cm}
+
+\begin{enumerate}
+    \item Escriba un programa que elimine todas las ocurrencias de un elemento en una lista. Por ejemplo:
+    \begin{minted}[
+        frame=none,
+        autogobble,
+        obeytabs=false,
+        breaklines,
+        tabsize=4,
+        linenos=true,
+        baselinestretch=1,
+        firstnumber=1,
+        bgcolor=bg!70,
+        ]{lisp}
+        > (eliminar 3 '(1 3 2 4 5 3 6 7))
+        (1 2 4 5 6 7)
+    \end{minted}
+    Explique brevemente cómo es que Lisp evalúa esta expresión. [10 puntos]
+    \begin{solution}
+        Leyendo la documentación de \code{racket}, y con mi experiencia en \code{julia}, noté que podía usar una función familiar para seleccionar elementos de acuerdo a una condición, en \code{racket} esta condición es \code{filter}. \code{filter} toma una condición y la mapea a todos los elementos de una lista quedándose solo con aquellos que pasan la prueba. Entonces, \code{filter} viene bien para resolver este inciso. Se puede aprovechar el uso de aplicar una función-$\lambda$ como condición del \code{filter} para checar si un valor se encuentra dentro de una lista. Lo descrito anteriormente se muestra a continuación:
+        \inputminted[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=1,
+            firstline=25,
+            lastline=27,
+            bgcolor=bg!70,]{racket}{\codelists}
+
+        Encontré esta solución bastante atractiva, sencilla y fácil de entender. Cabe mencionar que no fue la primera implementación que hice de esta función. Mi primer intento consistió en aprovechar las facilidades intrínsecas de este lenguaje dentro de la familia de lenguajes \code{lisp}.
+        \inputminted[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=1,
+            firstline=29,
+            lastline=35,
+            bgcolor=bg!70,]{racket}{\codelists}
+
+        La recursividad fue bastante intuitiva para resolver las operaciones entre conjuntos de este inciso, se hizo uso de esto en la función \code{my-remove-rec}. El caso base es cuando se ha recorrido toda la lista pasando por sus elementos, pero si no está vacía entonces se debe verificar que el primer elemento de la lista es igual o no al valor a remover. Finalmente se hace la llamada recursiva con el resto de la lista, y es aquí que se quita de la lista al llamar recursivamente a la función con el resto de la lista. Si no es igual al valor a remover entonces se agrega a una lista auxiliar construída a partir de \code{cons}, y nuevamente se hace la llamada recursiva. Las dos funciones \code{my-remove} y \code{my-remove-rec} fueron escritas en \code{racket}. 
+
+        Un ejemplo de ejecución de estas funciones se muestra a continuación:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{racket}
+            > (my-remove 3 '(1 3 2 4 5 3 6 7))
+            '(1 2 4 5 6 7)
+            > (my-remove-rec 3 '(1 3 2 4 5 3 6 7))
+            '(1 2 4 5 6 7)
+        \end{minted}
+        La forma en que \code{lisp} evalúa esta función es haciendo un símil a como el lenguaje \code{AL} evalúa funciones mediante el \code{EVAL} visto durante el curso. De hecho, la secuencia de pasos a seguir es muy similar a la que se vió para la función factorial \code{fac} incluída en las notas de clase \cite{guerra2022pia}.
+    \end{solution}
+    %
+    \item Implemente una función en Lisp que dada una lista de átomos, regresa las posibles permutaciones de sus miembros. [10 puntos]
+    \begin{minted}[
+        frame=none,
+        autogobble,
+        obeytabs=false,
+        breaklines,
+        tabsize=4,
+        linenos=true,
+        % numbersep=-10pt,
+        baselinestretch=1,
+        firstnumber=1,
+        bgcolor=bg!70,
+        ]{lisp}
+        > (perms '(1 2 3))
+        ((1 2 3) (1 3 2) (2 3 1) (2 1 3) (3 1 2) (3 2 1))
+    \end{minted}
+    \begin{solution}
+        La solución a este inciso fue obtenida de una respuesta a una pregunta\footnote{\url{https://stackoverflow.com/questions/20319593/creating-permutation-of-a-list-in-scheme}} en StackOverflow. La idea es tomar un elemento de la lista, permutar el resto de la lista, e insertar nuevamente al inicio de la permutación el elemento que se tomó. Además, está escrita en \code{racket}.
+        \inputminted[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=1,
+            firstline=88,
+            lastline=100,
+            bgcolor=bg!70,]{racket}{\codelists}
+
+        Esta implementación es sencilla comparada con otras encontradas en la red para computar las permutaciones de una lista. Elegí tomar esta por la simplicidad sobre como implementa la lógica de los pasos a seguir anteriormente explicados de manera muy general. Ejemplos de esta función en acción se muestran a continuación:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{racket}
+            > (permutations '(1 2 3))
+            '((1 2 3) (1 3 2) (2 1 3) (2 3 1) (3 1 2) (3 2 1))
+            > (permutations '(1 2 3 4))
+            '((1 2 3 4)
+            (1 2 4 3)
+            (1 3 2 4)
+            (1 3 4 2)
+            (1 4 2 3)
+            (1 4 3 2)
+            (2 1 3 4)
+            (2 1 4 3)
+            (2 3 1 4)
+            (2 3 4 1)
+            (2 4 1 3)
+            (2 4 3 1)
+            (3 1 2 4)
+            (3 1 4 2)
+            (3 2 1 4)
+            (3 2 4 1)
+            (3 4 1 2)
+            (3 4 2 1)
+            (4 1 2 3)
+            (4 1 3 2)
+            (4 2 1 3)
+            (4 2 3 1)
+            (4 3 1 2)
+            (4 3 2 1))
+        \end{minted}
+
+        Se encontraron otras respuestas en StackOverflow usando \code{common lisp} pero las implementaciones\footnote{\url{https://stackoverflow.com/questions/2087693/how-can-i-get-all-possible-permutations-of-a-list-with-common-lisp}} que se proponían no las encontré entendibles del todo. Incluso en la famosa página de algoritmos, Rosetta Code, vienen muchas soluciones\footnote{\url{https://rosettacode.org/wiki/Permutations}} para encontrar las permutaciones en diferentes lenguajes de programación dentro de los cuales también se incluye a \code{racket} y \code{common lisp}. También se encontraró un post dentro de un blog\footnote{\url{http://www.lispology.com/show?1FZG}} donde se explica el algoritmo y varias implementaciones del mismo usando \code{common lisp}.
+    \end{solution}
+    %
+    \item Implemente en Lisp las siguientes operaciones sobre conjuntos representados como listas. [15 puntos]
+    \begin{itemize}
+        \item Subconjunto:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{lisp}
+            > (subset '(1 3) '(1 2 3 4))
+            true.
+            > (subset '() '(1 2))
+            true.
+        \end{minted}
+        \begin{solution}
+            Para resolver este inciso primero se creó una función para determinar si un valor dado aparece en una lista, con que aparezca al menos una vez es suficiente para que el resultado sea verdadero \code{\#t}, de otra manera el resultado es falso \code{\#f}. 
+            \inputminted[
+                frame=none,
+                autogobble,
+                obeytabs=false,
+                breaklines,
+                tabsize=4,
+                linenos=true,
+                baselinestretch=1,
+                firstnumber=1,
+                firstline=37,
+                lastline=44,
+                bgcolor=bg!70,]{racket}{\codelists}
+
+            Con la función miembro, también definida de manera recursiva como para el caso de \code{my-remove-rec}, se implementa la función recursiva \code{my-subset-rec} que itera sobre todos los valores de la primera lista y realiza el chequeo si cada uno de ellos se encuentra en una segunda lista. Esto para estar en acuerdo con la definición de subconjunto, $A \subseteq B$, donde $A$ es \code{lsta} y $B$ es \code{lstb}. Si se llega al final de la lista es porque todos los elementos de \code{lsta} están en \code{lstb}. En caso contrario, si alguno de los elementos de \code{lsta} es miembro de \code{lstb}, entonces $A \not\subseteq B$.
+            \inputminted[
+                frame=none,
+                autogobble,
+                obeytabs=false,
+                breaklines,
+                tabsize=4,
+                linenos=true,
+                baselinestretch=1,
+                firstnumber=1,
+                firstline=52,
+                lastline=58,
+                bgcolor=bg!70,]{racket}{\codelists}
+            
+            A pesar de que la función \code{my-subset-eq} haga lo que se pretenda que haga y que sea fácilmente de entender lo que está haciendo al verla, es posible hacer otra implementación que a mi parecer tiene un carácter más funcional.
+            \inputminted[
+                frame=none,
+                autogobble,
+                obeytabs=false,
+                breaklines,
+                tabsize=4,
+                linenos=true,
+                baselinestretch=1,
+                firstnumber=1,
+                firstline=46,
+                lastline=50,
+                bgcolor=bg!70,]{racket}{\codelists}
+            
+            La función \code{my-subset} hace uso de un mapeo donde aplica la función \code{my-member-rec} a todos los elementos de la lista \code{lsta}, si se usara un \code{map} se obtendría una lista de booleanos \code{\#t} ó \code{\#t}, tantos como cumplan con la condición de la función-$\lambda$ aplicada dentro del mapeo. El punto de usar \code{andmap} en vez de \code{map} es que si todos los elementos a los que se les aplica el mapeo cumplen con la condición, entonces el retorno de \code{andmap} será un solo \code{\#t}, o en su defecto \code{\#f} si al menos un elemento de \code{lsta} no se encuentra en \code{lstb}.
+
+            Las soluciones para las operaciones entre conjuntos fueron escritas usando \code{racket} a menos que se especifique lo contrario.
+
+            La función \code{my-subset} y su equivalente recursivo se muestran en acción:
+             \begin{minted}[
+                frame=none,
+                autogobble,
+                obeytabs=false,
+                breaklines,
+                tabsize=4,
+                linenos=true,
+                % numbersep=-10pt,
+                baselinestretch=1,
+                firstnumber=1,
+                bgcolor=bg!70,
+                ]{racket}
+                > (my-subset '(1 3) '(1 2 3 4))
+                #t
+                > (my-subset-rec '(1 3) '(1 2 3 4))
+                #t
+                > (my-subset '() '(1 2))
+                #t
+                > (my-subset-rec '() '(1 2))
+                #t
+                > (my-subset '(1 7) '(1 2 3 4))
+                #f
+                > (my-subset-rec '(1 7) '(1 2 3 4))
+                #f
+            \end{minted}
+        \end{solution}
+        %
+        \item Intersección:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{lisp}
+            > (inter '(1 2 3) '(2 3 4))
+            (2 3)
+        \end{minted}
+        \begin{solution}
+            La definición de la Intersección entre conjuntos resulta en tomar aquellos valores que ambos conjuntos comparten, $A \cap B = \{ x | x \in A \land x \in B \}$. Para este caso basta con usar el mismo patrón que se ha visto hasta ahora en las funciones ya definidas, y construir una lista usando \code{cons} con el primer elemento de la lista por la que se está corriendo a la que se le agregaran más elementos si la cabeza de la lista es miembro de la segunda lista, y finalmente llamar recursivamente \code{my-intersection-rec} para ambos casos del \code{if} justo como se muestra a continuación:
+            \inputminted[
+                frame=none,
+                autogobble,
+                obeytabs=false,
+                breaklines,
+                tabsize=4,
+                linenos=true,
+                baselinestretch=1,
+                firstnumber=1,
+                firstline=60,
+                lastline=67,
+                bgcolor=bg!70,]{racket}{\codelists}
+
+            Algunos ejemplos de como funciona la función \code{my-intersection-rec} se muestran inmediatamente en el siguiente snippet:
+            \begin{minted}[
+                frame=none,
+                autogobble,
+                obeytabs=false,
+                breaklines,
+                tabsize=4,
+                linenos=true,
+                % numbersep=-10pt,
+                baselinestretch=1,
+                firstnumber=1,
+                bgcolor=bg!70,
+                ]{racket}
+                > (my-intersection-rec '(1 2 3) '(2 3 4))
+                '(2 3)
+                > (my-intersection-rec '(1 5 7) '(2 3 4))
+                '()
+                > (my-intersection-rec '() '(2 3 4))
+                '()
+            \end{minted}
+            Hace lo que uno esperaría al computar la intersección entre dos conjuntos manualmente.
+        \end{solution}
+        %
+        \item Unión:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{lisp}
+            > (union '(1 2 3 4) '(2 3 4 5))
+            (1 2 3 4 5)
+        \end{minted}
+        \begin{solution}
+            La unión de conjuntos se denota como $A \cup B = \{x | x \in A \lor x \in B\}$, la función \code{my-union-rec} es muy similar a la función \code{my-intersection-rec}, con un par de diferencias. En vez de crear una lista usando \code{cons} se toma una de las listas, en este caso \code{lstb} y se le agregan valores al inicio si se cumple con que alguno de los elementos dentro de \code{lsta} no se encuentra en \code{lstb}. Cuando se llega al final de la lista \code{lsta} significa que ya se han agregado todos los elementos a \code{lstb} que cumplen con la condición, y se puede regresar el resultado.
+            \inputminted[
+                frame=none,
+                autogobble,
+                obeytabs=false,
+                breaklines,
+                tabsize=4,
+                linenos=true,
+                baselinestretch=1,
+                firstnumber=1,
+                firstline=69,
+                lastline=76,
+                bgcolor=bg!70,]{racket}{\codelists}
+            Ejemplos del uso de esta función se muestran a continuación:
+            \begin{minted}[
+                frame=none,
+                autogobble,
+                obeytabs=false,
+                breaklines,
+                tabsize=4,
+                linenos=true,
+                % numbersep=-10pt,
+                baselinestretch=1,
+                firstnumber=1,
+                bgcolor=bg!70,
+                ]{racket}
+                > (my-union-rec '(1 2 3 4) '(2 3 4 5))
+                '(1 2 3 4 5)
+                > (my-union-rec '(1 2 3 4) '())
+                '(1 2 3 4)
+                > (my-union-rec '() '())
+                '()
+            \end{minted}
+        \end{solution}
+        %
+        \item Diferencia:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{lisp}
+            > (dif '(1 2 3 4) '(2 3 4 5))
+            (1)
+            > (dif '(1 2 3) '(1 4 5))
+            (2 3)
+        \end{minted}
+        \begin{solution}
+            La diferencia $A - B$ en \code{my-difference-rec} se muestra a continuación:
+            \inputminted[
+                frame=none,
+                autogobble,
+                obeytabs=false,
+                breaklines,
+                tabsize=4,
+                linenos=true,
+                baselinestretch=1,
+                firstnumber=1,
+                firstline=78,
+                lastline=85,
+                bgcolor=bg!70,]{racket}{\codelists}
+            
+            Aquí lo que se busca es quitar de la primera lista \code{lsta} los elementos que comparta con la segunda lista \code{lstb}. Se itera recursivamente por los elementos de \code{lstb} para verificar si alguno de ellos es miembro de \code{lsta}, y si es el caso entonces se quita de \code{lsta}, y se llama recursivamente a \code{my-difference-rec} con el resto de \code{lstb}. Si dicho elemento no es miembro entonces se llama nuevamente la función con el resto de la segunda lista \code{lstb}, hasta quedar vacía.
+
+            Finalmente, ejemplos de la diferencia se incluyen a continuación:
+            \begin{minted}[
+                frame=none,
+                autogobble,
+                obeytabs=false,
+                breaklines,
+                tabsize=4,
+                linenos=true,
+                % numbersep=-10pt,
+                baselinestretch=1,
+                firstnumber=1,
+                bgcolor=bg!70,
+                ]{racket}
+                > (my-difference-rec '(1 2 3 4) '(2 3 4 5))
+                '(1)
+                > (my-difference-rec '(1 2 3) '(1 4 5))
+                '(2 3)
+                > (my-difference-rec '(2 3 4 5) '(1 2 3 4))
+                '(5)
+                > (my-difference-rec '(1 4 5) '(1 2 3))
+                '(4 5)
+            \end{minted}
+
+            Nótese que el orden importa para esta operación, no es lo mismo $A - B$ que $B - A$.
+        \end{solution} 
+    \end{itemize}
+    % 
+    \item ¿Qué diferencias importantes puede señalar entre la implementación de los ejercicios y la llevada a cabo con Prolog? Sean concisos en la respuesta. [10 puntos]
+    \begin{solution}
+        La diferencia que se podría mencionar primero, pero que resulta trivial, es la diferencia en la sintaxis de ambos lenguajes de programación. Trivial en el sentido de que resulta evidente, al ver ambos lenguajes, que tienen sintaxis distintas. Tiende a ser cada vez más interesante que al observar cada vez más las implementaciones de las operaciones sobre conjuntos hechas en \code{prolog} resultan tener una estructura muy similar a lo que implementé ahora en esta actividad usando \code{racket} y \code{sbcl}, en ambos casos se hace un fuerte uso de la recursión. 
+        
+        En \code{prolog} se usó la recursión y se definieron reglas para lidiar con los casos base y especiales que podrían surgir, aunque el algoritmo usado ahí es el algoritmo de resolución y constantemente se está aplicando resolución y backtracking. Por otra parte, en \code{lisp} se usa el cálculo lambda. Un buen ejemplo de como funciona el cálculo lambda es mediante lo visto en clase \cite{guerra2022pia} respecto al lenguaje \code{AL}, y resulta ser la forma en que los lenguajes de programación dentro de la familia \code{lisp} realizan las evaluaciones sobre una sencilla estructura de datos como lo son las listas.
+
+        A pesar de estas diferencias internas, si se comparan las implementaciones de los ejercicios de mis respuestas solamente, se vería que las implementaciones recursivas de los incisos de esta actividad son muy similares a las implementaciones hechas en \code{prolog}. Aqui no se hizo uso de funciones auxiliares como si se hace en \code{prolog} para definir reglas de casos específicos como ya se había mencionado, para después dejar a \code{prolog} hacerlo suyo, búsqueda y resolución.
+    \end{solution}
+    %
+    \item Lea el capítulo 22 (\textit{LOOP for Black Belts}) del libro de Peter Seibel, Practical Common Lisp. Utilice la macro \code{loop} para resolver alguno de los ejercicios propuestos en esta tarea. [15 puntos]
+    \begin{solution}
+        El capítulo contiene tips bastante interesantes respecto a como utilizar la macro \code{loop}, tanto es así que asemeja mucho a lo que se realizan en lenguajes no funcionales, como por ejemplo en \code{julia} donde se aconseja realizar los procesos de una manera iterativa al estilo de \code{C}; los \code{foor-loop}'s son rápidos en \code{julia}.
+
+        Decidí resolver el problema del inciso 6 de esta actividad usando la macro \code{loop}, dicha solución se mostrará en el siguiente inciso. Mientras tanto, también se reimplementaron algunas de las operaciones entre conjuntos del inciso 3 con esta macro. 
+        
+        En contraste con el inciso 3 donde se usó \code{racket}, de aquí en adelante se usó \code{sbcl}. Las razones de esto es que la macro que se necesita usar no existe en \code{racket} como tal, para esto es necesario utilizar una librería adicional para la cual habría sido necesario revisar su documentación más a fondo y así asegurarme de que no habría cambios en el comportamiento de la macro. Por otra parte, las macros en \code{common lisp} (\code{sbcl}) no son equivalentes a las macros en \code{racket}. Además, el libro recomendado \cite{seibel2006practical} para este inciso contiene muy buenas explicaciones para \code{common lisp} las cuales no son todas directamente aplicables a \code{racket}.
+
+        La primera función que se implementó con esta macro fue una función auxiliar:
+        \inputminted[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=1,
+            firstline=14,
+            lastline=16,
+            bgcolor=bg!70,]{lisp}{\codelistslisp}
+        
+        Encontré interesante que exista la palabra clave \code{thereis} la cual funciona como una cláusula de terminación pronta para salir del loop, en el momento en el que la condición evalúa un valor no nulo (non-nil) el ciclo termina regresando ese valor. En este caso el valor de retorno es un booleano, \code{t} si un valor se encuentra dentro de la lista y \code{nil} si no es el caso. Por lo tanto, se itera sobre los elementos de la lista hasta que da con el valor buscado o se llega al final de la lista, y se sale del loop antes si lo encuentra.
+
+        Ahora, con esta función \code{my-member} decidí implementar nuevamente la operación $A \subseteq B$. La función que implementa esto se muestra a continuación, \code{my-subset}. 
+        \inputminted[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=1,
+            firstline=18,
+            lastline=21,
+            bgcolor=bg!70,]{lisp}{\codelistslisp}
+        
+        Nótese que se usa nuevamente la macro \code{loop} pero ahora en conjunto con otra cláusula de terminación, \code{always}, que termina tempranamente el loop si es que existe alguna evaluación que no cumpla con la condición establecida en cuyo caso corresponde a que todos los elementos de la lista \code{lsta} siempre sean miembros en la lista \code{lstb}.
+
+        De manera similar traté de hacer una segundo intento para implementar esta misma operación. Lo que se hace en \code{my-subset2} es generar una lista dentro del loop de los elementos de la lista \code{lsta} dentro de la lista \code{lstb}. Si la lista generada es igual a la lista original \code{lsta}, entonces se regresa \code{t}, en caso contrario regresa \code{nil}.
+        \inputminted[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=1,
+            firstline=23,
+            lastline=31,
+            bgcolor=bg!70,]{lisp}{\codelistslisp}
+        
+        Estas funciones escritas en \code{sbcl} se muestran en acción a continuación:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{lisp}
+            * (my-subset '(1 3) '(1 2 3 4))
+            T
+            * (my-subset2 '(1 3) '(1 2 3 4))
+            T
+            * (my-subset '() '(1 2))
+            T
+            * (my-subset2 '() '(1 2))
+            T
+            * (my-subset '(1 7) '(1 2 3 4))
+            NIL
+            * (my-subset2 '(1 7) '(1 2 3 4))
+            NIL
+        \end{minted}
+    \end{solution}
+    %
+    \item Defina una macro \code{repeat} que tenga el siguiente comportamiento. Evidentemente, la expresión que se repite puede ser cualquier expresión válida en Lisp. [15 puntos]
+    \begin{minted}[
+        frame=none,
+        autogobble,
+        obeytabs=false,
+        breaklines,
+        tabsize=4,
+        linenos=true,
+        % numbersep=-10pt,
+        baselinestretch=1,
+        firstnumber=1,
+        bgcolor=bg!70,
+        ]{lisp}
+        > (repeat 3 (print 'hi))
+        HI
+        HI
+        HI
+        NIL
+    \end{minted}
+    \begin{solution}
+        Jugando con la macro \code{loop} se escribieron dos funciones. Cabe resaltar que la primera no es idea propia, surgió como resultado de las discusiones entrabladas en grupo, y se muestra a continuación:
+        \inputminted[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=1,
+            firstline=1,
+            lastline=4,
+            bgcolor=bg!70,]{lisp}{\codemacro}
+        
+        La segunda, cambiando la cláusula \code{for} por \code{repeat} dentro de la macro \code{loop}:
+        \inputminted[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            firstline=6,
+            lastline=9,
+            bgcolor=bg!70,]{lisp}{\codemacro}
+
+        Ambas implementaciones se hicieron con la macro \code{loop} para satisfacer los requerimientos del inciso 5 en conjunto de este. Ejemplos de las macros \code{myrepeat} y \code{myrepeat2} se muestran a continuación:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            % numbersep=-10pt,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{lisp}
+            * (myrepeat 3 (print 'hi))     
+
+            HI 
+            HI 
+            HI 
+            NIL
+            * (myrepeat2 3 (print 'hi))
+
+            HI 
+            HI 
+            HI 
+            NIL
+        \end{minted}
+    \end{solution}
+    %
+    \item La siguiente función me permite definir una entrada en un registro de mis libros:
+    \begin{minted}[
+        frame=none,
+        autogobble,
+        obeytabs=false,
+        breaklines,
+        tabsize=4,
+        linenos=true,
+        % numbersep=-10pt,
+        baselinestretch=1,
+        firstnumber=1,
+        bgcolor=bg!70,
+        ]{lisp}
+        (defun crea-libro (titulo autor ed precio)
+            (list :titulo titulo :autor autor :ed ed :precio precio))
+    \end{minted}
+    Puedo usar  una variable global como \code{*db*} para llevar un registro de entradas como sigue:
+    \begin{minted}[
+        frame=none,
+        autogobble,
+        obeytabs=false,
+        breaklines,
+        tabsize=4,
+        linenos=true,
+        % numbersep=-10pt,
+        baselinestretch=1,
+        firstnumber=1,
+        bgcolor=bg!70,
+        ]{lisp}
+        (defvar *db* nil)
+
+        (defun agregar-reg (libro) 
+            (push libro *db*))
+    \end{minted}
+    De forma que:
+    \begin{minted}[
+        frame=none,
+        autogobble,
+        obeytabs=false,
+        breaklines,
+        tabsize=4,
+        linenos=true,
+        % numbersep=-10pt,
+        baselinestretch=1,
+        firstnumber=1,
+        bgcolor=bg!70,
+        ]{lisp}
+        > (agregar-reg (crea-libro "Pericia Artificial" "Alejandro Guerra" "UV" 90.50))
+        ((:TITULO  "Pericia Artificial" :AUTOR "Alejandro Guerra" :ED "UV" :PRECIO 90.5))
+    \end{minted}
+    Agregue más entradas al registro y escriba una función con ayuda de \code{format} (Ver capítulo 18 del libro de Seibel) que despliegue las entradas como sigue [15 puntos]:
+    \begin{minted}[
+        frame=none,
+        autogobble,
+        obeytabs=false,
+        breaklines,
+        tabsize=4,
+        linenos=true,
+        % numbersep=-10pt,
+        baselinestretch=1,
+        firstnumber=1,
+        bgcolor=bg!70,
+        ]{lisp}
+        > (listado-db)
+        TITULO:     Pericia Artificial
+        AUTOR:      Alejandro Guerra
+        ED:         UV
+        PRECIO:     90.50
+    \end{minted}
+    \begin{solution}
+        Un ejemplo muy similar a este inciso y al octavo se puede encontrar en el libro de referencia \cite{seibel2006practical}, adaptándolo se llega a la siguiente función:
+        \inputminted[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=1,
+            firstline=11,
+            lastline=14,
+            bgcolor=bg!70,]{lisp}{\codebooks}
+
+        Incluso se añade una alternativa sin usar \code{dolist}:
+        \inputminted[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=1,
+            firstline=16,
+            lastline=18,
+            bgcolor=bg!70,]{lisp}{\codebooks}
+        
+        Para esta alternativa, \code{format} consume listas dentro de la lista de listas que compone a la base de datos, el primer \code{a} consume las propiedades de cada sublista y el segundo \code{a} consume el valor asociado a dicha propiedad. El \code{t} que se encuentra en medio no consume ningún valor, solamente indica que incluya cierta cantidad de espacios entre la propiedad y su valor al mostrarlas en el \code{repl}. Esta notación \code{\~{}\{ ... \~{}\}} indica el consumir un elemento de una lista, entonces \code{\~{}\{\~{}\{ ... \~{}\}\~{}\}} es consumir elementos para cada sublista dentro de una lista hasta consumir todas las sublistas.
+
+        Se lanza \code{sbcl} en terminal, y se carga el programa en el \code{repl}:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{lisp}
+            * (load "bookrecord.lsp")
+            T
+        \end{minted}
+
+        Después de cargar el archivo se agregaron los libros como se muestra a continuación:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            ]{lisp}
+            * (agregar-reg (crea-libro "The catcher in the rye" "Jerome David Salinger" "Alianza Editorial" 175.0))
+            ((:TITULO "The catcher in the rye" :AUTOR "Jerome David Salinger" :EDIT
+            "Alianza Editorial" :PRECIO 175.0)
+            (:TITULO "Kitchen" :AUTOR "Banana Yoshimoto" :EDIT "TusQets" :PRECIO 150.5)
+            (:TITULO "Rebelion en la granja" :AUTOR "George Orwell" :EDIT "Debolsillo"
+            :PRECIO 200.0)
+            (:TITULO "El cuento veracruzano" :AUTOR "Luis Leal" :EDIT "UV" :PRECIO 50.0)
+            (:TITULO "Pericia Artificial" :AUTOR "Alejandro Guerra" :EDIT "UV" :PRECIO
+            90.5))
+        \end{minted}
+
+        Posteriormente, se muestra la salida de la base de datos de los libros incluídos hasta ahora con el formato requerido para este inciso:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            ]{lisp}
+            * (muestra-bd)
+            TITULO:   The catcher in the rye
+            AUTOR:    Jerome David Salinger
+            EDIT:     Alianza Editorial
+            PRECIO:   175.0
+
+            TITULO:   Kitchen
+            AUTOR:    Banana Yoshimoto
+            EDIT:     TusQets
+            PRECIO:   150.5
+
+            TITULO:   Rebelion en la granja
+            AUTOR:    George Orwell
+            EDIT:     Debolsillo
+            PRECIO:   200.0
+
+            TITULO:   El cuento veracruzano
+            AUTOR:    Luis Leal
+            EDIT:     UV
+            PRECIO:   50.0
+
+            TITULO:   Pericia Artificial
+            AUTOR:    Alejandro Guerra
+            EDIT:     UV
+            PRECIO:   90.5
+
+            NIL
+        \end{minted}
+    \end{solution}
+    %
+    \item Defina una función para recuperar una entrada en el registro buscando por autor. [10 puntos]
+    \begin{solution}
+        Este inciso es una continuación del inciso anterior. Igualmente, me basé en el ejemplo del capítulo 3 del libro de referencia escrito por Seibel \cite{seibel2006practical}. A continuación se muestra una llamada a la función \code{selecciona-por-autor} la cual filtra la base de datos y regresa las entradas que corresponden a dicho autor:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            ]{lisp}
+            * (selecciona-por-autor "Banana Yoshimoto")
+            ((:TITULO "Kitchen" :AUTOR "Banana Yoshimoto" :EDIT "TusQets" :PRECIO 150.5))
+        \end{minted}
+
+        La implementación de \code{selecciona-por-autor} escrita para mostrar las entradas dentro del registro de un autor dado es la siguiente:
+        \inputminted[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=1,
+            firstline=20,
+            lastline=24,
+            bgcolor=bg!70,]{lisp}{\codebooks}
+
+        Lo que hace ese remover de la base de datos aquellos elementos que no cumplen con la condición establecida por la función-$\lambda$. Dicha funcion lambda busca para cada una de las entradas de la base de datos su autor correspondiente, y si el valor de la propiedad \code{:autor} de dicha entrada coincide con el valor dado por el usuario la remueve. De hecho, si se hace la llamada de \code{muestra-bd} para checar las entradas, sigue teniendo las mismas, en realidad el \code{remove-if-not} no altera la base de datos.
+    \end{solution}
+\end{enumerate}
+
+% \begin{minted}[
+%     frame=none,
+%     autogobble,
+%     obeytabs=false,
+%     breaklines,
+%     tabsize=4,
+%     linenos=true,
+%     % numbersep=-10pt,
+%     baselinestretch=1,
+%     firstnumber=1,
+%     bgcolor=bg!70,
+%     ]{prolog}
+% \end{minted}
+
+% \inputminted[
+%     frame=none,
+%     autogobble,
+%     obeytabs=false,
+%     breaklines,
+%     tabsize=4,
+%     linenos=true,
+%     % numbersep=-10pt,
+%     baselinestretch=1,
+%     firstnumber=1,
+%     bgcolor=bg!70,]{prolog}{\codesolfirst}
+
+% \vspace{1cm}
+% \pagebreak
+
+\bibliography{references.bib}
+
+\end{document}
