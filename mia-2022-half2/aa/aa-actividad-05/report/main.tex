@@ -467,11 +467,8 @@ Adaptar el algoritmo de Dijkstra para que trabaje en una rejilla donde se defina
             bgcolor=bg!70,
             ]{julia}
             julia> using ShortestPath; sp = ShortestPath;
-
             julia> nrows = 40; ncols = 40;
-
             julia> idarray = [i for i in 1:(ncols * nrows)] |> x -> reshape(x, ncols, nrows) |> transpose;
-
             julia> start = [10, 3]; finish = [35, 37];
         \end{minted}
 
@@ -491,11 +488,8 @@ Adaptar el algoritmo de Dijkstra para que trabaje en una rejilla donde se defina
             bgcolor=bg!70,
             ]{julia}
             julia> nh, obs = sp.neighborhood(nrows, ncols; start=start, finish=finish, obsdensity=0.25); sp.visualize(nh)
-
             julia> nhdiag = deepcopy(nh);
-
             julia> adjmat = sp.adjacencyMatrix(nrows, ncols; obstacles=obs, allowdiags=false);
-
             julia> adjmatdiag = sp.adjacencyMatrix(nrows, ncols; obstacles=obs, allowdiags=true);
         \end{minted}
 
@@ -515,16 +509,11 @@ Adaptar el algoritmo de Dijkstra para que trabaje en una rejilla donde se defina
             bgcolor=bg!70,
             ]{julia}
             julia> path, dist = sp.findPath(adjmat, ncols; start=start, finish=finish);
-
             julia> pathdiag, distdiag = sp.findPath(adjmatdiag, ncols; start=start, finish=finish);
-
             julia> sp.updateneighborhood!(nhdiag, pathdiag); sp.visualize(nhdiag)
-
             julia> sp.updateneighborhood!(nh, path); sp.visualize(nh)
-
             julia> dist
             59.0
-
             julia> distdiag
             46.11269837220809
         \end{minted}
@@ -551,7 +540,7 @@ Adaptar el algoritmo de Dijkstra para que trabaje en una rejilla donde se defina
 
         En la \cref{fig:rejilla_40x40} se muestran las imágenes para una rejilla de $40 \times 40$ incluyendo el caso en que el movimiento hacia vecinos solamente se da horizontal y verticalmente, \cref{fig:nodiags_obs_25percent_40x40}, y el caso en que el movimiento diagonal está permitido, \cref{fig:diags_obs_25percent_40x40}. Las distancias del recorrido en cada una de ellas son de $50$ unidades sin diagonales en la \cref{fig:nodiags_obs_25percent_40x40}, y de $46.11$ unidades considerando diagonales en la \cref{fig:diags_obs_25percent_40x40}.
 
-        Los pixeles mostrados en color \fcolorbox{black}{black}{\rule{0pt}{4pt}\rule{4pt}{0pt}} son los pixeles libres por los que se puede transitar mientras que los mostrados de color los pixeles de color \fcolorbox{black}{obstacle}{\rule{0pt}{4pt}\rule{4pt}{0pt}} son los obstáculos; el pixel de color \fcolorbox{black}{start}{\rule{0pt}{4pt}\rule{4pt}{0pt}} es el punto de partida definido en \code{start}, el pixel de color \fcolorbox{black}{finish}{\rule{0pt}{4pt}\rule{4pt}{0pt}} es el punto de llegada definido en \code{finish}, y los pixeles de color \fcolorbox{black}{path}{\rule{0pt}{4pt}\rule{4pt}{0pt}} muestran el camino atravesado para llegar a la meta.
+        Los pixeles mostrados en color \tikz{\fill[black] (0,0) rectangle (0.3,0.3)} son los pixeles libres por los que se puede transitar mientras que los mostrados de color los pixeles de color \tikz{\fill[color_obstacle] (0,0) rectangle (0.3,0.3)} son los obstáculos; el pixel de color \tikz{\fill[color_start] (0,0) rectangle (0.3,0.3)} es el punto de partida definido en \code{start}, el pixel de color \tikz{\fill[color_finish] (0,0) rectangle (0.3,0.3)} es el punto de llegada definido en \code{finish}, y los pixeles de color \tikz{\fill[color_path] (0,0) rectangle (0.3,0.3)} muestran el camino atravesado para llegar a la meta.
 
         Esta implementación permite utilizar dimensiones para la rejilla diferentes de $n \times n$, esto quiere decir que se pueden elegir un número diferente de filas que de columnas, y viceversa. Un ejemplo de esto se muestra en la \cref{fig:rejilla_20x35}, con 20 filas y 35 columnas. El camino sin diagonales permitidas es de 50 unidades, mientras que aquel en que se permiten las diagonales tiene longitud de 36.87 unidades.
         \begin{figure}[ht!]
@@ -588,7 +577,7 @@ Adaptar el algoritmo de Dijkstra para que trabaje en una rejilla donde se defina
         \end{equation*}
         donde $v(i,j)$ en realidad denota el $j-\text{ésimo}$ vecino del pixel con identificador $i$. De esta manera, se puede acceder al arreglo bidimensional equivalente a la matriz de adyacencia en \code{julia} como $v(\text{row}, \text{column})$ y así agregar o quitar vecinos sin realizar transformaciones extras a los índices de los pixeles en la imágen original. Si se quisieran agregar los vecinos del pixel con identificador $i=1$ bastaría con computarlos de acuerdo a las restricciones explicadas al inicio de la actividad y agregarlos a la matriz de adyacencia como $v(1, j)$ para todo $j$ dentro del conjunto de identificadores, $j = (1,\ldots,n_{\text{total}})$. Lo segundo es que gracias a la representación usada se pueden fácilmente generar mapas de pixeles de diferentes dimensiones $n \times m$ donde $n \neq m$, aunque seguimos restringidos a tener mapas rectangulares pero no solamente cuadrados. Una idea interesante podría ser la implementación de mapas diferentes al caso rectangular como podría serlo el movimiento dentro de un espacio tridimensional.
 
-        De lo anteriormente mencionado, si se conocen los identificadores de los obstáculos, entonces las entradas de la matriz $v(k, j)$ serían igual a cero para todo $j$ dentro del conjunto de identificadores y para todo $k$ dentro del conjunto de los identificadores de los obstáculos ya que esas entradas corresponden a las filas de las interacciones de los obstaculos con otros. Lo mismo se aplicaría para las interacciones de otros pixeles con los obstáculos representadas por $v(i, k)$, también serían iguales a cero. De esta manera se tendrían filas y columnas enteras iguales a cero las cuales las cuales son aquellas en las $k$-ésimas posiciones dentro de la matriz para ambos casos. Por ejemplo, si el conjunto de los obstáculos fuera igual a $\text{obs} = \{2, 4\}$, entonces la matriz mostrada anteriormente se veria como,
+        De lo anteriormente mencionado, si se conocen los identificadores de los obstáculos, entonces las entradas de la matriz $v(k, j)$ serían igual a cero para todo $j$ dentro del conjunto de identificadores y para todo $k$ dentro del conjunto de los identificadores de los obstáculos ya que esas entradas corresponden a las filas de las interacciones de los obstáculos con otros. Lo mismo se aplicaría para las interacciones de otros pixeles con los obstáculos representadas por $v(i, k)$, también serían iguales a cero. De esta manera se tendrían filas y columnas enteras iguales a cero las cuales las cuales son aquellas en las $k$-ésimas posiciones dentro de la matriz para ambos casos. Por ejemplo, si el conjunto de los obstáculos fuera igual a $\text{obs} = \{2, 4\}$, entonces la matriz mostrada anteriormente se veria como,
         \begin{equation*}
             \begin{blockarray}{c c c c c c c}
                 & 1 & 2 & 3 & 4 & \hdots & n \\
@@ -617,9 +606,116 @@ Adaptar el algoritmo de Dijkstra para que trabaje en una rejilla donde se defina
                 \includegraphics[scale=0.3]{../figures/path_03_diag.png}
                 \caption{8 vecinos (diagonales no permitidas); $\text{distancia} = 46.87 u$.}
             \end{subfigure}
-            \caption{Rejilla de $40 \times 20$ con una densidad de obstáculos del $325\%$.}
-            % \label{fig:rejilla_20x35}
+            \caption{Rejilla de $40 \times 20$ con una densidad de obstáculos del $25\%$.}
+            \label{fig:rejilla_40x20}
         \end{figure}
+
+        Para finalizar quisiera mostrar un caso en el que los obstáculos no se generan de manera aleatoria. No es el propósito explicar a detalle los pasos a continuación pero se hará lo mejor posible para que el lector pueda seguir los pasos. Primero, definimos el número de columnas y de filas que vamos a considerar para la imágen, también declaramos manualmente un color guardado en la variable \code{color\_} para identificar a los obstáculos\footnote{Corresponde al mismo color mostrado en las imágenes anteriores.} y se debe crear el vecindario, esto es, la imágen que contiene a todos los pixeles inicializados en negro \code{nh}:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{julia}
+            julia> color_ = sp.RGB(0.70196, 0.18039, 0.41568);
+            julia> nh = zeros(sp.RGB, nrows, ncols);
+        \end{minted}
+
+        \begin{figure}[ht!]
+            \centering
+            \begin{subfigure}{0.4\textwidth}
+                \centering
+                \includegraphics[scale=0.3]{../figures/escalera_nodiag.png}
+                \caption{4 vecinos (diagonales no permitidas); $\text{distancia} = 172 u$.}
+            \end{subfigure}
+            \hspace{1cm}
+            %
+            \begin{subfigure}{0.4\textwidth}
+                \centering
+                \includegraphics[scale=0.3]{../figures/escalera_diag.png}
+                \caption{8 vecinos (diagonales no permitidas); $\text{distancia} = 152.08 u$.}
+            \end{subfigure}
+            \caption{Rejilla de $40 \times 20$ con una densidad de obstáculos del $16\%$.}
+            \label{fig:rejilla_escalera}
+        \end{figure}
+
+        Se está considerando un arreglo similar al mostrado en la \cref{fig:rejilla_40x20} con 40 filas y 20 columnas. Se crearan obstáculos en forma de escalera, el color de estos pixeles se cambiará al color que corresponde a los obstáculos:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            ]{julia}
+            julia> nh[5,begin:end-1] .= color_;
+            julia> nh[10,begin+1:end] .= color_;
+            julia> nh[15,begin:end-1] .= color_;
+            julia> nh[20,begin+1:end] .= color_;
+            julia> nh[25,begin:end-1] .= color_;
+            julia> nh[30,begin+1:end] .= color_;
+            julia> nh[35,begin:end-1] .= color_;
+        \end{minted}
+        Los obstaculos se encuentran preguntando cuáles no son de color negro, esto se hace con \code{findall}, este comando da una lista de índices cumpliendo cierta condición. Para este caso, la condición es aquellos pixeles que no son negros:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            ]{julia}
+            julia> obs = findall(x -> x != sp.RGB(0,0,0), nh) .|> x -> sp.id(x[1], x[2], ncols);
+        \end{minted}
+
+        Nótese que se convirtieron los índices que se obtendrían con \code{findall} a la representación de los índices de la que se habló anteriormente ya que la función \code{adhacencyMatrix} requiere que los obstáculos se pasen como argumento en esta representación. Habiéndo dicho esto, se procede a calcular la matriz de adyacencia para ambos casos, cuando se permite moverse en diagonales y cuando no:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            ]{julia}
+            julia> adjmat = sp.adjacencyMatrix(nrows, ncols; obstacles=obs, allowdiags=false);
+            julia> adjmatdiag = sp.adjacencyMatrix(nrows, ncols; obstacles=obs, allowdiags=true);
+            julia> path, dist = sp.findPath(adjmat, ncols; start=start, finish=finish);
+            julia> pathdiag, distdiag = sp.findPath(adjmatdiag, ncols; start=start, finish=finish);
+        \end{minted}
+
+        Finalmente, se actualiza los vecindarios originales para incluir los caminos, y se guardan las imágenes:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            ]{julia}
+            julia> sp.updateneighborhood!(nh, path)
+            julia> sp.updateneighborhood!(nhdiag, pathdiag)
+            julia> sp.savefig(fig, "../figures/escalera_nodiag.png");
+            julia> sp.savefig(figdiag, "../figures/escalera_diag.png");
+        \end{minted}
+
+        En la \cref{fig:rejilla_escalera} se muestran ambos casos, cuando no se está permitido moverse en diagonales y cuando sí lo está permitido. A pesar de que no esté implementado en el módulo escrito elegir pixeles de manera interactiva, se pueden definir obstáculos de esta manera para generar estructuras más interesantes para las cuales encontrar sus caminos más cortos. Se invita al lector, estudiante o no, que juegue con esta funcionalidad para generar alún tipo de laberinto sencillo.
     \end{solution}
 \end{enumerate}
 

@@ -1,6 +1,7 @@
 module ApproxPie
 
 using Random
+using FLoops
 
 # Distance from the origin to a point
 dist_from_origin(point) = point[1]^2 + point[2]^2
@@ -32,6 +33,26 @@ function rngLcg(nvals)
     return numbers
 end
 
+function rngLcg_floop(nvals)
+    # Parameters
+    m = 2^32
+    a = 1103515245
+    c = 12345
+    # The power of the distributed computing 
+    seed = time() * 1000   # current system's time in micro seconds times 1000
+
+    numbers = zeros(nvals)
+    @floop for i in 1:nvals
+        # s = seed
+        # s = (a * s + c) % m
+        seed = (a * seed + c) % m
+        numbers[i] = seed / m
+    end
+    
+    return numbers
+end
+
+
 # Halton sequence generator
 """
     rngHalton(nvals; base=2)
@@ -61,12 +82,12 @@ function rngHalton(nvals)
 end
 
 # Julia's default random number generator
-# rngJulia(nvals) = rand(Float64, nvals)
-function rngJulia(nvals)
-    seed = rand(2:1500)
+rngJulia(nvals) = rand(Float64, nvals)
+# function rngJulia(nvals)
+#     seed = rand(2:1500)
 
-    return rand(MersenneTwister(seed), Float64, nvals)
-end
+#     return rand(MersenneTwister(seed), Float64, nvals)
+# end
 
 function classifyPoints(points)
     inside_circle = filter(x -> dist_from_origin(x) <= 1, points)
@@ -98,24 +119,45 @@ function pieApprox(classification)
     return 4 * count_circle / count_square
 end
 
+# function piesApprox(npoints; rng="julia")
+#     methods = Dict(
+#         "julia" => rngJulia, 
+#         "halton" => rngHalton,
+#         "lcg" => rngLcg)
+
+#     method = methods[rng]
+#     xvalues = method(npoints)
+#     yvalues = method(npoints)
+
+#     pies = zeros(npoints)
+#     for i in eachindex(pies)
+#         classify = classifyPoints(xvalues[begin:i], yvalues[begin:i])
+#         pie = pieApprox(classify) 
+#         pies[i] = pie
+#     end
+
+#     return (pies=pies, xvalues=xvalues, yvalues=yvalues)
+# end
+
 function piesApprox(npoints; rng="julia")
     methods = Dict(
         "julia" => rngJulia, 
         "halton" => rngHalton,
         "lcg" => rngLcg)
-
     method = methods[rng]
+
     xvalues = method(npoints)
     yvalues = method(npoints)
-
     pies = zeros(npoints)
-    for i in eachindex(pies)
-        classify = classifyPoints(xvalues[begin:i], yvalues[begin:i])
-        pie = pieApprox(classify) 
-        pies[i] = pie
+
+    for npoints_ in eachindex(pies)
+        xwindow = xvalues[begin:npoints_]
+        ywindow = yvalues[begin:npoints_]
+        points_inside_circle = count(x -> x[1]^2 + x[2]^2 <= 1, zip(xwindow, ywindow))
+        pies[npoints_] = 4 * points_inside_circle / npoints_
     end
 
-    return pies
+    return (pies=pies, xvalues=xvalues, yvalues=yvalues)
 end
 
 function plotFig(classification)
@@ -133,6 +175,40 @@ function plotFig(classification)
     yaxis!(fig, bordercolor="white")
 
     return fig
+end
+
+function estimate_pi_floop(nMC)
+   radius = 1.
+   diameter = 2. * radius
+
+   @floop for i in 1:nMC
+       x = (rand() - 0.5) * diameter
+       y = (rand() - 0.5) * diameter
+       r = sqrt(x^2 + y^2)
+       if r <= radius
+           @reduce(n_circle += 1)
+       end
+   end
+
+   return (n_circle / nMC) * 4.
+end
+
+
+function rngLcg_floop(nvals)
+    # Parameters
+    m = 2^32
+    a = 1103515245
+    c = 12345
+    # The power of the distributed computing 
+    seed = time() * 1000 |> BigFloat   # current system's time in micro seconds times 1000
+
+    numbers = zeros(nvals)
+    @floop for i in eachindex(numbers)
+        seed = (a * seed + c) % m
+        numbers[i] = seed / m
+    end
+    
+    return numbers
 end
 
 # julia> n = 5000; approximations = ap.piesApprox(n);
