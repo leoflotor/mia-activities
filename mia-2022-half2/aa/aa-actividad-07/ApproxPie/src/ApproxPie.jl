@@ -1,13 +1,12 @@
 module ApproxPie
 
 using Random
-using FLoops
+using Plots
+using LaTeXStrings
 
 # Distance from the origin to a point
-dist_from_origin(point) = point[1]^2 + point[2]^2
 dist_from_origin(x, y) = x^2 + y^2
 
-# Linear congruential generator
 # https://aaronschlegel.me/linear-congruential-generator-r.html
 """
     rngLcg(nvals)
@@ -33,27 +32,6 @@ function rngLcg(nvals)
     return numbers
 end
 
-function rngLcg_floop(nvals)
-    # Parameters
-    m = 2^32
-    a = 1103515245
-    c = 12345
-    # The power of the distributed computing 
-    seed = time() * 1000   # current system's time in micro seconds times 1000
-
-    numbers = zeros(nvals)
-    @floop for i in 1:nvals
-        # s = seed
-        # s = (a * s + c) % m
-        seed = (a * seed + c) % m
-        numbers[i] = seed / m
-    end
-    
-    return numbers
-end
-
-
-# Halton sequence generator
 """
     rngHalton(nvals; base=2)
 
@@ -81,20 +59,8 @@ function rngHalton(nvals)
     return numbers
 end
 
-# Julia's default random number generator
-rngJulia(nvals) = rand(Float64, nvals)
-# function rngJulia(nvals)
-#     seed = rand(2:1500)
-
-#     return rand(MersenneTwister(seed), Float64, nvals)
-# end
-
-function classifyPoints(points)
-    inside_circle = filter(x -> dist_from_origin(x) <= 1, points)
-    outside_circle = filter(x -> dist_from_origin(x) > 1, points)
-
-    return (in = inside_circle, out = outside_circle)
-end
+rng = MersenneTwister(rand(100:185112384089))
+rngJulia(nvals) = rand(rng, Float64, nvals)
 
 function classifyPoints(xvals, yvals)
     inside_circle = []
@@ -111,34 +77,6 @@ function classifyPoints(xvals, yvals)
     return (in = inside_circle, out = outside_circle)
 end
 
-function pieApprox(classification)
-    ps = classification
-    count_circle = length(ps.in)
-    count_square = count_circle + length(ps.out)
-
-    return 4 * count_circle / count_square
-end
-
-# function piesApprox(npoints; rng="julia")
-#     methods = Dict(
-#         "julia" => rngJulia, 
-#         "halton" => rngHalton,
-#         "lcg" => rngLcg)
-
-#     method = methods[rng]
-#     xvalues = method(npoints)
-#     yvalues = method(npoints)
-
-#     pies = zeros(npoints)
-#     for i in eachindex(pies)
-#         classify = classifyPoints(xvalues[begin:i], yvalues[begin:i])
-#         pie = pieApprox(classify) 
-#         pies[i] = pie
-#     end
-
-#     return (pies=pies, xvalues=xvalues, yvalues=yvalues)
-# end
-
 function piesApprox(npoints; rng="julia")
     methods = Dict(
         "julia" => rngJulia, 
@@ -148,71 +86,47 @@ function piesApprox(npoints; rng="julia")
 
     xvalues = method(npoints)
     yvalues = method(npoints)
-    pies = zeros(npoints)
+    pies = Array{BigFloat}(undef, npoints)
 
-    for npoints_ in eachindex(pies)
-        xwindow = xvalues[begin:npoints_]
-        ywindow = yvalues[begin:npoints_]
-        points_inside_circle = count(x -> x[1]^2 + x[2]^2 <= 1, zip(xwindow, ywindow))
-        pies[npoints_] = 4 * points_inside_circle / npoints_
+    points_inside_circle = BigFloat(0)
+    for i in 1:npoints
+        xi = xvalues[i]
+        yi = yvalues[i]
+        disti = xi^2 + yi^2
+
+        if disti <= 1
+            points_inside_circle += 1
+        end
+
+        pie = 4 * points_inside_circle / i
+        pies[i] = pie
     end
 
     return (pies=pies, xvalues=xvalues, yvalues=yvalues)
 end
 
-function plotFig(classification)
-    ps = classification
+function plotClassification(classification, pieval)
+    theme(:ggplot2)
     dx = 0.01    # extra space to not cut circles at the limits
+    x_in = map(x -> x[1], classification.in)
+    y_in = map(x -> x[2], classification.in)
+    x_out = map(x -> x[1], classification.out)
+    y_out = map(x -> x[2], classification.out) 
 
-    fig = plot(size=(600,600), 
+    fig = plot(
+        size=(375,400),
+        xlabel=L"x",
+        ylabel=L"y",
+        title=raw"$\pi \approx" * "$(pieval)"[begin:7] * raw"$",
         xlims=(-dx,1+dx), ylims=(-dx,1+dx), 
-        xticks=nothing, yticks=nothing) 
+        xticks=(0:0.2:1), yticks=(0:0.2:1),
+        aspect_ratio=:equal,
+        dpi=600) 
 
-    scatter!(ps.out, label="", ms=4, ma=0.5, msw=0.5)
-    scatter!(ps.in, label="", ms=4, ma=0.5, msw=0.5)
-
-    xaxis!(fig, bordercolor="white")
-    yaxis!(fig, bordercolor="white")
+    scatter!(x_in, y_in, label="", ms=1, ma=0.5, msw=0.1)
+    scatter!(x_out, y_out, label="", ms=1, ma=0.5, msw=0.1)
 
     return fig
 end
-
-function estimate_pi_floop(nMC)
-   radius = 1.
-   diameter = 2. * radius
-
-   @floop for i in 1:nMC
-       x = (rand() - 0.5) * diameter
-       y = (rand() - 0.5) * diameter
-       r = sqrt(x^2 + y^2)
-       if r <= radius
-           @reduce(n_circle += 1)
-       end
-   end
-
-   return (n_circle / nMC) * 4.
-end
-
-
-function rngLcg_floop(nvals)
-    # Parameters
-    m = 2^32
-    a = 1103515245
-    c = 12345
-    # The power of the distributed computing 
-    seed = time() * 1000 |> BigFloat   # current system's time in micro seconds times 1000
-
-    numbers = zeros(nvals)
-    @floop for i in eachindex(numbers)
-        seed = (a * seed + c) % m
-        numbers[i] = seed / m
-    end
-    
-    return numbers
-end
-
-# julia> n = 5000; approximations = ap.piesApprox(n);
-# julia> npoints = map(x -> x[1], approximations); pies = map(x -> x[2], approximations);
-# julia> scatter(npoints, pies, label="", ms=2, ma=0.8); hline!([π], label="", lw=2.5)
 
 end # module ApproxPie
