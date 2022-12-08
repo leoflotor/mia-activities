@@ -1,38 +1,67 @@
 module MiniFinder
 
-function computeLastOcc(textstring)
-   lastOcc = ones(Int, 128) .* -1    # all to -1
+using OffsetArrays    # To create arrays with first index equal to zero.
 
-   for i in 1:(length(textstring) - 1)
-       lastOcc[Int(textstring[i]) + 1] = i
-   end
+#=
+Important notes
 
-   return lastOcc
+Link of available ascii characters:
+- https://www.rapidtables.com/code/text/ascii-table.html
+
+How to 0-base index in Julia?
+- https://medium.com/analytics-vidhya/0-based-indexing-a-julia-how-to-43578c780c37
+
+How to not use OffsetVectors?
+How to use a dictionary for the ocurrence table?
+=#
+
+function occurrenceTable(textstring)
+    # T -> textstring
+
+    # textstring = isa(textstring, String) ? split(textstring, "") : textstring
+    textstring = split(textstring, "")
+    ascii = 256    # How many allowed ascii characters? There are 255 in total.
+
+    T = OffsetVector(textstring, 0:(length(textstring)-1))
+    lastocc = OffsetVector(ones(Int, ascii) .* -1, 0:(ascii-1))    # Initialize all to -1.
+
+    for i in 0:(length(T) - 1)
+        lastocc[Int(T[i][1])] = i
+    end
+
+    return lastocc
 end
 
 function horspool(textstring, pattern)
     # T -> textstring
     # P -> pattern
+
+    lastocc = occurrenceTable(pattern)
+    textstring = split(textstring, "")
+    pattern = split(pattern, "")
+
+    T = OffsetVector(textstring, 0:length(textstring)-1)
+    P = OffsetVector(pattern, 0:length(pattern)-1)
     
-    n = length(textstring)
-    m = length(pattern)
-    lastOcc = computeLastOcc(pattern)
+    n = length(T)
+    m = length(P)
     
-    i0 = 1
+    i0 = 0
+
     while i0 <= n - m
-        j = m - 0   # Start at the last char in the pattern
-    
+        j = m - 1   # Start at the last char in the pattern
+
         # When the last char in the pattern is found, iterate over all chars and
         # compare to see if all match.
-        while Int(pattern[j]) == Int(textstring[i0 + j])
+        while Int(P[j][1]) == Int(T[i0 + j][1])
             j = j - 1
 
-            if j < 1
+            if j < 0
                 return i0
             end
         end
 
-        i0 = i0 + (m - 0) - lastOcc[Int(textstring[i0 + (m - 0)])]
+        i0 = i0 + (m - 1) - lastocc[Int(T[i0 + (m - 1)][1])]
     end
 
     return -1
@@ -46,37 +75,6 @@ end
 #     end
 
 #     return lastocc
-# end
-
-# function horspool(textstr, pattern)
-#     lastocc = computeLastOccurrence(pattern)
-#     
-#     n = length(textstr)
-#     m = length(pattern)
-#     r = []
-
-#     k = m - 1
-#     j = m - 1
-#     while k < n
-#         if j < 1
-#             append!(r, k - m + 1)
-#             j = m - 1
-#             k += 1
-
-#             if k >= n
-#                 break
-#             end
-#         end
-#         
-#         if textstr[k - (m-1-j)] == pattern[j]
-#             j = j - 1
-#         else
-#             k = k + (m - 1 - lastocc[textstr[k]])
-#             j = m - 1
-#         end
-#     end
-
-#     return r
 # end
 
 end # module MiniFinder
