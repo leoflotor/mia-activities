@@ -68,7 +68,7 @@ eligeAtr(Ejs,Atrs,Atr,Vals,RestoAtrs) :-
              % Modificacion para calcular GainRatio
              GainRatio is Gain / (SI + 1)),
             Todos),
-    write(Todos),
+    write(Todos),    % Escribe todos los resultados en terminal
     maximo(Todos,(Atr-Vals)/_),
     eliminar(Atr,Atrs,RestoAtrs), !.
 

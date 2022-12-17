@@ -1,0 +1,502 @@
+% -- Document configuration
+\input{preamble.tex}
+
+% -- Document
+\begin{document}
+
+\thispagestyle{empty}
+
+%Title
+\begin{center}
+\textsc{\theinstitution}\\[2mm]
+
+\thedepartment
+
+\rule{0.6\textwidth}{0.5pt}\\[2mm]
+
+\thecourse \\[4mm]
+
+{\Large \textbf{\thetitle}}\\[2mm]
+
+\theauthor \\[2mm]
+
+{\small \today}
+\end{center}
+\medskip
+
+% -- 
+\vspace{1cm}
+
+Programar el algoritmo de Horspool para la búsqueda de palabras clave para los siguientes casos:
+\begin{itemize}
+    \item Caso 1:
+    \begin{itemize}
+        \item Entrada: Palabra de búsqueda, y archivo de texto \code{.txt} 
+        \item Salida: No se encuentra la palabra, o bien sí se encuentra y la posición donde comienza la palabra (renglón y columna).
+    \end{itemize}
+    \item Caso 2:
+    \begin{itemize}
+        \item Entrada: Palabra de búsqueda y múltiples archivos de texto \code{.txt} (en una carpeta).
+        \item Salida: La lista de los archivos ordenados por relevancia (de mayor a menor). Esto es, cúantas veces se encuentra la palabra en cada archivo, y si dos archivos tienen el mismo conteo entonces será más relevante aquel en el la razón de las ocurrencias de la palabra de búsqueda respecto al total de palabras del documento sea mayor.
+    \end{itemize}
+    \begin{solution}
+        El algoritmo de Horspool, también conocido como el algoritmo Boyer-Moore-Horspool, fue hecho para la búsqueda de palabras dentro de texto. Esto puede verse como la búsqueda de una subcadena de texto dentro de una cadena de entrada. Ejemplos del uso de este algoritmo se muestran en el curso \textit{Data structures and Algorithms} \cite{shun2013horspool} y en las notas de clase basadas en el libro \textit{Análisis de algoritmos} \cite{homero2013algoritmos}.
+
+        Este algoritmo busca en una cadena un patrón deseado, se va recorriendo la cadena hasta que se encuentra la primer letra del patrón y se guarda su posición en una tabla de ocurrencias, si el siguiente carácter de la cadena también coincide con el siguiente de la palabra buscada se vuelve a guardar su posición dentro de la tabla, y esto se repite hasta que todos los caracteres de la palabra clave son encontrados. Pero se deben realizar un par de consideraciones.
+
+        Para realizar esta búsqueda se sobreponen los caracteres $s_i$ de la cadena con aquellos del patrón $c_j$,
+        \begin{equation*}
+            \begin{matrix}
+                s_0 & s_1 & s_2 & \ldots & s_n \\
+                c_0 & c_1 & c_2 & & \qquad ,
+            \end{matrix}
+        \end{equation*}
+        si hay un carácter de la cadena $s_i$ que no esté dentro del patrón se mueve el patrón un número de espacios igual a su longitud y se realiza nuevamente la búsqueda, por ejemplo si $s_0 = c_0$, $s_2 = c_2$ pero $s_1 \neq c_1$,
+        \begin{equation*}
+            \begin{matrix}
+                s_0 & s_1 & s_2 & s_3 & s_4 & s_5 & \ldots & s_n \\
+                & & & c_0 & c_1 & c_2 & & \qquad .
+            \end{matrix}
+        \end{equation*}
+        El segundo caso es si un carácter $s_i$ de la cadena se encuentra en el patrón pero no coincide con la posición actual en el patrón, entonces se mueve la cadena para hacerlos coincidir
+        \begin{equation*}
+            \begin{matrix}
+                s_0 & s_1 & s_2 & s_3 & s_4 & s_5 & \ldots & s_n \\
+                & & c_0 & c_1 & c_2 & & & \qquad ,
+            \end{matrix}
+        \end{equation*}
+        por ejemplo, si $s_4 \neq c_2$ pero $s_4 = c_0$,
+        \begin{equation*}
+            \begin{matrix}
+                s_0 & s_1 & s_2 & s_3 & s_4 & s_5 & s_6 & \ldots & s_n \\
+                & & & & c_0 & c_1 & c_2 & \ldots & \qquad .
+            \end{matrix}
+        \end{equation*}
+        El tercer caso es similar al primero, el último carácter del patrón coincide con su carácter en la cadena pero no hay coincidencias con el resto de caracteres del patrón,
+        \begin{equation*}
+            \begin{matrix}
+                s_0 & s_1 & s_2 & \ldots & s_n \\
+                c_0 & c_1 & c_2 & & \qquad ,
+            \end{matrix}
+        \end{equation*}
+        esto es, si $s_2 = c_2$ pero $s_0 \neq c_0$ y $s_1 \neq c_1$, entonces la cadena se desplaza por la longitud total del patrón como en el primer caso,
+        \begin{equation*}
+            \begin{matrix}
+                s_0 & s_1 & s_2 & s_3 & s_4 & s_5 & \ldots & s_n \\
+                & & & c_0 & c_1 & c_2 & & \qquad .
+            \end{matrix}
+        \end{equation*}
+        El último caso es cuando el último carácter del patrón coincide con su respectivo carácter en la cadena pero hay otras coincidencias en el resto de caracteres
+        \begin{equation*}
+            \begin{matrix}
+                s_0 & s_1 & s_2 & s_3 & s_4 & \ldots & s_n \\
+                & c_0 & c_1 & c_2 & c_3 & & \qquad ,
+            \end{matrix}
+        \end{equation*}
+        por ejemplo, si $s_4 = c_3$ pero $s_3 \neq c_2$ y $s_4 = c_1$, $s_3 = c_0$,
+        \begin{equation*}
+            \begin{matrix}
+                s_0 & s_1 & s_2 & s_3 & s_4 & s_5 & s_6 & \ldots & s_n \\
+                & & & c_0 & c_1 & c_2 & c_3 & & \qquad ,
+            \end{matrix}
+        \end{equation*}
+        entonces el desplazamiento de la cadena es similar al segundo caso.
+
+        Primero se carga el módulo \code{MiniFinder} en \code{julia} usando un alias para llamar más rápidamente a las funciones contenidas dentro de este. La búsqueda se hace mediante la función \code{horspool} que detecta solamente la primera ocurrencia del patrón en una cadena como se muestra a continuación: 
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            numberblanklines=false
+            ]{julia}
+            julia> using Revise; using MiniFinder; mf = MiniFinder;
+
+            julia> text = "El curso de analisis de algoritmos es interesante. Leonardo estudia para su curso."
+            "El curso de analisis de algoritmos es interesante. Leonardo estudia para su curso."
+
+            julia> pattern = "leo"
+            "leo"
+
+            julia> mf.horspool(lowercase(text), pattern)
+            51
+
+            julia> pattern = "curso"
+            "curso"
+
+            julia> mf.horspool(lowercase(text), pattern)
+            3
+        \end{minted}
+        
+        En el caso en que el patrón es igual a \code{\quotes{curso}}, el algoritmo de Horspool no detecta la segunda ocurrencia. Finalmente lo que se desea para esta actividad es justamente esto, el poder contar cuantas ocurrencias hay del patrón en un texto, aunque para ello primero hay que diseñar una función que nos permita hacer esto en una línea de texto ya que el leer un archivo de texto \code{.txt} normalmente se hace por líneas. Esto se logró hacer mediante la función \code{occurrencesInLine} la cual recibe dos argumentos, el primero siendo una cadena de texto que representa una línea leída de alguna fuente y el segundo argumento el patrón de búsqueda.
+
+        Tomando el mismo texto guardado en la variable \code{text} definida anteriormente y realizando la búsqueda de los mismos patrones se obtiene lo siguiente:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            numberblanklines=false
+            ]{julia}
+            julia> pattern = "leo"
+            "leo"
+
+            julia> occurrences = mf.occurrencesInLine(lowercase(text), pattern)
+            1-element Vector{Any}:
+            52
+
+            julia> text[occurrences[1]:end]
+            "Leonardo estudia para su curso."
+
+            julia> pattern = "curso"
+            "curso"
+
+            julia> occurrences = mf.occurrencesInLine(lowercase(text), pattern)
+            2-element Vector{Any}:
+            4
+            77
+
+            julia> text[occurrences[1]:end]
+            "curso de analisis de algoritmos es interesante. Leonardo estudia para su curso."
+
+            julia> text[occurrences[2]:end]
+            "curso."
+        \end{minted}
+
+        El objetivo es poder observar como se realiza la detección de las ocurrencias. Por ejemplo, si se tiene una cadena de longitud $n_c$, siendo $s_i$ los caracteres que conforman esa cadena, y se busca un patrón de longitud $n_p$, asumiendo que se encuentra la primera ocurrencia del patrón en la posición $s_k$ donde $0 \leq k \leq n_c - n_p$, esto no asegura no haya otra ocurrencia del patrón en el resto de caracteres desde $s_{k+1}$ hasta $s_{n_c - n_p}$. Se debe escribir una función que tome en cuenta lo ya mencionado y que aplique nuevamente la búsqueda del patrón en el resto de la cadena manteniendo al mismo tiempo la posición relativa de la nueva cadena respecto a la cadena original.
+        \begin{equation*}
+            \begin{matrix}
+                \text{cadena original} & s_0 & s_1 & s_2 & s_3 & s_4 & s_5 & \ldots & s_n \\
+                \text{cadena nueva} & & & & s'_0 & s'_1 & s'_2 & \ldots & s'_n \\
+                \text{índices} & 0 & 1 & 2 & 3 & 4 & 5 & \ldots & n \\
+            \end{matrix}
+        \end{equation*}
+        La función que se encarga de esto es \code{occurrencesInLines}, como ya se habia mostrado anteriormente. De manera similar, al ser ahora posible leer una línea se puede extender este concepto a leer un grupo de líneas, lo que es más, un grupo de líneas es un archivo de texto \code{.txt}. La función \code{occurrencesInFile} lee un archivo en este formato en un directorio indicado. Lo hace aplicando la función \code{occurrencesInLine} y guarda el índice de la línea en la que estaba y su ocurrencia en la línea actual en forma de tuplas $(\text{line}_i, \text{position}_{j})$. Estas tuplas se van juntando en una lista donde se colectan todas las ocurrencias detectadas, y en el caso en que no se encuentre ninguna ocurrencia del patrón en el archivo indicado, la función imprime un mensaje de no haber encontrado ninguna y regresa una lista vacía. Ejemplo de esto se puede ver con un archivo de prueba, como se muestra a continuación:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            numberblanklines=false
+            ]{julia}
+            julia> occurrences = mf.occurrencesInFile("../files/notabook_paragraphs_03.txt", "sed");
+
+            julia> occurrences
+            10-element Vector{Any}:
+            (1, 58)
+            (1, 168)
+            (1, 243)
+            (1, 383)
+            (3, 169)
+            (3, 243)
+            (3, 338)
+            (3, 952)
+            (3, 999)
+            (5, 307)
+
+            julia> occurrences = mf.occurrencesInFile("../files/notabook_paragraphs_03.txt", "desk");
+            No occurrences of "desk" where detected in "../files/notabook_paragraphs_03.txt".
+
+            julia> occurrences
+            Any[]
+        \end{minted}
+        
+        Los archivos de prueba para esta actividad se obtuvieron de forma aleatoria del sitio Lorem Ipsum\footnote{\url{https://loremipsum.io/}} en el que se pueden generar textos con longitud arbitraria. Se decidió buscar los textos de esta manera para evitar complicar la limpieza de textos \code{.pdf} convertidos a \code{.txt}, además de que el propósito de esta actividad es solamente implementar la búsqueda.
+
+        Para completar el último punto de la actividad se tienen que contar de alguna manera las palabras que existen en un archivo y asi tener la densidad de palabras. Las funciones mencionadas hasta ahora están todas relacionadas a la detección de las ocurrencias de una sola palabra usada como patrón dentro de una cadena o conjunto de cadenas, no para contar cuáles son las palabras en un archivo ni su frecuencia. Se buscó un acercamiento mas \textit{naive} para resolver el problema del conteo.
+
+        Para contar palabras se lee un archivo por líneas, cada línea es a su vez dividida por palabras a partir de la detección de ciertos símbolos de puntuación comunes en inglés como lo son \code{\quotes{ .,:;-'!?}}, además de que todas las letras en mayúsculas son convertidas a minúsculas. Al momento de leer una palabra ésta se agrega a un diccionario que mantiene la cuenta de esa palabra mientras detecta una ocurrencia de ella en el texto, y este proceso se repite hasta haber pasado por todas las palabras dentro del archivo. La función dedicada para esta tarea es \code{wordCounterInFile} la cual recibe como argumento el \code{path} para un archivo. Tomando el mismo archivo anteriormente usado como ejemplo se muestra el siguiente conteo:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            numberblanklines=false
+            ]{julia}
+            julia> wordcount, totalcount = mf.wordCounterInFile("../files/notabook_paragraphs_03.txt");
+
+            julia> wordcount
+            Dict{String, Int64} with 129 entries:
+            "maecenas"    => 2
+            "quam"        => 4
+            "odio"        => 3
+            "ullamcorper" => 4
+            "tempus"      => 3
+            "et"          => 3
+            "faucibus"    => 2
+            "dictumst"    => 1
+            "rutrum"      => 1
+            "vitae"       => 4
+            "tempor"      => 1
+            ⋮             => ⋮
+
+            julia> totalcount
+            382
+        \end{minted}
+        
+        Lo que se muestra en \code{wordcount} son las palabras con sus respectivos conteos de ocurrencias, mientras que \code{totalcount} es el número total de palabras dentro del documento. Además, es posible saber cuál es el número de ocurrencias para una sola palabra, por ejemplo, para la misma anteriormente usada \code{\quotes{sed}}:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            numberblanklines=false
+            ]{julia}
+            julia> get(words, "sed", -1)
+            10
+
+            julia> get(words, "desk", -1)
+            -1
+        \end{minted}
+        
+        La función \code{get} busca en el diccionario por llave (en este caso la palabra), y regresa el valor asociado a esa llave. En el caso en que no se encuentra esa llave entonces regresa un valor por defecto, en este caso es \code{-1}.
+
+        El procedimiento anteriormente descrito es fácilmente aplicable a un grupo de archivos en un directorio. Se escribió una función que identifique los archivos presentes en un directorio, aplique la función \code{mf.wordCounterInFile}, y que calcule el conteo del patrón y la densidad del patrón respecto al total de palabras para una futura comparación. Esta información se guarda en una lista de tuplas ordenadas como \code{(patterncount, density, filename)} pero aquel documento en que el patrón no se haya detectado no se incluye en la lista. Ejemplo de esto se puede observar a continuación:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            numberblanklines=false
+            ]{julia}
+            julia> collection = mf.wordCountInDirectory("../files/", "sed")
+            8-element Vector{Any}:
+            (10, 0.02617801047120419, "notabook_paragraphs_03")
+            (36, 0.029605263157894735, "notabook_paragraphs_10")
+            (96, 0.027126306866346424, "notabook_paragraphs_27")
+            (81, 0.02188006482982172, "notabook_paragraphs_29")
+            (87, 0.020928554245850373, "notabook_paragraphs_31")
+            (94, 0.02087960906263883, "notabook_paragraphs_34")
+            (101, 0.018703703703703705, "notabook_paragraphs_40")
+            (115, 0.01984126984126984, "notabook_paragraphs_45")
+
+            julia> collection = mf.wordCountInDirectory("../files/", "mollis")
+            7-element Vector{Any}:
+            (2, 0.001644736842105263, "notabook_paragraphs_10")
+            (3, 0.0008476970895733258, "notabook_paragraphs_27")
+            (10, 0.002701242571582928, "notabook_paragraphs_29")
+            (10, 0.0024055809477988932, "notabook_paragraphs_31")
+            (19, 0.004220346512661039, "notabook_paragraphs_34")
+            (9, 0.0016666666666666668, "notabook_paragraphs_40")
+            (6, 0.0010351966873706005, "notabook_paragraphs_45")
+            
+            julia> collection = mf.wordCountInDirectory("../files/", "desk")
+            Any[]
+        \end{minted}
+        
+        Si la palabra buscada no se encuentra, el archivo no se lista, y si ningún archivo incluye el patrón en su texto, entonces la lista resultante es vacía. Ya que se tiene la información pertinente a cada documento es necesario ordenarlos de acuerdo al criterio mencionado en la actividad, este es, en orden descendente de acuerdo a su conteo de palabras. Para este propósito hay dos funciones que se pueden elegir de acuerdo a lo deseado, si solamente se quiere ordenar de acuerdo al número de ocurrencias o a la densidad del patrón respecto al total se puede utilizar la función \code{sortCollection}. Un ejemplo de esto se muestra a continuación al buscar el patrón \code{\quotes{sed}} en la colección de archivos usada hasta ahora:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            numberblanklines=false
+            ]{julia}
+            julia> collection = mf.wordCountInDirectory("../files/", "sed")
+            8-element Vector{Any}:
+            (10, 0.02617801047120419, "notabook_paragraphs_03")
+            (36, 0.029605263157894735, "notabook_paragraphs_10")
+            (96, 0.027126306866346424, "notabook_paragraphs_27")
+            (81, 0.02188006482982172, "notabook_paragraphs_29")
+            (87, 0.020928554245850373, "notabook_paragraphs_31")
+            (94, 0.02087960906263883, "notabook_paragraphs_34")
+            (101, 0.018703703703703705, "notabook_paragraphs_40")
+            (115, 0.01984126984126984, "notabook_paragraphs_45")
+
+            julia> mf.sortCollection(collection, "wordcount")
+            8-element Vector{Any}:
+            (115, 0.01984126984126984, "notabook_paragraphs_45")
+            (101, 0.018703703703703705, "notabook_paragraphs_40")
+            (96, 0.027126306866346424, "notabook_paragraphs_27")
+            (94, 0.02087960906263883, "notabook_paragraphs_34")
+            (87, 0.020928554245850373, "notabook_paragraphs_31")
+            (81, 0.02188006482982172, "notabook_paragraphs_29")
+            (36, 0.029605263157894735, "notabook_paragraphs_10")
+            (10, 0.02617801047120419, "notabook_paragraphs_03")
+
+            julia> mf.sortCollection(collection, "density")
+            8-element Vector{Any}:
+            (36, 0.029605263157894735, "notabook_paragraphs_10")
+            (96, 0.027126306866346424, "notabook_paragraphs_27")
+            (10, 0.02617801047120419, "notabook_paragraphs_03")
+            (81, 0.02188006482982172, "notabook_paragraphs_29")
+            (87, 0.020928554245850373, "notabook_paragraphs_31")
+            (94, 0.02087960906263883, "notabook_paragraphs_34")
+            (115, 0.01984126984126984, "notabook_paragraphs_45")
+            (101, 0.018703703703703705, "notabook_paragraphs_40")
+        \end{minted}
+        
+        Aunque lo anterior es necesario para tener una idea de la importancia de nuestros archivos respecto a la ocurrencia del patrón no es suficiente para cumplir con el último inciso de la asignatura ¿Cómo diseñar un algoritmo de ordenamiento para ordenar de acuerdo a dos parámetros? Con esto en mente se buscó implementar un algoritmo sencillo \cite{stanley2021simplealgo}, y además efectivo, que itera dos veces sobre la lista original intercambiando valores si detecta que uno es menor que otro, se adaptó para ajustarse a la lista de tuplas obtenida donde se guarda la información de los archivos y se agregó una condición extra para manejar el caso cuando el conteo de las palabras en un archivo es igual a otro:
+        \inputminted[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=1,
+            firstline=205,
+            lastline=230,
+            bgcolor=bg!70,]{julia}{\codepath}
+
+        Aunque si se aplica a la collección guardada en la variable \code{collection} del extracto de código inmediatamente arriba no habrá ningún cambio aparente
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=118,
+            bgcolor=bg!70,
+            numberblanklines=false
+            ]{julia}
+            julia> mf.specialSort(collection)
+            8-element Vector{Any}:
+            (10, 0.02617801047120419, "notabook_paragraphs_03")
+            (36, 0.029605263157894735, "notabook_paragraphs_10")
+            (81, 0.02188006482982172, "notabook_paragraphs_29")
+            (87, 0.020928554245850373, "notabook_paragraphs_31")
+            (94, 0.02087960906263883, "notabook_paragraphs_34")
+            (96, 0.027126306866346424, "notabook_paragraphs_27")
+            (101, 0.018703703703703705, "notabook_paragraphs_40")
+            (115, 0.01984126984126984, "notabook_paragraphs_45")
+        \end{minted}
+
+        Se considerará un caso en el que la primera entrada y la última de \code{collection} tienen el mismo conteo de palabras que la entrada para el archivo \code{\quotes{notabook\_paragraphs\_27}},
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=118,
+            bgcolor=bg!70,
+            numberblanklines=false
+            ]{julia}
+            julia> collection[1] = (96, 0.02617801047120419, "notabook_paragraphs_03")
+            (96, 0.02617801047120419, "notabook_paragraphs_03")
+
+            julia> collection[8] = (96, 0.01984126984126984, "notabook_paragraphs_45")
+            (96, 0.01984126984126984, "notabook_paragraphs_45")
+
+            julia> collection
+            8-element Vector{Any}:
+            (96, 0.02617801047120419, "notabook_paragraphs_03")
+            (36, 0.029605263157894735, "notabook_paragraphs_10")
+            (96, 0.027126306866346424, "notabook_paragraphs_27")
+            (81, 0.02188006482982172, "notabook_paragraphs_29")
+            (87, 0.020928554245850373, "notabook_paragraphs_31")
+            (94, 0.02087960906263883, "notabook_paragraphs_34")
+            (101, 0.018703703703703705, "notabook_paragraphs_40")
+            (96, 0.01984126984126984, "notabook_paragraphs_45")
+        \end{minted}
+
+        Ahora, si se aplica la función de ordenamiento \code{specialSort} se esperaría que estas entradas con el mismo conteo de palabras sean ordenadas de acuerdo a su densidad justo como se muestra
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=118,
+            bgcolor=bg!70,
+            numberblanklines=false
+            ]{julia}
+            julia> mf.specialSort(collection)
+            8-element Vector{Any}:
+            (36, 0.029605263157894735, "notabook_paragraphs_10")
+            (81, 0.02188006482982172, "notabook_paragraphs_29")
+            (87, 0.020928554245850373, "notabook_paragraphs_31")
+            (94, 0.02087960906263883, "notabook_paragraphs_34")
+            (96, 0.027126306866346424, "notabook_paragraphs_27")
+            (96, 0.02617801047120419, "notabook_paragraphs_03")
+            (96, 0.01984126984126984, "notabook_paragraphs_45")
+            (101, 0.018703703703703705, "notabook_paragraphs_40")
+        \end{minted}
+
+        De esta manera termina la actividad de búsqueda y ordenamiento de textos de acuerdo al criterio de ocurrencias de un patrón en ellos, y al segundo criterio de ordenamiento sí es que algunos de ellos presentan el mismo conteo de ocurrencias.
+    \end{solution}
+\end{itemize}
+
+\clearpage
+\section*{Apéndice}
+\inputminted[
+    frame=none,
+    autogobble,
+    obeytabs=false,
+    breaklines,
+    tabsize=4,
+    linenos=true,
+    baselinestretch=1,
+    firstnumber=1,
+    bgcolor=bg!70,]{julia}{\codepath}
+
+\nocite{*}    % to call all references even if they are not cited in the text
+\bibliography{references.bib}
+
+\end{document}
+
+% \begin{minted}[
+%     frame=none,
+%     autogobble,
+%     obeytabs=false,
+%     breaklines,
+%     tabsize=4,
+%     linenos=true,
+%     baselinestretch=1,
+%     firstnumber=1,
+%     bgcolor=bg!70,
+%     ]{julia}
+%     # Pseudocodigo
+%     # Vecino arriba
+%     if id > nc
+%         agrega (id - nc) como vecino
+%     end if
+%     # Vecino abajo
+%     if id <= nc * (nr - 1)
+%         agrega (id + nc) como vecino
+%     end if
+% \end{minted}
+

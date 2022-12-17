@@ -52,11 +52,23 @@
         \begin{figure}[ht!]
             \centering
             \begin{tikzpicture}
-                \draw[step=2, gray!80, thick] (0,0) grid (4,4);
-                \draw[gray!80, thick] (2,2) circle (2);
+                \draw[step=2, gray!80, thick] (0, 0) grid (4, 4);
+                \draw[gray!80, thick] (2, 2) circle (2);
                 \draw[to-to] (4.5, 2) -- node[right] {$l/2$} (4.5, 4);
-                \draw[to-to] (2,1.5) -- node[below] {$r$} (4, 1.5);
-                \draw[black, very thick] (2,2) rectangle (4,4);
+                \draw[to-to] (2, 1.5) -- node[below] {$r$} (4, 1.5);
+                \draw[black, very thick] (2, 2) rectangle (4, 4);
+                % Inside circle
+                \draw[color=red!60, fill=red!5, very thick] (2.3, 2.4) circle (0.1);
+                \draw[color=red!60, fill=red!5, very thick] (2.8, 2.5) circle (0.1);
+                \draw[color=red!60, fill=red!5, very thick] (2.45, 3.1) circle (0.1);
+                \draw[color=red!60, fill=red!5, very thick] (3.2, 2.4) circle (0.1);
+                \draw[color=red!60, fill=red!5, very thick] (3.2, 2.9) circle (0.1);
+                \draw[color=red!60, fill=red!5, very thick] (2.7, 3.7) circle (0.1);
+                \draw[color=red!60, fill=red!5, very thick] (3.6, 2.65) circle (0.1);
+                % Outside circle
+                \draw[color=blue!60, fill=blue!5, very thick] (3.8, 3.5) circle (0.1);
+                \draw[color=blue!60, fill=blue!5, very thick] (3.2, 3.8) circle (0.1);
+                \draw[color=blue!60, fill=blue!5, very thick] (3.8, 3.8) circle (0.1);
             \end{tikzpicture}
             \caption{Círculo inscrito en un cuadrado.}
             \label{fig:relacion_cuadrado_circulo}
@@ -71,7 +83,7 @@
 
         Para aproximar $\pi$ con el \textit{método de Monte Carlo} se implementaron dos generadores de números pseudo aleatorios. El primero corresponde al \textit{generador lineal congruencial}, su implementación está basada en el trabajo hecho por Schlegel en su blog \cite{schlegel2008lcg} la cual a su vez está basada en una implementación dentro del estándar del lenguaje de programación \code{C} \cite{saucier2000computer}, siendo esta última referencia de la que se obtienen los parámetros adecuados para este generador. Por otro lado, el pseudo código para la implementación de la \textit{secuencia de Halton} fue visto en una pregunta del sitio StackOverflow \cite{stack2013halton} y de Wikipedia \cite{wiki2013halton}.
 
-        Para calcular los puntos aleatorios se añadieron 3 funciones \code{rngJulia}, \code{rngLcg} y \code{rngHalton}, como se muestra en el codigo adjunto en el apéndice. Posteriormente se juntaron en una sola función que llamaría a la necesaria dependiendo se un \code{keyword argument} como se muestra a continuación:
+        Para calcular los puntos aleatorios se añadieron 3 funciones \code{rngJulia}, \code{rngLcg} y \code{rngHalton}, como se muestra en el código adjunto en el apéndice. Posteriormente se juntaron en una sola función que llamaría a la necesaria dependiendo se un \code{keyword argument} como se muestra a continuación:
         \begin{minted}[
             frame=none,
             autogobble,
@@ -80,8 +92,9 @@
             tabsize=4,
             linenos=true,
             baselinestretch=1,
-            firstnumber=1,
+            firstnumber=last,
             bgcolor=bg!70,
+            numberblanklines=false
             ]{julia}
             julia> begin
                    n = 3_500_000    # numero de puntos deseados
@@ -97,8 +110,157 @@
                    end;
         \end{minted}
 
-        Las aproximaciones de $\pi$ se muestran la \cref{fig:pi_approximations}, y sus respectivos errores en la \cref{fig:pi_errors}. Lo que se pudo observar es que el valor de todas las aproximaciones dependen de las semillas dadas en cada método. Por ejemplo, el método de la convergencia lineal tiene como semilla el tiempo del ordenador en milisegundos, el método de la secuencia de Halton tiene como semilla la base. Por otro lado, desconozco como es que el generador de números aleatorios de \code{julia} es implementado, pero usa un método llamdado \textit{Mersenne Twister} \cite{wiki2013mersenne}.
+        Las aproximaciones de $\pi$ se muestran la \cref{fig:pi_approximations}, y sus respectivos errores en la \cref{fig:pi_errors}. Lo que se pudo observar es que el valor de todas las aproximaciones dependen de las semillas dadas en cada método. Por ejemplo, el método de la convergencia lineal tiene como semilla el tiempo del ordenador en milisegundos, el método de la secuencia de Halton tiene como semilla la base. Por otro lado, desconozco como es que el generador de números aleatorios de \code{julia} es implementado, pero se usó un método incluído en la librería base llamado \textit{Mersenne Twister} \cite{wiki2013mersenne} al que también se le debe de proveer una semilla, lo cual también se hizo de forma aleatoria.
 
+        Las gráficas mostradas en la \cref{fig:pi_approximations} incluyen 4 casos, cada subgráfica es un número diferente de puntos totales considerados para los tres generadores de números pseudo aleatorios. Además, se marca en una línea roja punteada el valor de referencia de $\pi$ incluído en la librería base de \code{julia}. Con la implementación hecha para este problema se notó que el cambiar la semilla hace que el valor aproximado de $\pi$ con el mismo método no sea el mismo. De hecho pareciera no converger siempre al mismo valor, posiblemente debido a algún detalle en la implementación o a algún factor numérico.
+
+        Los errores para los cálculos ya mencionados se muestran en las gráficas de la \cref{fig:pi_errors}. La escala usada para el eje $y$, el cual corresponde al error de la aproximación, es logarítmica base 10. Además, el eje $y$ en realidad es el error del valor real con respecto a la aproximación $|\pi - \pi_{n}|$, donde $\pi_n$ es la aproximación de $\pi$ con un número $n$ de puntos aleatorios. Es conveniente tomar la escala logarítmica en base 10 ya que mientras más pequeño es el error más se alejará del 0 la aproximación hacia valores negativos más rápidamente. Mejor aún, el ver el error de esta manera permite ver claramente la precisión, por ejemplo, en las gráficas mostradas en la \cref{fig:pi_errors} hay dos líneas punteadas, una en $y = -3$ y otra en $y = -6$, esto es debido a que,
+        \begin{align}
+            \log_{10}{1E-3} = -3, \\
+            \log_{10}{1E-6} = -6 .
+        \end{align}
+        En la \cref{fig:pi_approx_1e6} el error mediante LCG y Julia no alcanza una precisión de $1E-3$, mientras que el error mediante Halton si lo hace. El panorama no mejora mucho a pesar de incrementar el número de puntos como se muestra en la \cref{fig:pi_approx_3.5e6}. No es hasta que se toman $7E6$ puntos que los métodos presentan una mejoría pero tampoco es considerable. La mejoría en la aproximación para todos los métodos se encuentra hasta que se toman $10E6$ puntos como se puede observar en la \cref{fig:pi_approx_10e6}.
+
+        Los resultados de la aproximación de $\pi$ y su respectivo error al tomar $1E6$ puntos se muestran en \cref{fig:pi_approx_1e6} y \cref{fig:pi_error_1e6}, respectivamente, mientras que los errores y aproximaciones para cada unos de los generadores aleatorios se incluye a continuación:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            numberblanklines=false
+            ]{julia}
+            # Resultados al considerar 1E6 puntos
+            # Aproximaciones de Pi
+            julia> (data_lcg.pies[end], data_jul.pies[end], data_halt.pies[end])
+            (3.142783999999999999999999999999999999999999999999999999999999999999999999999995, 3.140215999999999999999999999999999999999999999999999999999999999999999999999989, 3.141732000000000000000000000000000000000000000000000000000000000000000000000005)
+
+            # Errores
+            julia> (err_lcg[end], err_jul[end], err_halt[end])
+            (0.0011913464102067615373566167204971158028306006248941790250554076921835937137966, 0.001376653589793238462643383279502884197169399375105820974944592307816406286208964, 0.0001393464102067615373566167204971158028306006248941790250554076921835937138070732)
+        \end{minted}
+
+        Las imágenes el caso de considerar $3.5E6$ puntos se muestran en las \cref{fig:pi_approx_3.5e6} y \cref{fig:pi_error_3.5e6}, respectivamente. Los errores y aproximaciones para cada unos de los generadores aleatorios se muestra a continuación:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            numberblanklines=false
+            ]{julia}
+            # Resultados al considerar 3.5E6 puntos
+            # Aproximacion de Pi
+            julia> (data_lcg.pies[end], data_jul.pies[end], data_halt.pies[end])
+            (3.14245485714285714285714285714285714285714285714285714285714285714285714285715, 3.141893714285714285714285714285714285714285714285714285714285714285714285714276, 3.141923428571428571428571428571428571428571428571428571428571428571428571428585)
+
+            # Errores
+            julia> (err_lcg[end], err_jul[end], err_halt[end])
+            (0.0008622035530639043944994738633542586599734577677513218821982648350407365709523039, 0.0003010606959210472516423310062114015171163149106084647393411219778978794280774798, 0.0003307749816353329659280452919256872314020291963227504536268362636121651423865035)
+        \end{minted}
+
+        De manera similar, las imágenes para el caso de considerar $7E6$ puntos se muestran en la \cref{fig:pi_approx_7e6} y en la \cref{fig:pi_error_7e6}. Los resultados para este caso son los siguientes:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            numberblanklines=false
+            ]{julia}
+            # Resultados al considerar 7E6 puntos
+            # Aproximaciones de Pi
+            julia> (data_lcg.pies[end], data_jul.pies[end], data_halt.pies[end])
+            (3.140873142857142857142857142857142857142857142857142857142857142857142857142852, 3.141336571428571428571428571428571428571428571428571428571428571428571428571413, 3.141525142857142857142857142857142857142857142857142857142857142857142857142841)
+
+            # Errores
+            julia> (err_lcg[end], err_jul[end], err_halt[end])
+            (0.0007195107326503813197862404223600270543122565179629638320874494506735491433465233, 0.0002560821612218098912148118509314556257408279465343924035160208792449777147849059, 6.751073265038131978624042236002705431225651796296383208744945067354914335721727e-05)
+        \end{minted}
+
+        Finalmente, las gráficas para el último caso tomando en cuenta $10E6$ puntos se muestran en las \cref{fig:pi_approx_10e6} y en la \cref{fig:pi_error_10e6}. Sus aproximación y error asociado se muestra a continuación:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            numberblanklines=false
+            ]{julia}
+            # Resultados al considerar 10E6 puntos
+            # Aproximaciones de Pi
+            julia> (data_lcg.pies[end], data_jul.pies[end], data_halt.pies[end])
+            (3.141603599999999999999999999999999999999999999999999999999999999999999999999986, 3.141693599999999999999999999999999999999999999999999999999999999999999999999989, 3.141603999999999999999999999999999999999999999999999999999999999999999999999987)
+
+            # Errores
+            julia> (err_lcg[end], err_jul[end], err_halt[end])
+            (1.09464102067615373566167204971158028306006248941790250554076921835937137877954e-05, 0.0001009464102067615373566167204971158028306006248941790250554076921835937137912996, 1.134641020676153735661672049711580283060062489417902505540769218359371378903923e-05)
+        \end{minted}
+
+        Para corroborar que se estan obteniendo resultados razonables con el generador de números aleatorios de \code{julia} se decidió escribir una función extra la cual no guarde la información de los puntos calculados en una lista ya que eso consume memoria. La función a la que se hace referencia es aquella nombrada \code{pieNaive} al final del código incluído en el apéndice. Lo que se hace es obtener un valor aleatorio para la coordenada en $x$ y otro para la coordenada $y$ de un punto, si la distancia de ese punto al origen es menor o igual a 1 se agrega una unidad a un contador \code{inside\_circle} inicializado en 0. En el momento en que se haya considerado la cantidad deseada de puntos solamente se regresa la cantidad de puntos dentro del círculo multiplicado por 4 y dividido entre el total de puntos. Ya que no se tiene que guardar esta información en memoria se puede computar la aproximación de $\pi$ con un número mayor de puntos deseados. 
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            mathescape,
+            numberblanklines=false
+            ]{julia}
+            # Aproximacion de pi con 1E6 puntos
+            julia> @time pie = ap.pieNaive(1_000_000); error = abs.(pie .- π);
+            0.005372 seconds (1 allocation: 16 bytes)
+            julia> pie, error
+            (3.143932, 0.002339346410206833)
+
+            # Aproximacion de pi con 10E6 puntos
+            julia> @time pie = ap.pieNaive(10_000_000); error = abs.(pie .- π);
+            0.038815 seconds (1 allocation: 16 bytes)
+            julia> pie, error
+            (3.1426892, 0.0010965464102068445)
+            
+            # Aproximacion de pi con 100E6 puntos
+            julia> @time pie = ap.pieNaive(100_000_000); error = abs.(pie .- π);
+            0.348942 seconds (1 allocation: 16 bytes)
+            julia> pie, error
+            (3.14140332, 0.00018933358979289494)
+            
+            # Aproximacion de pi con 1E9 puntos
+            julia> @time pie = ap.pieNaive(1_000_000_000); error = abs.(pie .- π);
+            3.507610 seconds (1 allocation: 16 bytes)
+            julia> pie, error
+            (3.141588552, 4.10158979313735e-6)
+            
+            # Aproximacion de pi con 10E9 puntos
+            julia> @time pie = ap.pieNaive(10_000_000_000); error = abs(pie - π);
+            44.560091 seconds (1 allocation: 16 bytes)
+            julia> pie, error
+            (3.1415942368, 1.5832102069346377e-6)    # Mejor aproximacion $\label{line:better_approx}$
+        \end{minted}
+
+        Se puede ver que la cantidad de asignaciones en memoria es sumamente baja ya que no se están guardando arreglos como en los casos iniciales, y también son computos rápidos por la manera en que se definió la función \code{pieNaive}. Esta velocidad se pierde al usar las implementaciones \code{rngJulia}, \code{rngLcg} y \code{rngHalton} ya que todas ellas trabajan sobre arreglos accediendo a ellos mediante \code{for-loop}'s. Por lo tanto, sí que es posible aproximar $\pi$ con un número de puntos muy alto siempre que se cambie la estrategia para realizar dicho cómputo. El tomar un número mayor de puntos resuelve el problema para como aproximarse mejor como se muestra en la línea \ref{line:better_approx} donde se obtiene una aproximación de $\pi$ con cinco cifras significativas tomando un total de $10E9$ puntos aleatorios.
+
+        Parece ser que el las aproximaciones a partir del método basado en la secuencia de Halton es mejor en la mayoría de los casos, tiende a converger más rápidamente al valor de $\pi$ aunque se notó que en algunos casos diverge cuando el valor inicial de la semilla (la base) no es el adecuado. Por otro lado, el método del generador lineal congruencial parece tener problemas para generar aproximaciones con un error menor a $1E-3$, dicho problema podría deberse a la manera en que se implementó el algoritmo en este trabajo. Finalmente, a pesar de no generar los mejores resultados, el método a partir del generador aleatorio en \code{julia} no es el mejor pero sí el más rápido y con el que se podrían generar una mayor cantidad de puntos sin tanto consumo de memoria.
 
         \clearpage
         \begin{figure}
@@ -107,24 +269,28 @@
                 \centering
                 \includegraphics[scale=0.065]{../figures/pies_1E6.png}
                 \caption{Aproximación de $\pi$ con $1 \times 10^6$ puntos.}
+                \label{fig:pi_approx_1e6}
             \end{subfigure}
             \hfill
             \begin{subfigure}{0.45\textwidth}
                 \centering
                 \includegraphics[scale=0.065]{../figures/pies_3dot5E6.png}
                 \caption{Aproximación de $\pi$ con $3.5 \times 10^6$ puntos.}
+                \label{fig:pi_approx_3.5e6}
             \end{subfigure}
             %
             \begin{subfigure}{0.45\textwidth}
                 \centering
                 \includegraphics[scale=0.065]{../figures/pies_7E6.png}
                 \caption{Aproximación de $\pi$ con $7 \times 10^6$ puntos.}
+                \label{fig:pi_approx_7e6}
             \end{subfigure}
             \hfill
             \begin{subfigure}{0.45\textwidth}
                 \centering
                 \includegraphics[scale=0.065]{../figures/pies_10E6.png}
                 \caption{Aproximación de $\pi$ con $10 \times 10^6$ puntos.}
+                \label{fig:pi_approx_10e6}
             \end{subfigure}
             %
             \caption{Gráficas de las aproximaciones de $\pi$ variando el total de puntos.}
@@ -138,30 +304,33 @@
                 \centering
                 \includegraphics[scale=0.065]{../figures/error_1E6.png}
                 \caption{Error de $\pi$ con $1 \times 10^6$ puntos.}
+                \label{fig:pi_error_1e6}
             \end{subfigure}
             \hfill
             \begin{subfigure}{0.45\textwidth}
                 \centering
                 \includegraphics[scale=0.065]{../figures/error_3dot5E6.png}
                 \caption{Error de $\pi$ con $3.5 \times 10^6$ puntos.}
+                \label{fig:pi_error_3.5e6}
             \end{subfigure}
             %
             \begin{subfigure}{0.45\textwidth}
                 \centering
                 \includegraphics[scale=0.065]{../figures/error_7E6.png}
                 \caption{Error de $\pi$ con $7 \times 10^6$ puntos.}
+                \label{fig:pi_error_7e6}
             \end{subfigure}
             \hfill
             \begin{subfigure}{0.45\textwidth}
                 \centering
                 \includegraphics[scale=0.065]{../figures/error_10E6.png}
                 \caption{Error de $\pi$ con $10 \times 10^6$ puntos.}
+                \label{fig:pi_error_10e6}
             \end{subfigure}
             %
-            \caption{Gráficas correspondientes al error de las aproximaciones.}
+            \caption{Gráficas correspondientes al error de las aproximaciones, el eje $y$ se encuentra en escala logarítmica base 10.}
             \label{fig:pi_errors}
         \end{figure}
-
     \end{solution}
 \end{enumerate}
 
@@ -205,36 +374,6 @@
 %     end if
 % \end{minted}
 
-
-
-% ----------------------------------------------------------------------------
-% 1E6
-% ----------------------------------------------------------------------------
-% julia> (err_lcg[end], err_jul[end], err_halt[end])
-% (0.0011913464102067615373566167204971158028306006248941790250554076921835937137966, 0.001376653589793238462643383279502884197169399375105820974944592307816406286208964, 0.0001393464102067615373566167204971158028306006248941790250554076921835937138070732)
-
-% julia> (data_lcg.pies[end], data_jul.pies[end], data_halt.pies[end])
-% (3.142783999999999999999999999999999999999999999999999999999999999999999999999995, 3.140215999999999999999999999999999999999999999999999999999999999999999999999989, 3.141732000000000000000000000000000000000000000000000000000000000000000000000005)
-
-
-% ----------------------------------------------------------------------------
-% 3.5E6
-% ----------------------------------------------------------------------------
-% julia> (data_lcg.pies[end], data_jul.pies[end], data_halt.pies[end])
-% (3.14245485714285714285714285714285714285714285714285714285714285714285714285715, 3.141893714285714285714285714285714285714285714285714285714285714285714285714276, 3.141923428571428571428571428571428571428571428571428571428571428571428571428585)
-
-% julia> (err_lcg[end], err_jul[end], err_halt[end])
-% (0.0008622035530639043944994738633542586599734577677513218821982648350407365709523039, 0.0003010606959210472516423310062114015171163149106084647393411219778978794280774798, 0.0003307749816353329659280452919256872314020291963227504536268362636121651423865035)
-
-
-% ----------------------------------------------------------------------------
-% 7E6
-% ----------------------------------------------------------------------------
-% julia> (err_lcg[end], err_jul[end], err_halt[end])
-% (0.0007195107326503813197862404223600270543122565179629638320874494506735491433465233, 0.0002560821612218098912148118509314556257408279465343924035160208792449777147849059, 6.751073265038131978624042236002705431225651796296383208744945067354914335721727e-05)
-
-% julia> (data_lcg.pies[end], data_jul.pies[end], data_halt.pies[end])
-% (3.140873142857142857142857142857142857142857142857142857142857142857142857142852, 3.141336571428571428571428571428571428571428571428571428571428571428571428571413, 3.141525142857142857142857142857142857142857142857142857142857142857142857142841)
 
 % ----------------------------------------------------------------------------
 % 10E6

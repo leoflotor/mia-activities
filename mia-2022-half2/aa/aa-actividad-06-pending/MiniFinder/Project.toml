@@ -1,7 +1,0 @@
-name = "MiniFinder"
-uuid = "16a92dc5-9661-4b6b-a548-f0a000d68afb"
-authors = ["leoflotor <leonardoflotor@gmail.com>"]
-version = "0.1.0"
-
-[deps]
-OffsetArrays = "6fe1bfb0-de20-5000-8ca7-80f57d26f881"

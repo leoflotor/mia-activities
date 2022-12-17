@@ -129,4 +129,33 @@ function plotClassification(classification, pieval)
     return fig
 end
 
+function pieNaive(npoints)
+    point = 1
+    inside_circle = 0
+
+    while point < npoints
+        x = rand()
+        y = rand()
+        if dist_from_origin(x, y) <= 1
+            inside_circle += 1
+        end
+        point += 1
+    end
+
+    return 4 * inside_circle / npoints
+end
+
+function piesNaive(npoints)
+    pies = zeros(npoints)
+    for i in 1:npoints
+        pies[i] = pieNaive(i)
+    end
+    return pies
+end
+
+# function piesNaive(npoints)
+#     pies = zeros(npoints)
+#     return map(i -> pies[i] = pieNaive(i), eachindex(pies))
+# end
+
 end # module ApproxPie
