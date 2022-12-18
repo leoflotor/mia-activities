@@ -8,3 +8,4 @@
 *.synctex.gz
 **/_minted-main
 **.vscode
+**.ipynb_checkpoints
