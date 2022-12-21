@@ -1,6 +1,6 @@
 %%% Sucesor y meta son predicados dinamicos
 :- dynamic
-   sucesor/2,
+   conexion/2,
    meta/1.
 
 %%% Declaracion de la meta
@@ -29,14 +29,13 @@ sucesor(Posicion1, Posicion2) :- conexion(Posicion1, Posicion2).
 sucesor(Posicion1, Posicion2) :- conexion(Posicion2, Posicion1).
 
 %%% Solicitar solucion
-sol :- 
-    ruta([inicio], Sol), 
-    reverse(Sol, SolRev), 
-    write(SolRev).
+solucion(Inicio, Sol) :-
+    ruta([Inicio], SolAux),
+    reverse(SolAux, Sol).
 
 %%% Algoritmo de busqueda en profundidad
 ruta([fin|RestoDeRuta], [fin|RestoDeRuta]).
 ruta([PosicionActual|RestoDeRuta], Sol) :-
     sucesor(PosicionActual, PosicionSiguiente),
-    \+ member(PosicionSiguiente, RestoDeRuta),
+    not(member(PosicionSiguiente, RestoDeRuta)),
     ruta([PosicionSiguiente,PosicionActual|RestoDeRuta], Sol).

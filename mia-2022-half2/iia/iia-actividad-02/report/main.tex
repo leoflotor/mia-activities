@@ -70,7 +70,7 @@ Elabore un programa en \code{prolog} con el espacio de estados que comienza con 
         \end{tikzpicture}
     \end{figure}
 
-    Para resolver el caso de búsqueda en profundidad primero se declararon las conexiones entre nodos
+    Para resolver el caso de búsqueda en profundidad primero se declararon las conexiones entre nodos como se muestra a continuación:
         \begin{minted}[
             frame=none,
             autogobble,
@@ -100,6 +100,13 @@ Elabore un programa en \code{prolog} con el espacio de estados que comienza con 
             conexion(7,15).
             conexion(11,fin).
         \end{minted}
+        No es necesario declarar la regla \code{conexion(inicio,1)} ni \code{conexion(11,fin)}, se podría cambiar las ocurrencias de \code{1} por \code{inicio} y las de \code{11} por \code{fin},
+        \begin{itemize}
+            \item \code{conexion(inicio,2)},
+            \item \code{conexion(inicio,3)},
+            \item \code{conexion(5,fin)}.
+        \end{itemize}
+        Lo que se logra al haber escrito las conexiones como se hizo es el definir una conexión auxiliar que apunta a los nodos de inicio y de término, \code{1} y \code{11}, respectivamente. Posteriormente se define la meta para indicar cuando se ha alcanzado nuestro nodo objetivo:
         \begin{minted}[
             frame=none,
             autogobble,
@@ -114,6 +121,199 @@ Elabore un programa en \code{prolog} con el espacio de estados que comienza con 
             %%% Declaracion de la meta
             meta(fin).
         \end{minted}
+        
+        Con la meta y las conexiones declaradas es necesario definir las reglas que indiquen las relaciones entre nodos, esto es, permitir a \code{prolog} identificar como un nodo está conectado con otro:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            ]{prolog}
+            %%% Reglas para definir las condiciones de como dos nodos estan conectados
+            sucesor(Posicion1, Posicion2) :- conexion(Posicion1, Posicion2).
+            sucesor(Posicion1, Posicion2) :- conexion(Posicion2, Posicion1).
+        \end{minted}
+
+        Finalmente se agrega el algoritmo de búsqueda en profundidad:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            ]{prolog}
+            %%% Algoritmo de busqueda en profundidad
+            ruta([fin|RestoDeRuta], [fin|RestoDeRuta]).
+            ruta([PosicionActual|RestoDeRuta], Sol) :-
+                sucesor(PosicionActual, PosicionSiguiente),
+                not(member(PosicionSiguiente, RestoDeRuta)),
+                ruta([PosicionSiguiente,PosicionActual|RestoDeRuta], Sol).
+        \end{minted}
+
+        Si se permite a \code{prolog} mostrar los pasos que realiza para ejecutar el algoritmo se podrá observar que efectivamente, la búsqueda se efectua en profundidad, esto se activa con el comando \code{trace.}, y \code{notrace.} si no se quiere mostrar ya los pasos de ejecución.
+
+        Para requerir la solución de la búsqueda se escribió la siguiente regla:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            ]{prolog}
+            %%% Solicitar solucion
+            solucion(Inicio, Sol) :-
+                ruta([Inicio], SolAux),
+                reverse(SolAux, Sol).
+        \end{minted}
+        
+        Al ejecutar \code{solucion} con el punto de partida al punto de llegada deseados en \code{prolog}, en la terminal, se obtiene como resultado lo siguiente:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            numberblanklines=false,
+            ]{prolog}
+            ?- [searchDepth].
+            true.
+
+            ?- solucion(inicio,S).
+            S = [inicio, 1, 2, 5, 11, fin] ;
+            false.
+        \end{minted}
+
+        Ahora, para el caso de búsqueda en amplitud primero se declaran las conexiones que existen como en el caso anterior:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{prolog}
+            % Conexiones entre nodos
+            conexion(1,2).
+            conexion(1,3).
+            conexion(2,4).
+            conexion(2,5).
+            conexion(3,6).
+            conexion(3,7).
+            conexion(4,8).
+            conexion(4,9).
+            conexion(5,10).
+            conexion(5,11).
+            conexion(6,12).
+            conexion(6,13).
+            conexion(7,14).
+            conexion(7,15).
+        \end{minted}
+
+        Las conexiones en realidad son las mismas, la única diferencia que se hizo aquí fue remover \code{inicio} y \code{fin} para demostrar que se puede hacer la búsqueda sin esas conexiones auxiliares. La meta sigue siendo la misma, solamente se sustituye \code{fin} por \code{11}:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            ]{prolog}
+            %%% Declaracion de la meta
+            meta(11).
+        \end{minted}
+
+        Ahora, el algoritmo para la búsqueda en amplitud es el siguiente:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            ]{prolog}
+            %%% La ruta en realidad es una lista de caminos que se van creando
+            %%% conforme se visitan los nodos en amplitud
+            ruta([[NodoActual|Camino]|_], [NodoActual|Camino]) :-
+                meta(NodoActual).
+            ruta([Camino|Caminos], Sol) :-
+                extender(Camino, NuevosCaminos),
+                append(Caminos, NuevosCaminos, Caminos1),
+                ruta(Caminos1, Sol).
+
+            extender([NodoActual|Camino], NuevosCaminos) :-
+                bagof([NuevoNodo,NodoActual|Camino],
+                    (conexion(NodoActual, NuevoNodo),
+                    not((member(NuevoNodo, [NodoActual|Camino])))),
+                    NuevosCaminos),
+                    !.
+            %%% Caso si ya no hay sucesores en Camino
+            extender(_, []).
+        \end{minted}
+
+        De manera similar al caso anterior se define una regla \code{solucion} para encontrar la solución de la búsqueda:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=last,
+            bgcolor=bg!70,
+            ]{prolog}
+            %%% Búsqueda primero en Amplitud
+            solucion(Inicio, Sol) :-
+                ruta([[Inicio]], SolAux),
+                reverse(SolAux, Sol).
+        \end{minted}
+        
+        Y realizando la búsqueda en terminal se obtiene el siguiente resultado:
+        \begin{minted}[
+            frame=none,
+            autogobble,
+            obeytabs=false,
+            breaklines,
+            tabsize=4,
+            linenos=true,
+            baselinestretch=1,
+            firstnumber=1,
+            bgcolor=bg!70,
+            ]{prolog}
+            ?- [searchAmp].
+            true.
+
+            ?- solucion(1,S).
+            S = [1, 2, 5, 11] ;
+            false.
+        \end{minted}
+
 \end{solution}
 
 % \begin{minted}[

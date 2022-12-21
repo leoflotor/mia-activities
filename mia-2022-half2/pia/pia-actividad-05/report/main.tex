@@ -1,0 +1,77 @@
+% -- Document configuration
+\input{preamble.tex}
+
+% -- Document
+\begin{document}
+
+\thispagestyle{empty}
+
+%Title
+\begin{center}
+\textsc{\theinstitution}\\[2mm]
+
+\thedepartment
+
+\rule{0.6\textwidth}{0.5pt}\\[2mm]
+
+\thecourse \\[4mm]
+
+{\Large \textbf{\thetitle}}\\[2mm]
+
+\theauthor \\[2mm]
+
+{\small \today}
+\end{center}
+\medskip
+
+% -- 
+\vspace{1cm}
+
+\begin{itemize}
+    \item Utilizando los siguientes conjuntos de entrenamiento del repositorio UCL (\url{https://archive.ics.uci.edu/ml/index.php}):
+    \begin{itemize}
+        \item Car evaluation
+        \item Tic-tac-toe
+        \item Qualitative bankrupcy
+    \end{itemize}
+    llevar a cabo las siguientes actividades:
+    \begin{enumerate}
+        \item Implementar en Lisp las mejoras al algoritmo ID3 que adoptaron en su implementación en Prolog. [30/100]
+        \item Con base en la validación cruzada, implementar una función de clasificación por votación en donde participen los árboles construidos en este proceso. Si se construyen diez árboles, los diez se utilizan para clasificar un nuevo caso cuya clase será la más votada por esos diez árboles ¿Cómo se compara la eficiencia de este enfoque contra el mejor árbol encontrado? [50/100]
+        \item Implementar una función que traduzca un árbol de decisión dado a un programa en Prolog equivalente, probar el clasificador en ese lenguaje. [20/100]
+    \end{enumerate}
+\end{itemize}
+
+% \begin{minted}[
+%     frame=none,
+%     autogobble,
+%     obeytabs=false,
+%     breaklines,
+%     tabsize=4,
+%     linenos=true,
+%     % numbersep=-10pt,
+%     baselinestretch=1,
+%     firstnumber=1,
+%     bgcolor=bg!70,
+%     ]{prolog}
+% \end{minted}
+
+% \inputminted[
+%     frame=none,
+%     autogobble,
+%     obeytabs=false,
+%     breaklines,
+%     tabsize=4,
+%     linenos=true,
+%     % numbersep=-10pt,
+%     baselinestretch=1,
+%     firstnumber=1,
+%     bgcolor=bg!70,]{prolog}{\codesolfirst}
+
+% \vspace{1cm}
+% \pagebreak
+
+\nocite{*}
+\bibliography{references.bib}
+
+\end{document}
