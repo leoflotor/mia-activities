@@ -1,4 +1,3 @@
-%%% Sucesor y meta son predicados dinamicos
 :- dynamic
    conexion/2,
    meta/1.

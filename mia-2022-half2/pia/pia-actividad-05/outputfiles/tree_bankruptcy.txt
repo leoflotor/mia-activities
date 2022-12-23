@@ -1,0 +1,12 @@
+CO
+ - P -> NB
+ - N -> B
+ - A
+     CR
+      - N
+          FF
+           - A -> NB
+           - N -> B
+      - P -> NB
+      - A -> NB
+NIL

@@ -7,11 +7,11 @@ using StatsBase
 
 
 # Generate an initial visiting path order
-# initial_guess(number_of_coords) = randcycle(number_of_coords)
+initial_guess(number_of_coords) = randcycle(number_of_coords)
 
 function initial_guess()
     number_of_cities = 32
-    cities = available_cities()
+    cities, number_of_cities = available_cities()
     visiting_order = randcycle(number_of_cities)
     return cities[visiting_order]
 end
@@ -61,7 +61,7 @@ function available_cities()
         morelia, durango, tuxtla, xalapa, tepic, cuernavaca, villahermosa, 
         ciudadvictoria, pachuca, oaxaca, lapaz, campeche, chilpancingo, toluca, 
         chetumal, colima, zacatecas, guanajuato, tlaxcala]
-
+    
     return cities
 end
 
@@ -71,7 +71,7 @@ mutable struct CoordCartesian
     y
 end
 
-# Spherical coordinates using latitude and longitude
+# Geo coordinates using latitude and longitude
 mutable struct CoordCity
     name    # city name
     lat     # [-π/2, π/2]
@@ -79,7 +79,7 @@ mutable struct CoordCity
 end
 
 function distance_function(coordsystem) 
-    f = Dict("cartesian" => cartesian_distance, "spherical" => spherical_distance)
+    f = Dict("cartesian" => cartesian_distance, "geo" => geo_distance)
     return f[coordsystem]
 end
 
@@ -87,7 +87,7 @@ end
 cartesian_distance(pointa, pointb) = sqrt((pointb.x - pointa.x)^2 + (pointb.y - pointa.y)^2)
 
 # Distance between two points
-function spherical_distance(pointa, pointb)
+function geo_distance(pointa, pointb)
     earth_radius = 6371    # Approx. radius in kilometres
     degtorad = π / 180
 
@@ -122,31 +122,31 @@ function total_distance(coords, coordsystem)
 end
 
 # Simple simulated annealing algorithm
-function simulated_annealing(coords, coordsystem; init_temp=30, temp_factor=0.99)
+function simulated_annealing(coords, coordsystem; init_temp=30, temp_factor=0.99, max_iter=1000, abstol=1E-3)
     count_coords = length(coords)
-    coords_ = deepcopy(coords)
 
-    iterations = 1000
-    inner_iter = 500
+    available_random_swaps = 500
+    
+    coords_ = deepcopy(coords)
+    coords_per_iter = [deepcopy(coords_)] 
 
     cost0 = total_distance(coords_, coordsystem)    # Initial cost
-    cost_per_iter = zeros(iterations+1)
-    cost_per_iter[1] = cost0
+    cost_per_iter = [cost0]
 
     # Current temperature
     T = init_temp
 
-    for iter = 1:iterations    # Why 1000?
+    for iter = 1:max_iter    # Why 1000?
         T = T * temp_factor
-
-        for _ = 1:inner_iter    # Why 500?
+        
+        for _ = 1:available_random_swaps    # Why 500?
             # Choose randomly which coordinates to swap
             r1, r2 = rand(1:count_coords, 2)
             # Swap coordinates
             coords_[r1], coords_[r2] = coords_[r2], coords_[r1]
             # Get new cost
             cost1 = total_distance(coords_, coordsystem)
-
+            
             if cost1 < cost0
                 cost0 = cost1
             else
@@ -162,9 +162,27 @@ function simulated_annealing(coords, coordsystem; init_temp=30, temp_factor=0.99
                 end
             end
         end
-        cost_per_iter[iter+1] = cost0
+
+        push!(coords_per_iter, deepcopy(coords_))
+        push!(cost_per_iter, cost0)
+        
+        # Early stopping condition because a good enough solution was found
+        if iter > 1 && abs(cost_per_iter[end] - cost_per_iter[end-1]) <= abstol
+            break
+        end
     end
-    return coords_, cost_per_iter
+    return coords_, coords_per_iter, cost_per_iter
+end
+
+function brute_force(coords, coordsystem)
+    count_coords = length(coords)
+    perms_available = prod(1:count_coords)    # Equivalent to factorial
+    perms = []
+    for i in 1:perms_available
+        perm = nthperm(coords, i)
+        push!(perms, perm)
+    end
+    return perms
 end
 
 function brute_force_1(coords, coordsystem)
@@ -174,17 +192,6 @@ function brute_force_1(coords, coordsystem)
     distances = total_distance.(coords_perms, coordsystem)
     min_distance = argmin(distances)
     return coords_perms[min_distance]
-end
-
-function brute_force_2(coords, coordsystem)
-    count_coords = length(coords)
-    perms_available = prod(1:count_coords)    # Equivalent to factorial
-    perms = []
-    for i in 1:perms_available
-        perm = nthperm(coords, i)
-        push!(perms, perm)
-    end
-    return perms
 end
 
 function brute_force_3(coords, coordsystem)

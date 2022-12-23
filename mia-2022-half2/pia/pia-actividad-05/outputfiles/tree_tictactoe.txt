@@ -1,0 +1,450 @@
+
+MIDDLE-MIDDLE
+ - B
+     TOP-LEFT
+      - B
+          BOTTOM-RIGHT
+           - X -> POSITIVE
+           - O -> NEGATIVE
+      - O
+          BOTTOM-RIGHT
+           - O -> NEGATIVE
+           - B -> NEGATIVE
+           - X
+               TOP-RIGHT
+                - B
+                    BOTTOM-LEFT
+                     - X -> POSITIVE
+                     - O -> NEGATIVE
+                - O
+                    TOP-MIDDLE
+                     - B -> POSITIVE
+                     - X
+                         BOTTOM-LEFT
+                          - O -> NEGATIVE
+                          - X -> POSITIVE
+                     - O -> NEGATIVE
+                - X
+                    MIDDLE-RIGHT
+                     - X -> POSITIVE
+                     - O
+                         BOTTOM-LEFT
+                          - O -> NEGATIVE
+                          - X -> POSITIVE
+                     - B
+                         BOTTOM-LEFT
+                          - O -> NEGATIVE
+                          - X -> POSITIVE
+      - X
+          BOTTOM-RIGHT
+           - X -> POSITIVE
+           - B -> POSITIVE
+           - O
+               TOP-RIGHT
+                - B
+                    BOTTOM-LEFT
+                     - X -> POSITIVE
+                     - O -> NEGATIVE
+                - O
+                    MIDDLE-RIGHT
+                     - B -> POSITIVE
+                     - X
+                         BOTTOM-LEFT
+                          - O -> NEGATIVE
+                          - X -> POSITIVE
+                     - O -> NEGATIVE
+                - X
+                    TOP-MIDDLE
+                     - X -> POSITIVE
+                     - O
+                         BOTTOM-LEFT
+                          - O -> NEGATIVE
+                          - X -> POSITIVE
+                     - B
+                         BOTTOM-LEFT
+                          - O -> NEGATIVE
+                          - X -> POSITIVE
+ - O
+     TOP-LEFT
+      - B
+          BOTTOM-RIGHT
+           - O -> NEGATIVE
+           - B -> NEGATIVE
+           - X
+               TOP-MIDDLE
+                - B
+                    BOTTOM-MIDDLE
+                     - O -> POSITIVE
+                     - B
+                         MIDDLE-LEFT
+                          - X -> NEGATIVE
+                          - B -> POSITIVE
+                          - O
+                              MIDDLE-RIGHT
+                               - X -> POSITIVE
+                               - O -> NEGATIVE
+                     - X
+                         BOTTOM-LEFT
+                          - B -> NEGATIVE
+                          - X -> POSITIVE
+                          - O
+                              TOP-RIGHT
+                               - X -> POSITIVE
+                               - O -> NEGATIVE
+                - O
+                    BOTTOM-MIDDLE
+                     - B -> POSITIVE
+                     - X
+                         BOTTOM-LEFT
+                          - O
+                              TOP-RIGHT
+                               - X -> POSITIVE
+                               - O -> NEGATIVE
+                          - X -> POSITIVE
+                          - B -> POSITIVE
+                     - O -> NEGATIVE
+                - X
+                    MIDDLE-LEFT
+                     - X -> NEGATIVE
+                     - B
+                         MIDDLE-RIGHT
+                          - B -> NEGATIVE
+                          - O -> POSITIVE
+                          - X
+                              TOP-RIGHT
+                               - X -> POSITIVE
+                               - O -> NEGATIVE
+                     - O
+                         MIDDLE-RIGHT
+                          - O -> NEGATIVE
+                          - B -> POSITIVE
+                          - X
+                              TOP-RIGHT
+                               - X -> POSITIVE
+                               - O -> NEGATIVE
+      - O
+          BOTTOM-RIGHT
+           - B -> NEGATIVE
+           - O -> NEGATIVE
+           - X
+               TOP-MIDDLE
+                - B
+                    TOP-RIGHT
+                     - X -> POSITIVE
+                     - B -> POSITIVE
+                     - O
+                         BOTTOM-LEFT
+                          - O -> NEGATIVE
+                          - X -> POSITIVE
+                - O
+                    TOP-RIGHT
+                     - X
+                         BOTTOM-MIDDLE
+                          - O -> NEGATIVE
+                          - B -> POSITIVE
+                          - X -> POSITIVE
+                     - O -> NEGATIVE
+                     - B
+                         BOTTOM-MIDDLE
+                          - O -> NEGATIVE
+                          - X -> POSITIVE
+                - X
+                    BOTTOM-LEFT
+                     - B
+                         MIDDLE-RIGHT
+                          - O -> NEGATIVE
+                          - X -> POSITIVE
+                     - O
+                         BOTTOM-MIDDLE
+                          - X -> NEGATIVE
+                          - B
+                              TOP-RIGHT
+                               - X -> POSITIVE
+                               - O -> NEGATIVE
+                          - O -> POSITIVE
+                     - X
+                         BOTTOM-MIDDLE
+                          - B -> NEGATIVE
+                          - X -> POSITIVE
+                          - O
+                              MIDDLE-LEFT
+                               - O -> POSITIVE
+                               - X -> NEGATIVE
+      - X
+          TOP-RIGHT
+           - B
+               BOTTOM-LEFT
+                - B -> NEGATIVE
+                - O -> NEGATIVE
+                - X
+                    MIDDLE-LEFT
+                     - X -> POSITIVE
+                     - B
+                         BOTTOM-MIDDLE
+                          - O -> NEGATIVE
+                          - X -> POSITIVE
+                     - O
+                         MIDDLE-RIGHT
+                          - X -> NEGATIVE
+                          - O -> NEGATIVE
+                          - B -> POSITIVE
+           - O
+               BOTTOM-LEFT
+                - B -> NEGATIVE
+                - O -> NEGATIVE
+                - X
+                    MIDDLE-LEFT
+                     - X -> POSITIVE
+                     - B
+                         TOP-MIDDLE
+                          - X -> NEGATIVE
+                          - B -> POSITIVE
+                          - O
+                              MIDDLE-RIGHT
+                               - B -> POSITIVE
+                               - X -> NEGATIVE
+                     - O
+                         TOP-MIDDLE
+                          - X -> NEGATIVE
+                          - B -> POSITIVE
+                          - O -> POSITIVE
+           - X
+               TOP-MIDDLE
+                - B
+                    MIDDLE-LEFT
+                     - B -> POSITIVE
+                     - X
+                         BOTTOM-LEFT
+                          - O -> NEGATIVE
+                          - X -> POSITIVE
+                     - O
+                         MIDDLE-RIGHT
+                          - O -> NEGATIVE
+                          - X -> POSITIVE
+                - O
+                    BOTTOM-MIDDLE
+                     - B
+                         MIDDLE-LEFT
+                          - B -> POSITIVE
+                          - O
+                              MIDDLE-RIGHT
+                               - X -> POSITIVE
+                               - O -> NEGATIVE
+                          - X -> POSITIVE
+                     - O -> NEGATIVE
+                     - X
+                         BOTTOM-LEFT
+                          - B -> NEGATIVE
+                          - O
+                              MIDDLE-LEFT
+                               - O -> POSITIVE
+                               - X -> NEGATIVE
+                          - X
+                              MIDDLE-LEFT
+                               - X -> POSITIVE
+                               - O -> NEGATIVE
+                - X -> POSITIVE
+ - X
+     TOP-LEFT
+      - B
+          BOTTOM-RIGHT
+           - X -> POSITIVE
+           - B -> POSITIVE
+           - O
+               MIDDLE-RIGHT
+                - X
+                    MIDDLE-LEFT
+                     - X -> POSITIVE
+                     - O
+                         BOTTOM-LEFT
+                          - X -> POSITIVE
+                          - O
+                              TOP-RIGHT
+                               - B -> POSITIVE
+                               - X -> NEGATIVE
+                          - B -> POSITIVE
+                     - B
+                         TOP-MIDDLE
+                          - B -> NEGATIVE
+                          - O -> POSITIVE
+                          - X
+                              TOP-RIGHT
+                               - O -> POSITIVE
+                               - B -> NEGATIVE
+                - B
+                    BOTTOM-LEFT
+                     - B -> POSITIVE
+                     - X -> POSITIVE
+                     - O
+                         BOTTOM-MIDDLE
+                          - O -> NEGATIVE
+                          - X -> POSITIVE
+                - O
+                    TOP-RIGHT
+                     - B -> POSITIVE
+                     - X
+                         BOTTOM-LEFT
+                          - O
+                              MIDDLE-LEFT
+                               - B -> POSITIVE
+                               - X -> NEGATIVE
+                          - B -> POSITIVE
+                          - X -> POSITIVE
+                     - O -> NEGATIVE
+      - O
+          BOTTOM-RIGHT
+           - O
+               TOP-RIGHT
+                - B -> POSITIVE
+                - O
+                    TOP-MIDDLE
+                     - X
+                         MIDDLE-RIGHT
+                          - O -> NEGATIVE
+                          - B -> POSITIVE
+                          - X -> POSITIVE
+                     - O -> NEGATIVE
+                     - B
+                         MIDDLE-RIGHT
+                          - O -> NEGATIVE
+                          - X -> POSITIVE
+                - X
+                    BOTTOM-LEFT
+                     - B -> POSITIVE
+                     - X -> POSITIVE
+                     - O
+                         MIDDLE-LEFT
+                          - O -> NEGATIVE
+                          - B
+                              MIDDLE-RIGHT
+                               - B -> POSITIVE
+                               - X -> NEGATIVE
+                          - X
+                              MIDDLE-RIGHT
+                               - O -> POSITIVE
+                               - X -> POSITIVE
+                               - B -> NEGATIVE
+           - B
+               MIDDLE-LEFT
+                - X
+                    MIDDLE-RIGHT
+                     - X -> POSITIVE
+                     - O
+                         TOP-MIDDLE
+                          - B -> POSITIVE
+                          - O
+                              TOP-RIGHT
+                               - X -> POSITIVE
+                               - O -> NEGATIVE
+                          - X -> POSITIVE
+                     - B
+                         BOTTOM-LEFT
+                          - B -> NEGATIVE
+                          - X
+                              TOP-RIGHT
+                               - X -> POSITIVE
+                               - O -> NEGATIVE
+                          - O -> POSITIVE
+                - B
+                    TOP-MIDDLE
+                     - X -> POSITIVE
+                     - B -> POSITIVE
+                     - O
+                         TOP-RIGHT
+                          - O -> NEGATIVE
+                          - X -> POSITIVE
+                - O
+                    BOTTOM-LEFT
+                     - B -> POSITIVE
+                     - X
+                         TOP-RIGHT
+                          - B -> POSITIVE
+                          - O
+                              TOP-MIDDLE
+                               - X -> POSITIVE
+                               - O -> NEGATIVE
+                          - X -> POSITIVE
+                     - O -> NEGATIVE
+           - X
+               TOP-RIGHT
+                - B
+                    MIDDLE-LEFT
+                     - B -> POSITIVE
+                     - X -> POSITIVE
+                     - O
+                         BOTTOM-LEFT
+                          - O -> NEGATIVE
+                          - X -> POSITIVE
+                          - B -> POSITIVE
+                - O
+                    TOP-MIDDLE
+                     - O -> NEGATIVE
+                     - B
+                         MIDDLE-LEFT
+                          - B -> POSITIVE
+                          - O
+                              MIDDLE-RIGHT
+                               - B -> POSITIVE
+                               - X -> NEGATIVE
+                          - X -> POSITIVE
+                     - X
+                         BOTTOM-MIDDLE
+                          - B -> NEGATIVE
+                          - X -> POSITIVE
+                          - O
+                              BOTTOM-LEFT
+                               - O -> POSITIVE
+                               - X -> NEGATIVE
+                - X
+                    BOTTOM-LEFT
+                     - B -> POSITIVE
+                     - X -> POSITIVE
+                     - O
+                         MIDDLE-RIGHT
+                          - B -> NEGATIVE
+                          - O -> NEGATIVE
+                          - X -> POSITIVE
+      - X
+          BOTTOM-RIGHT
+           - B -> POSITIVE
+           - X -> POSITIVE
+           - O
+               TOP-RIGHT
+                - B
+                    BOTTOM-LEFT
+                     - B -> POSITIVE
+                     - X -> POSITIVE
+                     - O
+                         BOTTOM-MIDDLE
+                          - O -> NEGATIVE
+                          - B -> POSITIVE
+                          - X -> POSITIVE
+                - O
+                    MIDDLE-RIGHT
+                     - B
+                         BOTTOM-LEFT
+                          - X -> POSITIVE
+                          - O
+                              MIDDLE-LEFT
+                               - B -> POSITIVE
+                               - X -> NEGATIVE
+                          - B -> POSITIVE
+                     - O -> NEGATIVE
+                     - X
+                         MIDDLE-LEFT
+                          - B -> NEGATIVE
+                          - X -> POSITIVE
+                          - O
+                              BOTTOM-LEFT
+                               - O -> POSITIVE
+                               - X -> NEGATIVE
+                - X
+                    BOTTOM-LEFT
+                     - B -> POSITIVE
+                     - X -> POSITIVE
+                     - O
+                         TOP-MIDDLE
+                          - B -> NEGATIVE
+                          - O -> NEGATIVE
+                          - X -> POSITIVE
+NIL

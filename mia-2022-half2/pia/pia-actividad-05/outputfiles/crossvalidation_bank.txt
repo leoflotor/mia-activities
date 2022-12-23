@@ -1,0 +1,151 @@
+CO
+ - N -> B
+ - P -> NB
+ - A
+     CR
+      - N
+          FF
+           - A -> NB
+           - N -> B
+      - P -> NB
+      - A -> NB
+
+Instances classified correctly: 10
+Instances classified incorrectly: 0
+
+CO
+ - A
+     CR
+      - P -> NB
+      - A -> NB
+      - N
+          FF
+           - N -> B
+           - A -> NB
+ - N -> B
+ - P -> NB
+
+Instances classified correctly: 10
+Instances classified incorrectly: 0
+
+CO
+ - P -> NB
+ - N -> B
+ - A
+     CR
+      - N
+          FF
+           - A -> NB
+           - N -> B
+      - A -> NB
+      - P -> NB
+
+Instances classified correctly: 10
+Instances classified incorrectly: 0
+
+CO
+ - N -> B
+ - P -> NB
+ - A
+     CR
+      - N
+          FF
+           - A -> NB
+           - N -> B
+      - P -> NB
+      - A -> NB
+
+Instances classified correctly: 10
+Instances classified incorrectly: 0
+
+CO
+ - N -> B
+ - P -> NB
+ - A
+     CR
+      - N
+          FF
+           - A -> NB
+           - N -> B
+      - A -> NB
+      - P -> NB
+
+Instances classified correctly: 10
+Instances classified incorrectly: 0
+
+CO
+ - N -> B
+ - A
+     CR
+      - N
+          FF
+           - A -> NB
+           - N -> B
+      - P -> NB
+      - A -> NB
+ - P -> NB
+
+Instances classified correctly: 10
+Instances classified incorrectly: 0
+
+CO
+ - A
+     CR
+      - A -> NB
+      - P -> NB
+      - N
+          FF
+           - A -> NB
+           - N -> B
+ - N -> B
+ - P -> NB
+
+Instances classified correctly: 10
+Instances classified incorrectly: 0
+
+CO
+ - A
+     CR
+      - N
+          FF
+           - N -> B
+           - A -> NB
+      - P -> NB
+      - A -> NB
+ - P -> NB
+ - N -> B
+
+Instances classified correctly: 10
+Instances classified incorrectly: 0
+
+CO
+ - A
+     CR
+      - N
+          FF
+           - A -> NB
+           - N -> B
+      - A -> NB
+      - P -> NB
+ - N -> B
+ - P -> NB
+
+Instances classified correctly: 10
+Instances classified incorrectly: 0
+
+CO
+ - P -> NB
+ - N -> B
+ - A
+     CR
+      - N
+          FF
+           - A -> NB
+           - N -> B
+      - A -> NB
+      - P -> NB
+
+Instances classified correctly: 10
+Instances classified incorrectly: 0
+
+NIL

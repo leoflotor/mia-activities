@@ -1,0 +1,6 @@
+(asdf:load-system :cl-id3)
+(in-package :cl-id3)
+(load-file "./databases/
+(cross-validation 10)
+(let-them-vote '(
+(prolog-tree (induce) "~/prolog_tree_

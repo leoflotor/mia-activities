@@ -1,0 +1,5161 @@
+SAFETY
+ - MED
+     PERSONS
+      - 4
+          BUYING
+           - MED
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 2 -> ACC
+                          - 4 -> GOOD
+                          - 5MORE -> GOOD
+                     - SMALL -> ACC
+                     - BIG -> GOOD
+                - VHIGH
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - BIG -> ACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                - HIGH
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - BIG -> ACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 3 -> UNACC
+                          - 4 -> ACC
+                - MED -> ACC
+           - HIGH
+               LUG_BOOT
+                - MED
+                    DOORS
+                     - 4
+                         MAINT
+                          - VHIGH -> UNACC
+                          - HIGH -> ACC
+                          - MED -> ACC
+                          - LOW -> ACC
+                     - 3 -> UNACC
+                     - 2 -> UNACC
+                     - 5MORE
+                         MAINT
+                          - LOW -> ACC
+                          - VHIGH -> UNACC
+                          - MED -> ACC
+                          - HIGH -> ACC
+                - BIG
+                    MAINT
+                     - HIGH -> ACC
+                     - LOW -> ACC
+                     - MED -> ACC
+                     - VHIGH -> UNACC
+                - SMALL -> UNACC
+           - LOW
+               MAINT
+                - MED
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - BIG -> GOOD
+                     - MED
+                         DOORS
+                          - 4 -> GOOD
+                          - 3 -> ACC
+                          - 5MORE -> GOOD
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 4 -> GOOD
+                          - 5MORE -> GOOD
+                          - 2 -> ACC
+                     - BIG -> GOOD
+                     - SMALL -> ACC
+                - VHIGH
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 3 -> UNACC
+                     - SMALL -> UNACC
+                     - BIG -> ACC
+                - HIGH -> ACC
+           - VHIGH
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 3 -> UNACC
+                     - BIG -> ACC
+                - MED
+                    LUG_BOOT
+                     - BIG -> ACC
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 3 -> UNACC
+                     - SMALL -> UNACC
+                - VHIGH -> UNACC
+                - HIGH -> UNACC
+      - 2 -> UNACC
+      - MORE
+          LUG_BOOT
+           - MED
+               BUYING
+                - MED
+                    MAINT
+                     - LOW
+                         DOORS
+                          - 2 -> ACC
+                          - 3 -> GOOD
+                          - 4 -> GOOD
+                          - 5MORE -> GOOD
+                     - HIGH
+                         DOORS
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                     - VHIGH
+                         DOORS
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                     - MED -> ACC
+                - LOW
+                    MAINT
+                     - LOW
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 2 -> ACC
+                          - 4 -> GOOD
+                          - 3 -> GOOD
+                     - HIGH -> ACC
+                     - VHIGH
+                         DOORS
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                     - MED
+                         DOORS
+                          - 4 -> GOOD
+                          - 2 -> ACC
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                - VHIGH
+                    MAINT
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                     - HIGH -> UNACC
+                     - LOW
+                         DOORS
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                     - VHIGH -> UNACC
+                - HIGH
+                    MAINT
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                     - VHIGH -> UNACC
+                     - HIGH
+                         DOORS
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                     - LOW
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+           - SMALL
+               BUYING
+                - LOW
+                    MAINT
+                     - VHIGH -> UNACC
+                     - HIGH
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                     - LOW
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                - VHIGH -> UNACC
+                - MED
+                    MAINT
+                     - HIGH -> UNACC
+                     - VHIGH -> UNACC
+                     - LOW
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                - HIGH -> UNACC
+           - BIG
+               BUYING
+                - MED
+                    MAINT
+                     - HIGH -> ACC
+                     - VHIGH -> ACC
+                     - MED -> ACC
+                     - LOW -> GOOD
+                - HIGH
+                    MAINT
+                     - MED -> ACC
+                     - VHIGH -> UNACC
+                     - HIGH -> ACC
+                     - LOW -> ACC
+                - LOW
+                    MAINT
+                     - MED -> GOOD
+                     - LOW -> GOOD
+                     - VHIGH -> ACC
+                     - HIGH -> ACC
+                - VHIGH
+                    MAINT
+                     - VHIGH -> UNACC
+                     - HIGH -> UNACC
+                     - MED -> ACC
+                     - LOW -> ACC
+ - HIGH
+     PERSONS
+      - 2 -> UNACC
+      - MORE
+          BUYING
+           - VHIGH
+               MAINT
+                - MED
+                    DOORS
+                     - 3 -> ACC
+                     - 4 -> ACC
+                     - 5MORE -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                - LOW
+                    DOORS
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                - HIGH -> UNACC
+                - VHIGH -> UNACC
+           - LOW
+               MAINT
+                - HIGH
+                    LUG_BOOT
+                     - SMALL
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 3 -> VGOOD
+                - MED
+                    LUG_BOOT
+                     - SMALL
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                          - 4 -> GOOD
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                          - 2 -> GOOD
+                          - 3 -> VGOOD
+                     - BIG -> VGOOD
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 3 -> VGOOD
+                          - 2 -> GOOD
+                          - 4 -> VGOOD
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                          - 4 -> GOOD
+                - VHIGH
+                    DOORS
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                     - 3 -> ACC
+           - HIGH
+               MAINT
+                - VHIGH -> UNACC
+                - MED
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                     - 4 -> ACC
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+                - LOW
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                          - BIG -> ACC
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                     - 3 -> ACC
+                - HIGH
+                    DOORS
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+                     - 2
+                         LUG_BOOT
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                          - BIG -> ACC
+                     - 4 -> ACC
+           - MED
+               MAINT
+                - HIGH
+                    DOORS
+                     - 5MORE -> ACC
+                     - 3 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                     - 4 -> ACC
+                - VHIGH
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                     - 4 -> ACC
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+                - MED
+                    LUG_BOOT
+                     - SMALL
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                          - 3 -> VGOOD
+                - LOW
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 4 -> GOOD
+                          - 2 -> UNACC
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+                          - 3 -> VGOOD
+                          - 4 -> VGOOD
+      - 4
+          BUYING
+           - LOW
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> GOOD
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 3 -> GOOD
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+                - MED
+                    LUG_BOOT
+                     - SMALL -> GOOD
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 2 -> GOOD
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                          - 3 -> GOOD
+                - HIGH
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 3 -> ACC
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                     - BIG -> VGOOD
+                - VHIGH -> ACC
+           - VHIGH
+               MAINT
+                - HIGH -> UNACC
+                - MED -> ACC
+                - LOW -> ACC
+                - VHIGH -> UNACC
+           - MED
+               MAINT
+                - HIGH -> ACC
+                - MED
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 5MORE -> VGOOD
+                          - 2 -> ACC
+                          - 4 -> VGOOD
+                     - BIG -> VGOOD
+                     - SMALL -> ACC
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> GOOD
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 3 -> GOOD
+                          - 2 -> GOOD
+                          - 4 -> VGOOD
+                     - BIG -> VGOOD
+                - VHIGH -> ACC
+           - HIGH
+               MAINT
+                - VHIGH -> UNACC
+                - HIGH -> ACC
+                - MED -> ACC
+                - LOW -> ACC
+ - LOW -> UNACC
+
+Instances classified correctly: 9
+Instances classified incorrectly: 1
+
+SAFETY
+ - LOW -> UNACC
+ - HIGH
+     PERSONS
+      - MORE
+          BUYING
+           - MED
+               MAINT
+                - HIGH
+                    DOORS
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+                     - 2
+                         LUG_BOOT
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                          - MED -> ACC
+                     - 4 -> ACC
+                - MED
+                    LUG_BOOT
+                     - SMALL
+                         DOORS
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 3 -> VGOOD
+                          - 2 -> ACC
+                          - 5MORE -> VGOOD
+                     - BIG -> VGOOD
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+                          - 3 -> VGOOD
+                          - 4 -> VGOOD
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 3 -> GOOD
+                          - 4 -> GOOD
+                          - 2 -> UNACC
+                - VHIGH
+                    DOORS
+                     - 3 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                     - 4 -> ACC
+                     - 5MORE -> ACC
+           - VHIGH
+               MAINT
+                - VHIGH -> UNACC
+                - HIGH -> UNACC
+                - MED
+                    DOORS
+                     - 3 -> ACC
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                          - MED -> ACC
+                     - 5MORE -> ACC
+                - LOW
+                    DOORS
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                     - 5MORE -> ACC
+                     - 3 -> ACC
+           - LOW
+               MAINT
+                - MED
+                    LUG_BOOT
+                     - SMALL
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 3 -> GOOD
+                          - 2 -> UNACC
+                          - 4 -> GOOD
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 3 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                          - 2 -> GOOD
+                - HIGH
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 3 -> VGOOD
+                          - 4 -> VGOOD
+                          - 2 -> ACC
+                - VHIGH
+                    DOORS
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+                - LOW
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 3 -> VGOOD
+                          - 2 -> GOOD
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 2 -> UNACC
+                          - 3 -> GOOD
+                          - 4 -> GOOD
+           - HIGH
+               MAINT
+                - LOW
+                    DOORS
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                     - 5MORE -> ACC
+                     - 3 -> ACC
+                - HIGH
+                    DOORS
+                     - 3 -> ACC
+                     - 4 -> ACC
+                     - 5MORE -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                - MED
+                    DOORS
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                     - 3 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                - VHIGH -> UNACC
+      - 2 -> UNACC
+      - 4
+          BUYING
+           - LOW
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> GOOD
+                     - MED
+                         DOORS
+                          - 2 -> GOOD
+                          - 4 -> VGOOD
+                          - 3 -> GOOD
+                          - 5MORE -> VGOOD
+                     - BIG -> VGOOD
+                - MED
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 2 -> GOOD
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                     - BIG -> VGOOD
+                     - SMALL -> GOOD
+                - VHIGH -> ACC
+                - HIGH
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 5MORE -> VGOOD
+                          - 2 -> ACC
+                          - 4 -> VGOOD
+           - VHIGH
+               MAINT
+                - LOW -> ACC
+                - HIGH -> UNACC
+                - VHIGH -> UNACC
+                - MED -> ACC
+           - HIGH
+               MAINT
+                - MED -> ACC
+                - HIGH -> ACC
+                - VHIGH -> UNACC
+                - LOW -> ACC
+           - MED
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> GOOD
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 3 -> GOOD
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+                     - BIG -> VGOOD
+                - HIGH -> ACC
+                - MED
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 3 -> ACC
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                     - SMALL -> ACC
+                - VHIGH -> ACC
+ - MED
+     PERSONS
+      - MORE
+          LUG_BOOT
+           - BIG
+               BUYING
+                - VHIGH
+                    MAINT
+                     - LOW -> ACC
+                     - VHIGH -> UNACC
+                     - HIGH -> UNACC
+                     - MED -> ACC
+                - MED
+                    MAINT
+                     - VHIGH -> ACC
+                     - HIGH -> ACC
+                     - MED -> ACC
+                     - LOW -> GOOD
+                - LOW
+                    MAINT
+                     - LOW -> GOOD
+                     - MED -> GOOD
+                     - HIGH -> ACC
+                     - VHIGH -> ACC
+                - HIGH
+                    MAINT
+                     - LOW -> ACC
+                     - VHIGH -> UNACC
+                     - MED -> ACC
+                     - HIGH -> ACC
+           - MED
+               BUYING
+                - LOW
+                    MAINT
+                     - VHIGH
+                         DOORS
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                     - HIGH -> ACC
+                     - MED
+                         DOORS
+                          - 4 -> GOOD
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                          - 2 -> ACC
+                     - LOW
+                         DOORS
+                          - 3 -> GOOD
+                          - 4 -> GOOD
+                          - 5MORE -> GOOD
+                          - 2 -> ACC
+                - MED
+                    MAINT
+                     - MED -> ACC
+                     - HIGH
+                         DOORS
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                     - LOW
+                         DOORS
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                          - 2 -> ACC
+                          - 4 -> GOOD
+                     - VHIGH
+                         DOORS
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                - VHIGH
+                    MAINT
+                     - HIGH -> UNACC
+                     - LOW
+                         DOORS
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                     - VHIGH -> UNACC
+                - HIGH
+                    MAINT
+                     - VHIGH -> UNACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                     - LOW
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                     - HIGH
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+           - SMALL
+               BUYING
+                - VHIGH -> UNACC
+                - MED
+                    MAINT
+                     - LOW
+                         DOORS
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                     - MED
+                         DOORS
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                     - VHIGH -> UNACC
+                     - HIGH -> UNACC
+                - HIGH -> UNACC
+                - LOW
+                    MAINT
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                     - LOW
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                     - VHIGH -> UNACC
+                     - HIGH
+                         DOORS
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+      - 4
+          BUYING
+           - MED
+               MAINT
+                - HIGH
+                    LUG_BOOT
+                     - BIG -> ACC
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> UNACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                     - SMALL -> UNACC
+                - VHIGH
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 3 -> UNACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                     - BIG -> ACC
+                - MED -> ACC
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - BIG -> GOOD
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 2 -> ACC
+                          - 4 -> GOOD
+                          - 5MORE -> GOOD
+           - LOW
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - MED
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 3 -> ACC
+                          - 4 -> GOOD
+                          - 2 -> ACC
+                     - BIG -> GOOD
+                - HIGH -> ACC
+                - MED
+                    LUG_BOOT
+                     - BIG -> GOOD
+                     - SMALL -> ACC
+                     - MED
+                         DOORS
+                          - 4 -> GOOD
+                          - 3 -> ACC
+                          - 2 -> ACC
+                          - 5MORE -> GOOD
+                - VHIGH
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 3 -> UNACC
+                     - BIG -> ACC
+           - VHIGH
+               MAINT
+                - MED
+                    LUG_BOOT
+                     - BIG -> ACC
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> UNACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                     - SMALL -> UNACC
+                - HIGH -> UNACC
+                - LOW
+                    LUG_BOOT
+                     - BIG -> ACC
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> UNACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                     - SMALL -> UNACC
+                - VHIGH -> UNACC
+           - HIGH
+               LUG_BOOT
+                - SMALL -> UNACC
+                - BIG
+                    MAINT
+                     - MED -> ACC
+                     - VHIGH -> UNACC
+                     - LOW -> ACC
+                     - HIGH -> ACC
+                - MED
+                    DOORS
+                     - 4
+                         MAINT
+                          - VHIGH -> UNACC
+                          - HIGH -> ACC
+                          - LOW -> ACC
+                          - MED -> ACC
+                     - 2 -> UNACC
+                     - 3 -> UNACC
+                     - 5MORE
+                         MAINT
+                          - HIGH -> ACC
+                          - LOW -> ACC
+                          - VHIGH -> UNACC
+                          - MED -> ACC
+      - 2 -> UNACC
+
+Instances classified correctly: 9
+Instances classified incorrectly: 1
+
+SAFETY
+ - MED
+     PERSONS
+      - MORE
+          LUG_BOOT
+           - SMALL
+               BUYING
+                - MED
+                    MAINT
+                     - LOW
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                     - HIGH -> UNACC
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                     - VHIGH -> UNACC
+                - VHIGH -> UNACC
+                - LOW
+                    MAINT
+                     - HIGH
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                     - VHIGH -> UNACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                     - LOW
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                - HIGH -> UNACC
+           - MED
+               BUYING
+                - HIGH
+                    MAINT
+                     - HIGH
+                         DOORS
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                     - LOW
+                         DOORS
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                     - VHIGH -> UNACC
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                - VHIGH
+                    MAINT
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                     - LOW
+                         DOORS
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                     - HIGH -> UNACC
+                     - VHIGH -> UNACC
+                - MED
+                    MAINT
+                     - VHIGH
+                         DOORS
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                     - MED -> ACC
+                     - LOW
+                         DOORS
+                          - 4 -> GOOD
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                          - 2 -> ACC
+                     - HIGH
+                         DOORS
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                - LOW
+                    MAINT
+                     - VHIGH
+                         DOORS
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                     - MED
+                         DOORS
+                          - 3 -> GOOD
+                          - 4 -> GOOD
+                          - 2 -> ACC
+                          - 5MORE -> GOOD
+                     - HIGH -> ACC
+                     - LOW
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 3 -> GOOD
+                          - 2 -> ACC
+                          - 4 -> GOOD
+           - BIG
+               MAINT
+                - LOW
+                    BUYING
+                     - MED -> GOOD
+                     - LOW -> GOOD
+                     - VHIGH -> ACC
+                     - HIGH -> ACC
+                - VHIGH
+                    BUYING
+                     - VHIGH -> UNACC
+                     - LOW -> ACC
+                     - MED -> ACC
+                     - HIGH -> UNACC
+                - MED
+                    BUYING
+                     - LOW -> GOOD
+                     - VHIGH -> ACC
+                     - MED -> ACC
+                     - HIGH -> ACC
+                - HIGH
+                    BUYING
+                     - HIGH -> ACC
+                     - MED -> ACC
+                     - LOW -> ACC
+                     - VHIGH -> UNACC
+      - 2 -> UNACC
+      - 4
+          BUYING
+           - LOW
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 5MORE -> GOOD
+                          - 2 -> ACC
+                          - 4 -> GOOD
+                     - BIG -> GOOD
+                - MED
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 3 -> ACC
+                          - 4 -> GOOD
+                          - 2 -> ACC
+                     - SMALL -> ACC
+                     - BIG -> GOOD
+                - VHIGH
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 3 -> UNACC
+                     - BIG -> ACC
+                - HIGH -> ACC
+           - MED
+               MAINT
+                - HIGH
+                    LUG_BOOT
+                     - BIG -> ACC
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 3 -> UNACC
+                          - 2 -> UNACC
+                - VHIGH
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> UNACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                     - BIG -> ACC
+                     - SMALL -> UNACC
+                - MED -> ACC
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 5MORE -> GOOD
+                          - 4 -> GOOD
+                          - 3 -> ACC
+                     - BIG -> GOOD
+           - VHIGH
+               MAINT
+                - MED
+                    LUG_BOOT
+                     - BIG -> ACC
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 3 -> UNACC
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 3 -> UNACC
+                     - BIG -> ACC
+                - HIGH -> UNACC
+                - VHIGH -> UNACC
+           - HIGH
+               LUG_BOOT
+                - MED
+                    DOORS
+                     - 4
+                         MAINT
+                          - MED -> ACC
+                          - LOW -> ACC
+                          - VHIGH -> UNACC
+                          - HIGH -> ACC
+                     - 5MORE
+                         MAINT
+                          - LOW -> ACC
+                          - VHIGH -> UNACC
+                          - MED -> ACC
+                          - HIGH -> ACC
+                     - 2 -> UNACC
+                     - 3 -> UNACC
+                - SMALL -> UNACC
+                - BIG
+                    MAINT
+                     - HIGH -> ACC
+                     - MED -> ACC
+                     - VHIGH -> UNACC
+                     - LOW -> ACC
+ - LOW -> UNACC
+ - HIGH
+     PERSONS
+      - 4
+          BUYING
+           - LOW
+               MAINT
+                - MED
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 3 -> GOOD
+                          - 2 -> GOOD
+                          - 4 -> VGOOD
+                     - SMALL -> GOOD
+                     - BIG -> VGOOD
+                - HIGH
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 2 -> ACC
+                          - 5MORE -> VGOOD
+                          - 3 -> ACC
+                     - SMALL -> ACC
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+                          - 3 -> GOOD
+                     - BIG -> VGOOD
+                     - SMALL -> GOOD
+                - VHIGH -> ACC
+           - VHIGH
+               MAINT
+                - LOW -> ACC
+                - VHIGH -> UNACC
+                - HIGH -> UNACC
+                - MED -> ACC
+           - MED
+               MAINT
+                - VHIGH -> ACC
+                - HIGH -> ACC
+                - MED
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                          - 2 -> ACC
+                          - 3 -> ACC
+                     - BIG -> VGOOD
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> GOOD
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+                          - 3 -> GOOD
+                     - BIG -> VGOOD
+           - HIGH
+               MAINT
+                - HIGH -> ACC
+                - VHIGH -> UNACC
+                - MED -> ACC
+                - LOW -> ACC
+      - 2 -> UNACC
+      - MORE
+          BUYING
+           - HIGH
+               MAINT
+                - VHIGH -> UNACC
+                - MED
+                    DOORS
+                     - 3 -> ACC
+                     - 4 -> ACC
+                     - 5MORE -> ACC
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                - LOW
+                    DOORS
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                          - MED -> ACC
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+                - HIGH
+                    DOORS
+                     - 5MORE -> ACC
+                     - 3 -> ACC
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+           - MED
+               MAINT
+                - HIGH
+                    DOORS
+                     - 3 -> ACC
+                     - 4 -> ACC
+                     - 5MORE -> ACC
+                     - 2
+                         LUG_BOOT
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                          - BIG -> ACC
+                - MED
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 2 -> ACC
+                          - 4 -> VGOOD
+                          - 3 -> VGOOD
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                - VHIGH
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                     - 4 -> ACC
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+                - LOW
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                          - 2 -> UNACC
+                          - 4 -> GOOD
+                     - MED
+                         DOORS
+                          - 3 -> VGOOD
+                          - 4 -> VGOOD
+                          - 2 -> GOOD
+                          - 5MORE -> VGOOD
+           - VHIGH
+               MAINT
+                - LOW
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                     - 5MORE -> ACC
+                     - 3 -> ACC
+                     - 4 -> ACC
+                - MED
+                    DOORS
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                          - MED -> ACC
+                - VHIGH -> UNACC
+                - HIGH -> UNACC
+           - LOW
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+                          - 3 -> VGOOD
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 4 -> GOOD
+                          - 2 -> UNACC
+                          - 5MORE -> GOOD
+                          - 3 -> GOOD
+                - VHIGH
+                    DOORS
+                     - 5MORE -> ACC
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                     - 4 -> ACC
+                     - 3 -> ACC
+                - HIGH
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 3 -> VGOOD
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                - MED
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                          - 4 -> GOOD
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 3 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+
+Instances classified correctly: 9
+Instances classified incorrectly: 1
+
+SAFETY
+ - LOW -> UNACC
+ - MED
+     PERSONS
+      - MORE
+          LUG_BOOT
+           - SMALL
+               BUYING
+                - HIGH -> UNACC
+                - VHIGH -> UNACC
+                - LOW
+                    MAINT
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                     - VHIGH -> UNACC
+                     - LOW
+                         DOORS
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                     - HIGH
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                - MED
+                    MAINT
+                     - LOW
+                         DOORS
+                          - 3 -> ACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                     - VHIGH -> UNACC
+                     - HIGH -> UNACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+           - BIG
+               BUYING
+                - LOW
+                    MAINT
+                     - HIGH -> ACC
+                     - VHIGH -> ACC
+                     - MED -> GOOD
+                     - LOW -> GOOD
+                - VHIGH
+                    MAINT
+                     - MED -> ACC
+                     - LOW -> ACC
+                     - HIGH -> UNACC
+                     - VHIGH -> UNACC
+                - MED
+                    MAINT
+                     - MED -> ACC
+                     - LOW -> GOOD
+                     - VHIGH -> ACC
+                     - HIGH -> ACC
+                - HIGH
+                    MAINT
+                     - MED -> ACC
+                     - LOW -> ACC
+                     - HIGH -> ACC
+                     - VHIGH -> UNACC
+           - MED
+               BUYING
+                - MED
+                    MAINT
+                     - LOW
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 2 -> ACC
+                          - 3 -> GOOD
+                          - 4 -> GOOD
+                     - MED -> ACC
+                     - VHIGH
+                         DOORS
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                     - HIGH
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                - LOW
+                    MAINT
+                     - MED
+                         DOORS
+                          - 4 -> GOOD
+                          - 5MORE -> GOOD
+                          - 3 -> GOOD
+                          - 2 -> ACC
+                     - VHIGH
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                     - HIGH -> ACC
+                     - LOW
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 2 -> ACC
+                          - 3 -> GOOD
+                          - 4 -> GOOD
+                - HIGH
+                    MAINT
+                     - HIGH
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                     - LOW
+                         DOORS
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                     - VHIGH -> UNACC
+                - VHIGH
+                    MAINT
+                     - HIGH -> UNACC
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                     - LOW
+                         DOORS
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                     - VHIGH -> UNACC
+      - 2 -> UNACC
+      - 4
+          BUYING
+           - LOW
+               MAINT
+                - HIGH -> ACC
+                - MED
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 2 -> ACC
+                          - 4 -> GOOD
+                          - 3 -> ACC
+                     - SMALL -> ACC
+                     - BIG -> GOOD
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 4 -> GOOD
+                          - 3 -> ACC
+                          - 5MORE -> GOOD
+                          - 2 -> ACC
+                     - BIG -> GOOD
+                     - SMALL -> ACC
+                - VHIGH
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 4 -> ACC
+                          - 3 -> UNACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                     - BIG -> ACC
+                     - SMALL -> UNACC
+           - MED
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 4 -> GOOD
+                          - 2 -> ACC
+                          - 5MORE -> GOOD
+                     - BIG -> GOOD
+                - MED -> ACC
+                - HIGH
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> UNACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                     - BIG -> ACC
+                - VHIGH
+                    LUG_BOOT
+                     - BIG -> ACC
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 3 -> UNACC
+           - HIGH
+               LUG_BOOT
+                - MED
+                    DOORS
+                     - 2 -> UNACC
+                     - 4
+                         MAINT
+                          - MED -> ACC
+                          - VHIGH -> UNACC
+                          - HIGH -> ACC
+                          - LOW -> ACC
+                     - 5MORE
+                         MAINT
+                          - LOW -> ACC
+                          - MED -> ACC
+                          - VHIGH -> UNACC
+                          - HIGH -> ACC
+                     - 3 -> UNACC
+                - BIG
+                    MAINT
+                     - LOW -> ACC
+                     - HIGH -> ACC
+                     - VHIGH -> UNACC
+                     - MED -> ACC
+                - SMALL -> UNACC
+           - VHIGH
+               MAINT
+                - VHIGH -> UNACC
+                - HIGH -> UNACC
+                - MED
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> UNACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                     - BIG -> ACC
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - BIG -> ACC
+                     - MED
+                         DOORS
+                          - 3 -> UNACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+ - HIGH
+     PERSONS
+      - MORE
+          BUYING
+           - HIGH
+               MAINT
+                - VHIGH -> UNACC
+                - LOW
+                    DOORS
+                     - 4 -> ACC
+                     - 3 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                          - BIG -> ACC
+                     - 5MORE -> ACC
+                - HIGH
+                    DOORS
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                     - 5MORE -> ACC
+                     - 3 -> ACC
+                - MED
+                    DOORS
+                     - 4 -> ACC
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - MED -> ACC
+                          - SMALL -> UNACC
+           - VHIGH
+               MAINT
+                - LOW
+                    DOORS
+                     - 5MORE -> ACC
+                     - 3 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                     - 4 -> ACC
+                - MED
+                    LUG_BOOT
+                     - BIG -> ACC
+                     - MED -> ACC
+                     - SMALL
+                         DOORS
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                - VHIGH -> UNACC
+                - HIGH -> UNACC
+           - LOW
+               MAINT
+                - HIGH
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 5MORE -> VGOOD
+                          - 3 -> VGOOD
+                          - 4 -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                - LOW
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 3 -> VGOOD
+                          - 2 -> GOOD
+                          - 4 -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                          - 2 -> UNACC
+                          - 4 -> GOOD
+                - VHIGH
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                     - 4 -> ACC
+                     - 5MORE -> ACC
+                     - 3 -> ACC
+                - MED
+                    LUG_BOOT
+                     - SMALL
+                         DOORS
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                          - 2 -> UNACC
+                          - 4 -> GOOD
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 3 -> VGOOD
+                          - 4 -> VGOOD
+                          - 2 -> GOOD
+           - MED
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 3 -> GOOD
+                          - 4 -> GOOD
+                          - 5MORE -> GOOD
+                          - 2 -> UNACC
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 3 -> VGOOD
+                          - 2 -> GOOD
+                          - 4 -> VGOOD
+                - HIGH
+                    DOORS
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                     - 3 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                - VHIGH
+                    DOORS
+                     - 5MORE -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                     - 4 -> ACC
+                     - 3 -> ACC
+                - MED
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                     - MED
+                         DOORS
+                          - 3 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                          - 2 -> ACC
+      - 2 -> UNACC
+      - 4
+          BUYING
+           - VHIGH
+               MAINT
+                - HIGH -> UNACC
+                - VHIGH -> UNACC
+                - MED -> ACC
+                - LOW -> ACC
+           - MED
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> GOOD
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 2 -> GOOD
+                          - 5MORE -> VGOOD
+                          - 3 -> GOOD
+                - VHIGH -> ACC
+                - HIGH -> ACC
+                - MED
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                          - 2 -> ACC
+                          - 3 -> ACC
+                     - BIG -> VGOOD
+                     - SMALL -> ACC
+           - LOW
+               MAINT
+                - VHIGH -> ACC
+                - HIGH
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 4 -> VGOOD
+                          - 3 -> ACC
+                          - 5MORE -> VGOOD
+                     - BIG -> VGOOD
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> GOOD
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                          - 2 -> GOOD
+                          - 3 -> GOOD
+                     - BIG -> VGOOD
+                - MED
+                    LUG_BOOT
+                     - SMALL -> GOOD
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 3 -> GOOD
+                          - 2 -> GOOD
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+           - HIGH
+               MAINT
+                - LOW -> ACC
+                - VHIGH -> UNACC
+                - HIGH -> ACC
+                - MED -> ACC
+
+Instances classified correctly: 9
+Instances classified incorrectly: 1
+
+SAFETY
+ - MED
+     PERSONS
+      - 4
+          BUYING
+           - LOW
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - MED
+                         DOORS
+                          - 4 -> GOOD
+                          - 5MORE -> GOOD
+                          - 2 -> ACC
+                          - 3 -> ACC
+                     - BIG -> GOOD
+                - VHIGH
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - BIG -> ACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> UNACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                - HIGH -> ACC
+                - MED
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - BIG -> GOOD
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 3 -> ACC
+                          - 4 -> GOOD
+                          - 5MORE -> GOOD
+           - MED
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 2 -> ACC
+                          - 5MORE -> GOOD
+                          - 4 -> GOOD
+                     - BIG -> GOOD
+                     - SMALL -> ACC
+                - MED -> ACC
+                - VHIGH
+                    LUG_BOOT
+                     - BIG -> ACC
+                     - MED
+                         DOORS
+                          - 4 -> ACC
+                          - 3 -> UNACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                     - SMALL -> UNACC
+                - HIGH
+                    LUG_BOOT
+                     - BIG -> ACC
+                     - MED
+                         DOORS
+                          - 3 -> UNACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                     - SMALL -> UNACC
+           - VHIGH
+               MAINT
+                - MED
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - BIG -> ACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> UNACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                - LOW
+                    LUG_BOOT
+                     - BIG -> ACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 3 -> UNACC
+                          - 4 -> ACC
+                     - SMALL -> UNACC
+                - HIGH -> UNACC
+                - VHIGH -> UNACC
+           - HIGH
+               LUG_BOOT
+                - BIG
+                    MAINT
+                     - VHIGH -> UNACC
+                     - LOW -> ACC
+                     - MED -> ACC
+                     - HIGH -> ACC
+                - MED
+                    DOORS
+                     - 3 -> UNACC
+                     - 4
+                         MAINT
+                          - MED -> ACC
+                          - HIGH -> ACC
+                          - LOW -> ACC
+                          - VHIGH -> UNACC
+                     - 2 -> UNACC
+                     - 5MORE
+                         MAINT
+                          - VHIGH -> UNACC
+                          - MED -> ACC
+                          - HIGH -> ACC
+                          - LOW -> ACC
+                - SMALL -> UNACC
+      - MORE
+          LUG_BOOT
+           - BIG
+               BUYING
+                - MED
+                    MAINT
+                     - HIGH -> ACC
+                     - LOW -> GOOD
+                     - MED -> ACC
+                     - VHIGH -> ACC
+                - VHIGH
+                    MAINT
+                     - MED -> ACC
+                     - LOW -> ACC
+                     - VHIGH -> UNACC
+                     - HIGH -> UNACC
+                - HIGH
+                    MAINT
+                     - MED -> ACC
+                     - VHIGH -> UNACC
+                     - LOW -> ACC
+                     - HIGH -> ACC
+                - LOW
+                    MAINT
+                     - LOW -> GOOD
+                     - HIGH -> ACC
+                     - VHIGH -> ACC
+                     - MED -> GOOD
+           - SMALL
+               BUYING
+                - VHIGH -> UNACC
+                - HIGH -> UNACC
+                - MED
+                    MAINT
+                     - HIGH -> UNACC
+                     - VHIGH -> UNACC
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                     - LOW
+                         DOORS
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                - LOW
+                    MAINT
+                     - VHIGH -> UNACC
+                     - LOW
+                         DOORS
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                     - HIGH
+                         DOORS
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+           - MED
+               BUYING
+                - LOW
+                    MAINT
+                     - HIGH -> ACC
+                     - LOW
+                         DOORS
+                          - 2 -> ACC
+                          - 5MORE -> GOOD
+                          - 3 -> GOOD
+                          - 4 -> GOOD
+                     - VHIGH
+                         DOORS
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                          - 4 -> GOOD
+                - VHIGH
+                    MAINT
+                     - VHIGH -> UNACC
+                     - HIGH -> UNACC
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                     - LOW
+                         DOORS
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                - MED
+                    MAINT
+                     - VHIGH
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                     - LOW
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 2 -> ACC
+                          - 3 -> GOOD
+                          - 4 -> GOOD
+                     - HIGH
+                         DOORS
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                     - MED -> ACC
+                - HIGH
+                    MAINT
+                     - VHIGH -> UNACC
+                     - HIGH
+                         DOORS
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                     - LOW
+                         DOORS
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+      - 2 -> UNACC
+ - LOW -> UNACC
+ - HIGH
+     PERSONS
+      - 2 -> UNACC
+      - 4
+          BUYING
+           - HIGH
+               MAINT
+                - HIGH -> ACC
+                - LOW -> ACC
+                - VHIGH -> UNACC
+                - MED -> ACC
+           - LOW
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - SMALL -> GOOD
+                     - MED
+                         DOORS
+                          - 3 -> GOOD
+                          - 2 -> GOOD
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                - HIGH
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 3 -> ACC
+                     - SMALL -> ACC
+                     - BIG -> VGOOD
+                - VHIGH -> ACC
+                - MED
+                    LUG_BOOT
+                     - SMALL -> GOOD
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+                          - 3 -> GOOD
+           - VHIGH
+               MAINT
+                - HIGH -> UNACC
+                - VHIGH -> UNACC
+                - MED -> ACC
+                - LOW -> ACC
+           - MED
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 2 -> GOOD
+                          - 5MORE -> VGOOD
+                          - 3 -> GOOD
+                     - SMALL -> GOOD
+                - HIGH -> ACC
+                - MED
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - SMALL -> ACC
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 3 -> ACC
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                - VHIGH -> ACC
+      - MORE
+          BUYING
+           - HIGH
+               MAINT
+                - HIGH
+                    DOORS
+                     - 3 -> ACC
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                     - 5MORE -> ACC
+                - VHIGH -> UNACC
+                - MED
+                    DOORS
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                     - 3 -> ACC
+                - LOW
+                    DOORS
+                     - 3 -> ACC
+                     - 4 -> ACC
+                     - 5MORE -> ACC
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+           - MED
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 3 -> VGOOD
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+                     - SMALL
+                         DOORS
+                          - 3 -> GOOD
+                          - 2 -> UNACC
+                          - 4 -> GOOD
+                     - BIG -> VGOOD
+                - HIGH
+                    DOORS
+                     - 4 -> ACC
+                     - 5MORE -> ACC
+                     - 3 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                - MED
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 2 -> ACC
+                          - 3 -> VGOOD
+                          - 5MORE -> VGOOD
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                - VHIGH
+                    DOORS
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                          - MED -> ACC
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+           - VHIGH
+               MAINT
+                - MED
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                - VHIGH -> UNACC
+                - HIGH -> UNACC
+                - LOW
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                          - BIG -> ACC
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                     - 3 -> ACC
+           - LOW
+               MAINT
+                - MED
+                    LUG_BOOT
+                     - SMALL
+                         DOORS
+                          - 3 -> GOOD
+                          - 2 -> UNACC
+                          - 5MORE -> GOOD
+                          - 4 -> GOOD
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 3 -> VGOOD
+                          - 4 -> VGOOD
+                          - 2 -> GOOD
+                          - 5MORE -> VGOOD
+                - HIGH
+                    LUG_BOOT
+                     - SMALL
+                         DOORS
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 3 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                     - BIG -> VGOOD
+                - VHIGH
+                    DOORS
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 2 -> GOOD
+                          - 5MORE -> VGOOD
+                          - 3 -> VGOOD
+                          - 4 -> VGOOD
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 4 -> GOOD
+                          - 2 -> UNACC
+                          - 5MORE -> GOOD
+                          - 3 -> GOOD
+
+Instances classified correctly: 9
+Instances classified incorrectly: 1
+
+SAFETY
+ - MED
+     PERSONS
+      - 2 -> UNACC
+      - 4
+          BUYING
+           - LOW
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - BIG -> GOOD
+                     - MED
+                         DOORS
+                          - 4 -> GOOD
+                          - 3 -> ACC
+                          - 5MORE -> GOOD
+                          - 2 -> ACC
+                - HIGH -> ACC
+                - MED
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - BIG -> GOOD
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 4 -> GOOD
+                          - 2 -> ACC
+                          - 5MORE -> GOOD
+                - VHIGH
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 3 -> UNACC
+                          - 2 -> UNACC
+                     - BIG -> ACC
+                     - SMALL -> UNACC
+           - VHIGH
+               MAINT
+                - VHIGH -> UNACC
+                - MED
+                    LUG_BOOT
+                     - BIG -> ACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> UNACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                     - SMALL -> UNACC
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> UNACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                     - BIG -> ACC
+                - HIGH -> UNACC
+           - MED
+               MAINT
+                - VHIGH
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 3 -> UNACC
+                          - 2 -> UNACC
+                     - SMALL -> UNACC
+                     - BIG -> ACC
+                - MED -> ACC
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 4 -> GOOD
+                          - 3 -> ACC
+                          - 5MORE -> GOOD
+                          - 2 -> ACC
+                     - BIG -> GOOD
+                     - SMALL -> ACC
+                - HIGH
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - BIG -> ACC
+                     - MED
+                         DOORS
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 3 -> UNACC
+                          - 2 -> UNACC
+           - HIGH
+               LUG_BOOT
+                - MED
+                    DOORS
+                     - 4
+                         MAINT
+                          - VHIGH -> UNACC
+                          - MED -> ACC
+                          - LOW -> ACC
+                          - HIGH -> ACC
+                     - 5MORE
+                         MAINT
+                          - MED -> ACC
+                          - LOW -> ACC
+                          - VHIGH -> UNACC
+                          - HIGH -> ACC
+                     - 3 -> UNACC
+                     - 2 -> UNACC
+                - BIG
+                    MAINT
+                     - MED -> ACC
+                     - VHIGH -> UNACC
+                     - LOW -> ACC
+                     - HIGH -> ACC
+                - SMALL -> UNACC
+      - MORE
+          LUG_BOOT
+           - MED
+               BUYING
+                - VHIGH
+                    MAINT
+                     - HIGH -> UNACC
+                     - VHIGH -> UNACC
+                     - LOW
+                         DOORS
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                     - MED
+                         DOORS
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                - MED
+                    MAINT
+                     - MED -> ACC
+                     - HIGH
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                     - VHIGH
+                         DOORS
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                     - LOW
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 2 -> ACC
+                          - 4 -> GOOD
+                          - 3 -> GOOD
+                - LOW
+                    MAINT
+                     - VHIGH
+                         DOORS
+                          - 3 -> ACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                     - LOW
+                         DOORS
+                          - 4 -> GOOD
+                          - 5MORE -> GOOD
+                          - 2 -> ACC
+                          - 3 -> GOOD
+                     - HIGH -> ACC
+                     - MED
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 3 -> GOOD
+                          - 2 -> ACC
+                          - 4 -> GOOD
+                - HIGH
+                    MAINT
+                     - MED
+                         DOORS
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                     - LOW
+                         DOORS
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                     - VHIGH -> UNACC
+                     - HIGH
+                         DOORS
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+           - BIG
+               BUYING
+                - MED
+                    MAINT
+                     - LOW -> GOOD
+                     - VHIGH -> ACC
+                     - MED -> ACC
+                     - HIGH -> ACC
+                - HIGH
+                    MAINT
+                     - MED -> ACC
+                     - LOW -> ACC
+                     - HIGH -> ACC
+                     - VHIGH -> UNACC
+                - LOW
+                    MAINT
+                     - HIGH -> ACC
+                     - VHIGH -> ACC
+                     - MED -> GOOD
+                     - LOW -> GOOD
+                - VHIGH
+                    MAINT
+                     - MED -> ACC
+                     - VHIGH -> UNACC
+                     - HIGH -> UNACC
+                     - LOW -> ACC
+           - SMALL
+               BUYING
+                - LOW
+                    MAINT
+                     - VHIGH -> UNACC
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                     - HIGH
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                     - LOW
+                         DOORS
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                - HIGH -> UNACC
+                - VHIGH -> UNACC
+                - MED
+                    MAINT
+                     - HIGH -> UNACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                     - LOW
+                         DOORS
+                          - 3 -> ACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                     - VHIGH -> UNACC
+ - HIGH
+     PERSONS
+      - 2 -> UNACC
+      - 4
+          BUYING
+           - LOW
+               MAINT
+                - MED
+                    LUG_BOOT
+                     - SMALL -> GOOD
+                     - MED
+                         DOORS
+                          - 3 -> GOOD
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                          - 2 -> GOOD
+                     - BIG -> VGOOD
+                - VHIGH -> ACC
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 3 -> GOOD
+                          - 4 -> VGOOD
+                          - 2 -> GOOD
+                     - BIG -> VGOOD
+                     - SMALL -> GOOD
+                - HIGH
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 3 -> ACC
+                          - 2 -> ACC
+           - MED
+               MAINT
+                - HIGH -> ACC
+                - VHIGH -> ACC
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> GOOD
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+                          - 3 -> GOOD
+                          - 4 -> VGOOD
+                     - BIG -> VGOOD
+                - MED
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 3 -> ACC
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                     - BIG -> VGOOD
+           - HIGH
+               MAINT
+                - VHIGH -> UNACC
+                - MED -> ACC
+                - LOW -> ACC
+                - HIGH -> ACC
+           - VHIGH
+               MAINT
+                - LOW -> ACC
+                - VHIGH -> UNACC
+                - MED -> ACC
+                - HIGH -> UNACC
+      - MORE
+          BUYING
+           - VHIGH
+               MAINT
+                - LOW
+                    DOORS
+                     - 3 -> ACC
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                     - 5MORE -> ACC
+                - MED
+                    DOORS
+                     - 3 -> ACC
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                     - 5MORE -> ACC
+                - HIGH -> UNACC
+                - VHIGH -> UNACC
+           - HIGH
+               MAINT
+                - MED
+                    DOORS
+                     - 3 -> ACC
+                     - 4 -> ACC
+                     - 5MORE -> ACC
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                - VHIGH -> UNACC
+                - LOW
+                    DOORS
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                - HIGH
+                    DOORS
+                     - 4 -> ACC
+                     - 5MORE -> ACC
+                     - 3 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+           - MED
+               MAINT
+                - HIGH
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                     - 4 -> ACC
+                     - 5MORE -> ACC
+                     - 3 -> ACC
+                - MED
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 5MORE -> VGOOD
+                          - 3 -> VGOOD
+                          - 4 -> VGOOD
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                - VHIGH
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                          - MED -> ACC
+                     - 5MORE -> ACC
+                     - 3 -> ACC
+                     - 4 -> ACC
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 3 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+                     - SMALL
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                          - 4 -> GOOD
+                     - BIG -> VGOOD
+           - LOW
+               MAINT
+                - MED
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 3 -> VGOOD
+                          - 4 -> VGOOD
+                          - 2 -> GOOD
+                     - SMALL
+                         DOORS
+                          - 4 -> GOOD
+                          - 5MORE -> GOOD
+                          - 3 -> GOOD
+                          - 2 -> UNACC
+                - HIGH
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 3 -> VGOOD
+                          - 2 -> ACC
+                          - 4 -> VGOOD
+                - VHIGH
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                     - 3 -> ACC
+                - LOW
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 3 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+                     - SMALL
+                         DOORS
+                          - 4 -> GOOD
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                          - 2 -> UNACC
+ - LOW -> UNACC
+
+Instances classified correctly: 9
+Instances classified incorrectly: 1
+
+SAFETY
+ - LOW -> UNACC
+ - MED
+     PERSONS
+      - 2 -> UNACC
+      - 4
+          BUYING
+           - LOW
+               MAINT
+                - HIGH -> ACC
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 4 -> GOOD
+                          - 2 -> ACC
+                          - 5MORE -> GOOD
+                          - 3 -> ACC
+                     - BIG -> GOOD
+                     - SMALL -> ACC
+                - VHIGH
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - BIG -> ACC
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> UNACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                - MED
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - BIG -> GOOD
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 5MORE -> GOOD
+                          - 4 -> GOOD
+                          - 3 -> ACC
+           - MED
+               MAINT
+                - MED -> ACC
+                - HIGH
+                    LUG_BOOT
+                     - BIG -> ACC
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                - VHIGH
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 3 -> UNACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                     - BIG -> ACC
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - MED
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 2 -> ACC
+                          - 4 -> GOOD
+                          - 3 -> ACC
+                     - BIG -> GOOD
+           - VHIGH
+               MAINT
+                - VHIGH -> UNACC
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 3 -> UNACC
+                     - SMALL -> UNACC
+                     - BIG -> ACC
+                - MED
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 3 -> UNACC
+                          - 4 -> ACC
+                     - BIG -> ACC
+                     - SMALL -> UNACC
+                - HIGH -> UNACC
+           - HIGH
+               LUG_BOOT
+                - BIG
+                    MAINT
+                     - VHIGH -> UNACC
+                     - LOW -> ACC
+                     - HIGH -> ACC
+                     - MED -> ACC
+                - MED
+                    DOORS
+                     - 4
+                         MAINT
+                          - VHIGH -> UNACC
+                          - MED -> ACC
+                          - LOW -> ACC
+                          - HIGH -> ACC
+                     - 2 -> UNACC
+                     - 3 -> UNACC
+                     - 5MORE
+                         MAINT
+                          - LOW -> ACC
+                          - HIGH -> ACC
+                          - VHIGH -> UNACC
+                          - MED -> ACC
+                - SMALL -> UNACC
+      - MORE
+          LUG_BOOT
+           - SMALL
+               BUYING
+                - MED
+                    MAINT
+                     - HIGH -> UNACC
+                     - MED
+                         DOORS
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                     - LOW
+                         DOORS
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                     - VHIGH -> UNACC
+                - VHIGH -> UNACC
+                - LOW
+                    MAINT
+                     - LOW
+                         DOORS
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                     - HIGH
+                         DOORS
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                     - VHIGH -> UNACC
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                - HIGH -> UNACC
+           - MED
+               MAINT
+                - MED
+                    BUYING
+                     - VHIGH
+                         DOORS
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                     - LOW
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 4 -> GOOD
+                          - 3 -> GOOD
+                          - 2 -> ACC
+                     - MED -> ACC
+                     - HIGH
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                - VHIGH
+                    BUYING
+                     - VHIGH -> UNACC
+                     - LOW
+                         DOORS
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                     - HIGH -> UNACC
+                - HIGH
+                    BUYING
+                     - LOW -> ACC
+                     - VHIGH -> UNACC
+                     - HIGH
+                         DOORS
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                - LOW
+                    BUYING
+                     - VHIGH
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                     - MED
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 3 -> GOOD
+                          - 4 -> GOOD
+                          - 2 -> ACC
+                     - LOW
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 3 -> GOOD
+                          - 4 -> GOOD
+                          - 2 -> ACC
+                     - HIGH -> ACC
+           - BIG
+               BUYING
+                - MED
+                    MAINT
+                     - MED -> ACC
+                     - LOW -> GOOD
+                     - HIGH -> ACC
+                     - VHIGH -> ACC
+                - HIGH
+                    MAINT
+                     - LOW -> ACC
+                     - MED -> ACC
+                     - HIGH -> ACC
+                     - VHIGH -> UNACC
+                - LOW
+                    MAINT
+                     - LOW -> GOOD
+                     - VHIGH -> ACC
+                     - HIGH -> ACC
+                     - MED -> GOOD
+                - VHIGH
+                    MAINT
+                     - LOW -> ACC
+                     - HIGH -> UNACC
+                     - MED -> ACC
+                     - VHIGH -> UNACC
+ - HIGH
+     PERSONS
+      - MORE
+          BUYING
+           - VHIGH
+               MAINT
+                - HIGH -> UNACC
+                - MED
+                    DOORS
+                     - 3 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                     - 4 -> ACC
+                     - 5MORE -> ACC
+                - VHIGH -> UNACC
+                - LOW
+                    DOORS
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                     - 3 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+           - HIGH
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - SMALL
+                         DOORS
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                     - BIG -> ACC
+                     - MED -> ACC
+                - VHIGH -> UNACC
+                - MED
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                - HIGH
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                     - 4 -> ACC
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+           - MED
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - SMALL
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                          - 4 -> GOOD
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 2 -> GOOD
+                          - 3 -> VGOOD
+                          - 5MORE -> VGOOD
+                - VHIGH
+                    DOORS
+                     - 4 -> ACC
+                     - 3 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                     - 5MORE -> ACC
+                - MED
+                    LUG_BOOT
+                     - SMALL
+                         DOORS
+                          - 3 -> ACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 5MORE -> VGOOD
+                          - 3 -> VGOOD
+                          - 4 -> VGOOD
+                - HIGH
+                    DOORS
+                     - 5MORE -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                     - 4 -> ACC
+                     - 3 -> ACC
+           - LOW
+               MAINT
+                - MED
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                          - 4 -> GOOD
+                     - MED
+                         DOORS
+                          - 2 -> GOOD
+                          - 4 -> VGOOD
+                          - 3 -> VGOOD
+                          - 5MORE -> VGOOD
+                - VHIGH
+                    DOORS
+                     - 3 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                          - BIG -> ACC
+                     - 4 -> ACC
+                     - 5MORE -> ACC
+                - HIGH
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 3 -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                     - BIG -> VGOOD
+                - LOW
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 2 -> GOOD
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                          - 3 -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                          - 4 -> GOOD
+      - 2 -> UNACC
+      - 4
+          BUYING
+           - LOW
+               MAINT
+                - HIGH
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 3 -> ACC
+                          - 2 -> ACC
+                          - 5MORE -> VGOOD
+                     - BIG -> VGOOD
+                - VHIGH -> ACC
+                - MED
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 3 -> GOOD
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+                     - SMALL -> GOOD
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+                          - 3 -> GOOD
+                     - BIG -> VGOOD
+                     - SMALL -> GOOD
+           - VHIGH
+               MAINT
+                - HIGH -> UNACC
+                - LOW -> ACC
+                - VHIGH -> UNACC
+                - MED -> ACC
+           - MED
+               MAINT
+                - HIGH -> ACC
+                - VHIGH -> ACC
+                - MED
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 5MORE -> VGOOD
+                          - 2 -> ACC
+                          - 4 -> VGOOD
+                     - SMALL -> ACC
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 2 -> GOOD
+                          - 3 -> GOOD
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                     - BIG -> VGOOD
+                     - SMALL -> GOOD
+           - HIGH
+               MAINT
+                - LOW -> ACC
+                - HIGH -> ACC
+                - VHIGH -> UNACC
+                - MED -> ACC
+
+Instances classified correctly: 6
+Instances classified incorrectly: 4
+
+SAFETY
+ - MED
+     PERSONS
+      - 4
+          BUYING
+           - LOW
+               MAINT
+                - MED
+                    LUG_BOOT
+                     - BIG -> GOOD
+                     - MED
+                         DOORS
+                          - 4 -> GOOD
+                          - 5MORE -> GOOD
+                          - 3 -> ACC
+                          - 2 -> ACC
+                     - SMALL -> ACC
+                - LOW
+                    LUG_BOOT
+                     - BIG -> GOOD
+                     - MED
+                         DOORS
+                          - 4 -> GOOD
+                          - 2 -> ACC
+                          - 5MORE -> GOOD
+                          - 3 -> ACC
+                     - SMALL -> ACC
+                - VHIGH
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - BIG -> ACC
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 3 -> UNACC
+                          - 2 -> UNACC
+                - HIGH -> ACC
+           - MED
+               MAINT
+                - HIGH
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - BIG -> ACC
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 3 -> UNACC
+                          - 4 -> ACC
+                - LOW
+                    LUG_BOOT
+                     - BIG -> GOOD
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 4 -> GOOD
+                          - 3 -> ACC
+                          - 5MORE -> GOOD
+                     - SMALL -> ACC
+                - VHIGH
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 3 -> UNACC
+                          - 4 -> ACC
+                     - BIG -> ACC
+                - MED -> ACC
+           - VHIGH
+               MAINT
+                - VHIGH -> UNACC
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 3 -> UNACC
+                          - 2 -> UNACC
+                     - BIG -> ACC
+                     - SMALL -> UNACC
+                - HIGH -> UNACC
+                - MED
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 3 -> UNACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                     - BIG -> ACC
+           - HIGH
+               LUG_BOOT
+                - MED
+                    DOORS
+                     - 2 -> UNACC
+                     - 3 -> UNACC
+                     - 5MORE
+                         MAINT
+                          - VHIGH -> UNACC
+                          - HIGH -> ACC
+                          - LOW -> ACC
+                          - MED -> ACC
+                     - 4
+                         MAINT
+                          - VHIGH -> UNACC
+                          - MED -> ACC
+                          - LOW -> ACC
+                          - HIGH -> ACC
+                - BIG
+                    MAINT
+                     - LOW -> ACC
+                     - VHIGH -> UNACC
+                     - MED -> ACC
+                     - HIGH -> ACC
+                - SMALL -> UNACC
+      - 2 -> UNACC
+      - MORE
+          LUG_BOOT
+           - SMALL
+               BUYING
+                - HIGH -> UNACC
+                - VHIGH -> UNACC
+                - MED
+                    MAINT
+                     - VHIGH -> UNACC
+                     - LOW
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                     - HIGH -> UNACC
+                     - MED
+                         DOORS
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                - LOW
+                    MAINT
+                     - HIGH
+                         DOORS
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                     - VHIGH -> UNACC
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                     - LOW
+                         DOORS
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+           - BIG
+               BUYING
+                - MED
+                    MAINT
+                     - HIGH -> ACC
+                     - LOW -> GOOD
+                     - MED -> ACC
+                     - VHIGH -> ACC
+                - HIGH
+                    MAINT
+                     - HIGH -> ACC
+                     - MED -> ACC
+                     - VHIGH -> UNACC
+                     - LOW -> ACC
+                - LOW
+                    MAINT
+                     - MED -> GOOD
+                     - HIGH -> ACC
+                     - VHIGH -> ACC
+                     - LOW -> GOOD
+                - VHIGH
+                    MAINT
+                     - VHIGH -> UNACC
+                     - MED -> ACC
+                     - LOW -> ACC
+                     - HIGH -> UNACC
+           - MED
+               BUYING
+                - HIGH
+                    MAINT
+                     - HIGH
+                         DOORS
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                     - VHIGH -> UNACC
+                     - LOW
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                - LOW
+                    MAINT
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                          - 4 -> GOOD
+                     - VHIGH
+                         DOORS
+                          - 3 -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                     - LOW
+                         DOORS
+                          - 2 -> ACC
+                          - 4 -> GOOD
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                     - HIGH -> ACC
+                - MED
+                    MAINT
+                     - LOW
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 3 -> GOOD
+                          - 4 -> GOOD
+                          - 2 -> ACC
+                     - HIGH
+                         DOORS
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                     - VHIGH
+                         DOORS
+                          - 3 -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                     - MED -> ACC
+                - VHIGH
+                    MAINT
+                     - MED
+                         DOORS
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                     - LOW
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                     - HIGH -> UNACC
+                     - VHIGH -> UNACC
+ - HIGH
+     PERSONS
+      - 4
+          BUYING
+           - MED
+               MAINT
+                - HIGH -> ACC
+                - MED
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                          - 3 -> ACC
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> GOOD
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 2 -> GOOD
+                          - 3 -> GOOD
+                          - 5MORE -> VGOOD
+                - VHIGH -> ACC
+           - VHIGH
+               MAINT
+                - HIGH -> UNACC
+                - VHIGH -> UNACC
+                - MED -> ACC
+                - LOW -> ACC
+           - HIGH
+               MAINT
+                - VHIGH -> UNACC
+                - LOW -> ACC
+                - MED -> ACC
+                - HIGH -> ACC
+           - LOW
+               MAINT
+                - MED
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 2 -> GOOD
+                          - 3 -> GOOD
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                     - SMALL -> GOOD
+                     - BIG -> VGOOD
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> GOOD
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 3 -> GOOD
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+                     - BIG -> VGOOD
+                - HIGH
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 4 -> VGOOD
+                          - 2 -> ACC
+                          - 5MORE -> VGOOD
+                     - BIG -> VGOOD
+                     - SMALL -> ACC
+                - VHIGH -> ACC
+      - MORE
+          BUYING
+           - LOW
+               MAINT
+                - HIGH
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                     - MED
+                         DOORS
+                          - 3 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                          - 2 -> ACC
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                          - 2 -> GOOD
+                          - 3 -> VGOOD
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 4 -> GOOD
+                          - 2 -> UNACC
+                          - 3 -> GOOD
+                - MED
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                          - 3 -> VGOOD
+                          - 2 -> GOOD
+                     - SMALL
+                         DOORS
+                          - 4 -> GOOD
+                          - 2 -> UNACC
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                - VHIGH
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                     - 4 -> ACC
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+           - HIGH
+               MAINT
+                - LOW
+                    DOORS
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                     - 3 -> ACC
+                - MED
+                    DOORS
+                     - 5MORE -> ACC
+                     - 2
+                         LUG_BOOT
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                          - BIG -> ACC
+                     - 4 -> ACC
+                     - 3 -> ACC
+                - HIGH
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                     - 3 -> ACC
+                - VHIGH -> UNACC
+           - MED
+               MAINT
+                - MED
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 3 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                          - 2 -> ACC
+                     - SMALL
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                     - BIG -> VGOOD
+                - HIGH
+                    DOORS
+                     - 4 -> ACC
+                     - 5MORE -> ACC
+                     - 3 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                          - MED -> ACC
+                - VHIGH
+                    DOORS
+                     - 4 -> ACC
+                     - 3 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                     - 5MORE -> ACC
+                - LOW
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 2 -> GOOD
+                          - 5MORE -> VGOOD
+                          - 3 -> VGOOD
+                          - 4 -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 4 -> GOOD
+                          - 2 -> UNACC
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+           - VHIGH
+               MAINT
+                - HIGH -> UNACC
+                - LOW
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                - MED
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                     - 4 -> ACC
+                     - 5MORE -> ACC
+                     - 3 -> ACC
+                - VHIGH -> UNACC
+      - 2 -> UNACC
+ - LOW -> UNACC
+
+Instances classified correctly: 8
+Instances classified incorrectly: 2
+
+SAFETY
+ - LOW -> UNACC
+ - MED
+     PERSONS
+      - MORE
+          LUG_BOOT
+           - BIG
+               BUYING
+                - LOW
+                    MAINT
+                     - MED -> GOOD
+                     - LOW -> GOOD
+                     - VHIGH -> ACC
+                     - HIGH -> ACC
+                - MED
+                    MAINT
+                     - LOW -> GOOD
+                     - HIGH -> ACC
+                     - MED -> ACC
+                     - VHIGH -> ACC
+                - VHIGH
+                    MAINT
+                     - LOW -> ACC
+                     - HIGH -> UNACC
+                     - MED -> ACC
+                     - VHIGH -> UNACC
+                - HIGH
+                    MAINT
+                     - VHIGH -> UNACC
+                     - MED -> ACC
+                     - HIGH -> ACC
+                     - LOW -> ACC
+           - MED
+               BUYING
+                - LOW
+                    MAINT
+                     - HIGH -> ACC
+                     - LOW
+                         DOORS
+                          - 4 -> GOOD
+                          - 2 -> ACC
+                          - 5MORE -> GOOD
+                          - 3 -> GOOD
+                     - MED
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 3 -> GOOD
+                          - 2 -> ACC
+                          - 4 -> GOOD
+                     - VHIGH
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                - HIGH
+                    MAINT
+                     - LOW
+                         DOORS
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                     - VHIGH -> UNACC
+                     - HIGH
+                         DOORS
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                     - MED
+                         DOORS
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                - MED
+                    MAINT
+                     - VHIGH
+                         DOORS
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                     - LOW
+                         DOORS
+                          - 3 -> GOOD
+                          - 4 -> GOOD
+                          - 5MORE -> GOOD
+                          - 2 -> ACC
+                     - HIGH
+                         DOORS
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                     - MED -> ACC
+                - VHIGH
+                    MAINT
+                     - LOW
+                         DOORS
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                     - VHIGH -> UNACC
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                     - HIGH -> UNACC
+           - SMALL
+               BUYING
+                - MED
+                    MAINT
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                     - LOW
+                         DOORS
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                     - VHIGH -> UNACC
+                     - HIGH -> UNACC
+                - HIGH -> UNACC
+                - VHIGH -> UNACC
+                - LOW
+                    MAINT
+                     - HIGH
+                         DOORS
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                     - MED
+                         DOORS
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                     - VHIGH -> UNACC
+                     - LOW
+                         DOORS
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+      - 2 -> UNACC
+      - 4
+          BUYING
+           - MED
+               MAINT
+                - MED -> ACC
+                - LOW
+                    LUG_BOOT
+                     - BIG -> GOOD
+                     - MED
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 3 -> ACC
+                          - 2 -> ACC
+                          - 4 -> GOOD
+                     - SMALL -> ACC
+                - HIGH
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                     - SMALL -> UNACC
+                     - BIG -> ACC
+                - VHIGH
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 3 -> UNACC
+                     - BIG -> ACC
+           - VHIGH
+               MAINT
+                - MED
+                    LUG_BOOT
+                     - BIG -> ACC
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> UNACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                - LOW
+                    LUG_BOOT
+                     - BIG -> ACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 3 -> UNACC
+                          - 4 -> ACC
+                     - SMALL -> UNACC
+                - VHIGH -> UNACC
+                - HIGH -> UNACC
+           - LOW
+               MAINT
+                - HIGH -> ACC
+                - VHIGH
+                    LUG_BOOT
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 3 -> UNACC
+                          - 5MORE -> ACC
+                     - BIG -> ACC
+                - LOW
+                    LUG_BOOT
+                     - BIG -> GOOD
+                     - SMALL -> ACC
+                     - MED
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 3 -> ACC
+                          - 4 -> GOOD
+                          - 2 -> ACC
+                - MED
+                    LUG_BOOT
+                     - BIG -> GOOD
+                     - SMALL -> ACC
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 4 -> GOOD
+                          - 5MORE -> GOOD
+                          - 2 -> ACC
+           - HIGH
+               LUG_BOOT
+                - SMALL -> UNACC
+                - BIG
+                    MAINT
+                     - LOW -> ACC
+                     - HIGH -> ACC
+                     - MED -> ACC
+                     - VHIGH -> UNACC
+                - MED
+                    DOORS
+                     - 4
+                         MAINT
+                          - HIGH -> ACC
+                          - MED -> ACC
+                          - LOW -> ACC
+                          - VHIGH -> UNACC
+                     - 5MORE
+                         MAINT
+                          - VHIGH -> UNACC
+                          - HIGH -> ACC
+                          - LOW -> ACC
+                          - MED -> ACC
+                     - 3 -> UNACC
+                     - 2 -> UNACC
+ - HIGH
+     PERSONS
+      - 2 -> UNACC
+      - 4
+          BUYING
+           - LOW
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                          - 3 -> GOOD
+                          - 2 -> GOOD
+                     - BIG -> VGOOD
+                     - SMALL -> GOOD
+                - MED
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - SMALL -> GOOD
+                     - MED
+                         DOORS
+                          - 2 -> GOOD
+                          - 3 -> GOOD
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                - HIGH
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 2 -> ACC
+                          - 5MORE -> VGOOD
+                          - 3 -> ACC
+                - VHIGH -> ACC
+           - VHIGH
+               MAINT
+                - MED -> ACC
+                - HIGH -> UNACC
+                - VHIGH -> UNACC
+                - LOW -> ACC
+           - HIGH
+               MAINT
+                - MED -> ACC
+                - HIGH -> ACC
+                - VHIGH -> UNACC
+                - LOW -> ACC
+           - MED
+               MAINT
+                - HIGH -> ACC
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+                          - 4 -> VGOOD
+                          - 3 -> GOOD
+                     - BIG -> VGOOD
+                     - SMALL -> GOOD
+                - MED
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - SMALL -> ACC
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 2 -> ACC
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                - VHIGH -> ACC
+      - MORE
+          BUYING
+           - LOW
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 2 -> GOOD
+                          - 5MORE -> VGOOD
+                          - 3 -> VGOOD
+                          - 4 -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 4 -> GOOD
+                          - 5MORE -> GOOD
+                          - 3 -> GOOD
+                          - 2 -> UNACC
+                     - BIG -> VGOOD
+                - VHIGH
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                          - BIG -> ACC
+                     - 5MORE -> ACC
+                     - 3 -> ACC
+                     - 4 -> ACC
+                - HIGH
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 3 -> VGOOD
+                          - 2 -> ACC
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                - MED
+                    LUG_BOOT
+                     - SMALL
+                         DOORS
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                          - 2 -> UNACC
+                          - 4 -> GOOD
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 2 -> GOOD
+                          - 5MORE -> VGOOD
+                          - 3 -> VGOOD
+                     - BIG -> VGOOD
+           - HIGH
+               MAINT
+                - HIGH
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                     - 3 -> ACC
+                - MED
+                    DOORS
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                - LOW
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                     - 5MORE -> ACC
+                     - 3 -> ACC
+                     - 4 -> ACC
+                - VHIGH -> UNACC
+           - MED
+               MAINT
+                - HIGH
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                - VHIGH
+                    DOORS
+                     - 4 -> ACC
+                     - 3 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                     - 5MORE -> ACC
+                - LOW
+                    LUG_BOOT
+                     - SMALL
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 2 -> UNACC
+                          - 4 -> GOOD
+                          - 3 -> GOOD
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+                     - BIG -> VGOOD
+                - MED
+                    LUG_BOOT
+                     - SMALL
+                         DOORS
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 2 -> ACC
+                          - 3 -> VGOOD
+           - VHIGH
+               MAINT
+                - VHIGH -> UNACC
+                - MED
+                    DOORS
+                     - 3 -> ACC
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                          - MED -> ACC
+                     - 5MORE -> ACC
+                - LOW
+                    DOORS
+                     - 3 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                          - MED -> ACC
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                - HIGH -> UNACC
+
+Instances classified correctly: 7
+Instances classified incorrectly: 3
+
+SAFETY
+ - HIGH
+     PERSONS
+      - 2 -> UNACC
+      - MORE
+          BUYING
+           - LOW
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 4 -> GOOD
+                          - 2 -> UNACC
+                          - 3 -> GOOD
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 3 -> VGOOD
+                          - 2 -> GOOD
+                          - 4 -> VGOOD
+                - HIGH
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 3 -> VGOOD
+                          - 4 -> VGOOD
+                          - 2 -> ACC
+                          - 5MORE -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                - MED
+                    LUG_BOOT
+                     - SMALL
+                         DOORS
+                          - 3 -> GOOD
+                          - 5MORE -> GOOD
+                          - 4 -> GOOD
+                          - 2 -> UNACC
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 3 -> VGOOD
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+                - VHIGH
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                     - 5MORE -> ACC
+                     - 3 -> ACC
+                     - 4 -> ACC
+           - HIGH
+               MAINT
+                - LOW
+                    DOORS
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                     - 3 -> ACC
+                - VHIGH -> UNACC
+                - MED
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                     - 4 -> ACC
+                     - 3 -> ACC
+                     - 5MORE -> ACC
+                - HIGH
+                    DOORS
+                     - 4 -> ACC
+                     - 5MORE -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                     - 3 -> ACC
+           - VHIGH
+               MAINT
+                - HIGH -> UNACC
+                - LOW
+                    DOORS
+                     - 5MORE -> ACC
+                     - 4 -> ACC
+                     - 3 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                - VHIGH -> UNACC
+                - MED
+                    DOORS
+                     - 5MORE -> ACC
+                     - 3 -> ACC
+                     - 2
+                         LUG_BOOT
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                          - MED -> ACC
+                     - 4 -> ACC
+           - MED
+               MAINT
+                - VHIGH
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - BIG -> ACC
+                          - SMALL -> UNACC
+                     - 5MORE -> ACC
+                     - 3 -> ACC
+                     - 4 -> ACC
+                - LOW
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 3 -> GOOD
+                          - 4 -> GOOD
+                          - 2 -> UNACC
+                     - MED
+                         DOORS
+                          - 3 -> VGOOD
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+                - HIGH
+                    DOORS
+                     - 2
+                         LUG_BOOT
+                          - MED -> ACC
+                          - SMALL -> UNACC
+                          - BIG -> ACC
+                     - 4 -> ACC
+                     - 5MORE -> ACC
+                     - 3 -> ACC
+                - MED
+                    LUG_BOOT
+                     - BIG -> VGOOD
+                     - SMALL
+                         DOORS
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                          - 3 -> VGOOD
+      - 4
+          BUYING
+           - VHIGH
+               MAINT
+                - MED -> ACC
+                - VHIGH -> UNACC
+                - LOW -> ACC
+                - HIGH -> UNACC
+           - MED
+               MAINT
+                - VHIGH -> ACC
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> GOOD
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                          - 2 -> GOOD
+                          - 3 -> GOOD
+                - HIGH -> ACC
+                - MED
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - BIG -> VGOOD
+                     - MED
+                         DOORS
+                          - 3 -> ACC
+                          - 2 -> ACC
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+           - HIGH
+               MAINT
+                - VHIGH -> UNACC
+                - HIGH -> ACC
+                - MED -> ACC
+                - LOW -> ACC
+           - LOW
+               MAINT
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> GOOD
+                     - MED
+                         DOORS
+                          - 4 -> VGOOD
+                          - 5MORE -> VGOOD
+                          - 2 -> GOOD
+                          - 3 -> GOOD
+                     - BIG -> VGOOD
+                - MED
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 3 -> GOOD
+                          - 5MORE -> VGOOD
+                          - 4 -> VGOOD
+                          - 2 -> GOOD
+                     - BIG -> VGOOD
+                     - SMALL -> GOOD
+                - VHIGH -> ACC
+                - HIGH
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 5MORE -> VGOOD
+                          - 3 -> ACC
+                          - 4 -> VGOOD
+                     - BIG -> VGOOD
+ - MED
+     PERSONS
+      - 4
+          BUYING
+           - MED
+               MAINT
+                - HIGH
+                    LUG_BOOT
+                     - BIG -> ACC
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 3 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                - VHIGH
+                    LUG_BOOT
+                     - BIG -> ACC
+                     - MED
+                         DOORS
+                          - 3 -> UNACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                     - SMALL -> UNACC
+                - MED -> ACC
+                - LOW
+                    LUG_BOOT
+                     - SMALL -> ACC
+                     - MED
+                         DOORS
+                          - 2 -> ACC
+                          - 4 -> GOOD
+                          - 5MORE -> GOOD
+                          - 3 -> ACC
+                     - BIG -> GOOD
+           - VHIGH
+               MAINT
+                - MED
+                    LUG_BOOT
+                     - BIG -> ACC
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 3 -> UNACC
+                          - 5MORE -> ACC
+                - HIGH -> UNACC
+                - LOW
+                    LUG_BOOT
+                     - BIG -> ACC
+                     - SMALL -> UNACC
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> UNACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                - VHIGH -> UNACC
+           - HIGH
+               LUG_BOOT
+                - MED
+                    DOORS
+                     - 3 -> UNACC
+                     - 2 -> UNACC
+                     - 5MORE
+                         MAINT
+                          - VHIGH -> UNACC
+                          - HIGH -> ACC
+                          - LOW -> ACC
+                          - MED -> ACC
+                     - 4
+                         MAINT
+                          - VHIGH -> UNACC
+                          - LOW -> ACC
+                          - HIGH -> ACC
+                          - MED -> ACC
+                - SMALL -> UNACC
+                - BIG
+                    MAINT
+                     - HIGH -> ACC
+                     - MED -> ACC
+                     - VHIGH -> UNACC
+                     - LOW -> ACC
+           - LOW
+               MAINT
+                - VHIGH
+                    LUG_BOOT
+                     - MED
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> UNACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                     - BIG -> ACC
+                     - SMALL -> UNACC
+                - LOW
+                    LUG_BOOT
+                     - BIG -> GOOD
+                     - MED
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 4 -> GOOD
+                          - 2 -> ACC
+                          - 3 -> ACC
+                     - SMALL -> ACC
+                - HIGH -> ACC
+                - MED
+                    LUG_BOOT
+                     - BIG -> GOOD
+                     - SMALL -> ACC
+                     - MED
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 4 -> GOOD
+                          - 2 -> ACC
+                          - 3 -> ACC
+      - MORE
+          LUG_BOOT
+           - MED
+               BUYING
+                - VHIGH
+                    MAINT
+                     - VHIGH -> UNACC
+                     - HIGH -> UNACC
+                     - MED
+                         DOORS
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                     - LOW
+                         DOORS
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                - HIGH
+                    MAINT
+                     - VHIGH -> UNACC
+                     - LOW
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                     - MED
+                         DOORS
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                     - HIGH
+                         DOORS
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                - LOW
+                    MAINT
+                     - MED
+                         DOORS
+                          - 4 -> GOOD
+                          - 3 -> GOOD
+                          - 2 -> ACC
+                     - VHIGH
+                         DOORS
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                     - HIGH -> ACC
+                     - LOW
+                         DOORS
+                          - 5MORE -> GOOD
+                          - 4 -> GOOD
+                          - 3 -> GOOD
+                          - 2 -> ACC
+                - MED
+                    MAINT
+                     - MED -> ACC
+                     - LOW
+                         DOORS
+                          - 2 -> ACC
+                          - 4 -> GOOD
+                          - 5MORE -> GOOD
+                          - 3 -> GOOD
+                     - HIGH
+                         DOORS
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                     - VHIGH
+                         DOORS
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 3 -> ACC
+                          - 2 -> UNACC
+           - SMALL
+               BUYING
+                - HIGH -> UNACC
+                - MED
+                    MAINT
+                     - HIGH -> UNACC
+                     - MED
+                         DOORS
+                          - 4 -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                     - LOW
+                         DOORS
+                          - 2 -> UNACC
+                          - 4 -> ACC
+                          - 3 -> ACC
+                          - 5MORE -> ACC
+                     - VHIGH -> UNACC
+                - VHIGH -> UNACC
+                - LOW
+                    MAINT
+                     - MED
+                         DOORS
+                          - 4 -> ACC
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                     - LOW
+                         DOORS
+                          - 5MORE -> ACC
+                          - 2 -> UNACC
+                          - 3 -> ACC
+                          - 4 -> ACC
+                     - HIGH
+                         DOORS
+                          - 3 -> ACC
+                          - 2 -> UNACC
+                          - 5MORE -> ACC
+                          - 4 -> ACC
+                     - VHIGH -> UNACC
+           - BIG
+               BUYING
+                - MED
+                    MAINT
+                     - LOW -> GOOD
+                     - HIGH -> ACC
+                     - MED -> ACC
+                     - VHIGH -> ACC
+                - LOW
+                    MAINT
+                     - MED -> GOOD
+                     - VHIGH -> ACC
+                     - LOW -> GOOD
+                     - HIGH -> ACC
+                - HIGH
+                    MAINT
+                     - VHIGH -> UNACC
+                     - HIGH -> ACC
+                     - MED -> ACC
+                     - LOW -> ACC
+                - VHIGH
+                    MAINT
+                     - MED -> ACC
+                     - HIGH -> UNACC
+                     - VHIGH -> UNACC
+                     - LOW -> ACC
+      - 2 -> UNACC
+ - LOW -> UNACC
+
+Instances classified correctly: 9
+Instances classified incorrectly: 1
+
+NIL
