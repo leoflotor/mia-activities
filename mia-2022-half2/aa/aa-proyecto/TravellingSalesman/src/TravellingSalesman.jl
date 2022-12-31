@@ -11,7 +11,7 @@ initial_guess(number_of_coords) = randcycle(number_of_coords)
 
 function initial_guess()
     number_of_cities = 32
-    cities, number_of_cities = available_cities()
+    cities = available_cities()
     visiting_order = randcycle(number_of_cities)
     return cities[visiting_order]
 end
@@ -122,7 +122,7 @@ function total_distance(coords, coordsystem)
 end
 
 # Simple simulated annealing algorithm
-function simulated_annealing(coords, coordsystem; init_temp=30, temp_factor=0.99, max_iter=1000, abstol=1E-3)
+function simulated_annealing(coords, coordsystem; init_temp=30, temp_factor=0.99, max_iter=1000, abstol=nothing)
     count_coords = length(coords)
 
     available_random_swaps = 500
@@ -167,7 +167,7 @@ function simulated_annealing(coords, coordsystem; init_temp=30, temp_factor=0.99
         push!(cost_per_iter, cost0)
         
         # Early stopping condition because a good enough solution was found
-        if iter > 1 && abs(cost_per_iter[end] - cost_per_iter[end-1]) <= abstol
+        if abstol !== nothing && iter > 1 && abs(cost_per_iter[end] - cost_per_iter[end-1]) <= abstol
             break
         end
     end
@@ -182,22 +182,6 @@ function brute_force(coords, coordsystem)
         perm = nthperm(coords, i)
         push!(perms, perm)
     end
-    return perms
-end
-
-function brute_force_1(coords, coordsystem)
-    count_coords = length(coords)
-    indexes_perms = permutations(1:count_coords, count_coords)
-    coords_perms = map(x -> coords[x], indexes_perms)
-    distances = total_distance.(coords_perms, coordsystem)
-    min_distance = argmin(distances)
-    return coords_perms[min_distance]
-end
-
-function brute_force_3(coords, coordsystem)
-    count_coords = length(coords)
-    perms_available = prod(1:count_coords)    # Equivalent to factorial
-    perms = map(x -> nthperm(coords, x), 1:perms_available)    # Get all permutations
     return perms
 end
 

@@ -27,5 +27,7 @@
 	   :classify
 	   :classify-new-instance
        ;;; Making cross validation available
-       :cross-validation))
+       :cross-validation
+       ;;; Making available the lisp-to-prolog tree converter
+       :prolog-tree))
 

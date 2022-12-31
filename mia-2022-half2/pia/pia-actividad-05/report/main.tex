@@ -18,7 +18,8 @@
 
 {\Large \textbf{\thetitle}}\\[2mm]
 
-\theauthor \\[2mm]
+\theauthor \\[0mm]
+\themail \\[2mm]
 
 {\small \today}
 \end{center}
@@ -70,7 +71,14 @@
                         :depends-on ("cl-id3-package"
                                     "cl-id3-algorithm"
                                     "cl-id3-load"
-                                    "cl-id3-classify"))))
+                                    "cl-id3-classify"))
+                    ;;; New file to convert trees to their prolog representation
+                    ;;; Not sure about dependencies of this extra file
+                    (:file "cl-id3-prolog-tree"
+                        :depends-on ("cl-id3-package"
+                                    "cl-id3-algorithm"
+                                    "cl-id3-load"
+                                    "cl-id3-classify"))))        
         \end{minted}
 
         También se agregó el archivo de validación cruzada en el archivo donde se hace la definición del paquete \code{cl-id3-package.lisp}:
@@ -93,7 +101,9 @@
                     :classify
                     :classify-new-instance
                     ;;; Making cross validation available
-                    :cross-validation))
+                    :cross-validation
+                    ;;; Making available the lisp-to-prolog tree converter
+                    :prolog-tree))
         \end{minted}
 
         La mejora que se realizó en \code{prolog} fue tomar en cuenta la información individual para cada atributo y usarla como denominador en la división con la ganancia para así encontrar la razón de ganancia. Se escribió una función equivalente en el archivo \code{cl-id3-algorithm.lisp} para computar la información individual, como se muestra a continuación:
@@ -127,7 +137,7 @@
                            (cdr parts))))))
         \end{minted}
 
-        Al haber implementado \code{split-information} se procedió a modificar la función \code{best-partition}, en el mismo archivo, para cambiar la manera en como se calcula a la mejor particición, en vez de usar solo la ganancia ahora será usando a la razón de ganancia.
+        Al haber implementado \code{split-information} se procedió a modificar la función \code{best-partition} en el mismo archivo para cambiar la manera en como se calcula a la mejor particición, en vez de usar solo la ganancia ahora será usando la razón de ganancia.
         \begin{minted}[
             frame=none,
             autogobble,
@@ -162,7 +172,7 @@
         
         Además, se arregló el mismo problema que surgió anteriormente en la implementación en \code{prolog} en que si el contenido de información $\text{IV}(\text{A}_i)$ de un atributo era 0 entonces la razón de ganancia d\text{iv}erge. Se puede observar que se tomó la misma solución, sumar una unidad al contenido de información para cada atributo $\text{IV}'(\text{A}_i) = \text{IV}(\text{A}_i) + 1$.
 
-        Ahora que ya se agregaron las modificaciones mencionadas se procederaá a encontrar la mejor partición para las 3 bases de datos. Los conjuntos de entrenamiento son lo suficientemente grandes como para que el poner los resultados en este reporte sea impractico, por lo que se decidió incluir algunos de los resultados en archivos de texto individuales. Para calcular la mejor particición de cualquiera de estas bases de datos primero se tiene que hacer lo suguiente:
+        Ya que se agregaron las modificaciones mencionadas se procedió a encontrar la mejor partición para las 3 bases de datos. Los conjuntos de entrenamiento son lo suficientemente grandes como para que el poner los resultados en este reporte sea impractico, por lo que se decidió incluir algunos de los resultados en archivos de texto individuales. Para calcular la mejor partición de cualquiera de estas bases de datos primero se tiene que hacer lo suguiente:
         \begin{minted}[
             frame=none,
             autogobble,
@@ -194,7 +204,7 @@
         \end{itemize}
         En realidad, la mejor particición inicial sin haber habilitado el \code{*trace*} es la que corresponde a la que tiene una razón de ganancia mayor. En los archivos con \code{*trace*} habilitado se pueden ver las razones de ganancia para cada uno y verificar que sí es el caso.
         
-        No es necesario computar las particiones iniciales, pero no está de más ver como es que las razones de ganancia que se calculan para cada suposición en cada base de datos. Se dice que no es necesario porque el algoritmo ID3 implementado en la función \code{id3} llama de manera recursiva a la función \code{best-partition}, y la función \code{induce} realiza la construcción del árbol producido en \code{id3}. Se utilizará la función \code{print-tree} para imprimir en consola una represetación del árbol producido al ejecutar \code{induce}. Los arboles producidos se incluyen en los archivos:
+        No es necesario computar las particiones iniciales, pero no está de más ver cómo es que se calculan las razones de ganancia para cada suposición en cada base de datos. Se dice que no es necesario porque el algoritmo ID3 implementado en la función \code{id3} llama de manera recursiva a la función \code{best-partition}, y la función \code{induce} realiza la construcción del árbol producido en \code{id3}. Se utilizó la función \code{print-tree} para imprimir en consola una represetación del árbol producido al ejecutar \code{induce}. Los arboles producidos se incluyen en los archivos:
         \begin{itemize}
             \item \code{/outputfiles/tree\_car.txt},
             \item \code{/outputfiles/tree\_tictactoe.txt},
@@ -228,7 +238,7 @@
             NIL
         \end{minted}
 
-        Para el segundo punto de esta actividad se modificó la función de validación cruzada \code{cross-validation} en el archivo \code{cl-id3-cross-validation.lisp} para no imprimir cada árbol generado dentro del \code{loop}. En casos de árboles pequeños tiene sentido pensar en ver los árboles que se puedan generar, pero cuando dichos árboles sob muy grandes tienden a ocupar demasiado espacio en terminal lo que personalmente produce más confusión que claridad.
+        Para el segundo punto de esta actividad se modificó la función de validación cruzada \code{cross-validation} en el archivo \code{cl-id3-cross-validation.lisp} para no imprimir cada árbol generado dentro del \code{loop}. En casos de árboles pequeños tiene sentido pensar en ver los árboles que se puedan generar, pero cuando dichos árboles son muy grandes tienden a ocupar demasiado espacio en terminal lo que personalmente produce más confusión que claridad.
         \begin{minted}[
             frame=none,
             autogobble,
@@ -263,7 +273,7 @@
             \item \code{/outputfiles/crossvalidation\_bankruptcy.txt}.
         \end{itemize}
 
-        Se comenzó a realizar la validación cruzada con el archivo de los autos, pero la salida no se incluye aquí sino en un respectivo archivo:
+        Se comenzó a realizar la validación cruzada con el archivo de los autos, pero la salida no se incluye aquí sino en su respectivo archivo:
         \begin{minted}[
             frame=none,
             autogobble,
@@ -283,7 +293,7 @@
             ; output removed
         \end{minted}
 
-        La función \code{let-them-vote} toma un ejemplo como argumento, y clasifica el ejemplo respecto a cada árbol en *trees*, y guarda la clase más votada en una variable global \code{*main-class*}. Ahora a hacerlos votar, para esto se tomará el siguiente ejemplo \code{(high med 5more more big high acc)},
+        La función \code{let-them-vote} toma un ejemplo como argumento, y clasifica el ejemplo respecto a cada árbol en \code{*trees*}, y guarda la clase más votada en una variable global \code{*main-class*}. Ahora a hacerlos votar, para esto se tomará el siguiente ejemplo \code{(high med 5more more big high acc)},
         \begin{minted}[
             frame=none,
             autogobble,
@@ -329,7 +339,7 @@
             NIL
         \end{minted}
 
-        Se obtienen 10 clasificaciones (una por árbol generado al llamar a la función de validación cruzada), el conteo de ocurrencias de las clases y la clase más votada, la cual en este caso es \code{acc}.
+        Se obtienen 10 clasificaciones (una por árbol generado al llamar a la función de validación cruzada) junto con el conteo de ocurrencias de las clases y la clase más votada, la cual en este caso es \code{acc}.
 
         Ahora se repetirá lo mismo para la base de datos del banco, tomando como ejemplo \code{(P N N N N N B)}:
         \begin{minted}[
@@ -562,9 +572,9 @@
             * (in-package :cl-id3)
             #<PACKAGE "CL-ID3">
 
-            * (load-file "./databases/bankruptcy.arff")
+            * (load-file "./databases/tic-tac-toe.arff")
             The ID3 setting has been reset.
-            Training set initialized after "./databases/bankruptcy.arff".
+            Training set initialized after "./databases/tic-tac-toe.arff".
             NIL
 
             * (cross-validation 10)
@@ -600,9 +610,9 @@
             NIL
         \end{minted}
 
-        Para terminar la actividad hace falta implementar una función que convierta un árbol, como el mostrado para el caso del banco, a su equivalente en \code{prolog}. Para esto se añadió un archivo extra al conjunto de archivos que conforman el paquete \code{:cl-id3}, este archivo fue llamado \code{cl-id3-prolog-tree.lisp}.
+        El método de validación cruzada divide el conjunto total de datos en subconjuntos para los cuales se generan sus respectivos árboles, éstos se usan para el entrenamiento. Esta técnica permite evitar el sobre ajuste del modelo aunque tiende a ser más demandante en el tiempo de ejecución ya que se debe inducir un árbol por el total de subdivisiones en las que se eligió dividir el conjunto de datos original. Por otro lado, el otro método del mejor árbol encontrado mediante el algoritmo de ID3 solamente tiene que inducir un árbol.
 
-        La parte importante para realizar esto es generar un conjunto de ramas
+        Para terminar la actividad hace falta implementar una función que convierta un árbol, como el mostrado para el caso del banco, a su equivalente en \code{prolog}. Para esto se añadió un archivo extra al conjunto de archivos que conforman el paquete \code{:cl-id3}, este archivo fue llamado \code{cl-id3-prolog-tree.lisp}. La parte importante para realizar esto es generar un conjunto de ramas, las ramas solamente son los caminos que se siguen del tope del árbol hasta sus respectivas raíces. Ya que se tienen estas ramas se puede iterar sobre todos los atributos dentro de las ramas y darles el formato necesario para coincidir con el requerido por \code{prolog}:
         \begin{minted}[
             frame=none,
             autogobble,
@@ -702,7 +712,7 @@
             branch(nb, [_, _, _, cr/a, co/a, _]).
         \end{minted}
 
-        No es necesario computar las ramas de antemano ya que no se guardan en ninguna variable global, éstas son computadas internamente en la función auxiliar \code{prolog-tree-aux} en una variable interna \code{branches}. La función \code{prolog-tree} envuelve a su contraparte auxiliar solamente para verificar que no existe ya un archivo en el camino especificado por el \code{usr} con el mismo nombre, si no existe entonces se procede a guardar el resultado. 
+        No es necesario computar las ramas de antemano ya que no se guardan en ninguna variable global, éstas son computadas internamente en la función auxiliar \code{prolog-tree-aux} en una variable interna \code{branches}. La función \code{prolog-tree} envuelve a su contraparte auxiliar solamente para verificar que no existe ya un archivo en el camino especificado por el \code{usr} con el mismo nombre. En el casod de no existir un archivo en el directorio especificado con el mismo nombre se procede a guardar el resultado. 
     
         Los árboles equivalentes en \code{prolog} de las otras dos bases de datos se incluyen en la misma carpeta correspondiente a los archivos de salida con los siguientes nombres:
         \begin{itemize}
@@ -754,7 +764,7 @@
             X = nb.
         \end{minted}
 
-        Probando lo mismo ahora con la base de datos del juego de gato con el siguiente ejemplo (línea 520 del con valor de clase \code{positive})
+        Probando lo mismo ahora con la base de datos del juego de gato con el siguiente ejemplo (línea 520 del archivo \code{tic-tac-toe.arff} con valor de clase \code{positive})
         \begin{itemize}
             \item \code{sbcl}: \code{(b x o o x b o x x)},
             \item \code{prolog}: \code{[top-left/b, top-middle/x, top-right/o, middle-left/o, }
@@ -799,10 +809,12 @@
             X = positive.
         \end{minted}
 
-        Para concluir, se muestra lo equivalente para el archivo de la base de datos de los autos tomando el siguiente ejemplo (línea 1420 del con valor de clase \code{unacc}):
+        Para concluir, se muestra lo equivalente para el archivo de la base de datos de los autos tomando el siguiente ejemplo (línea 1420 del archivo \code{car.arff} con valor de clase \code{unacc}):
         \begin{itemize}
             \item \code{sbcl}: \code{(low high 2 2 med high)},
-            \item \code{prolog}: \code{[buying/low, maint/high, doors/2, persons/2, lug\_boot/med, safety/high]}.
+            \item \code{prolog}: \code{[buying/low, maint/high, doors/2, persons/2, lug\_boot/med, }
+            
+            \code{safety/high]}.
         \end{itemize}
 
         El resultado para este último caso, después de haber cargado la base de datos de los autos en \code{sbcl}, y asignado el resultado de la inducción a la variable \code{*current-tree*} se obtiene lo siguiente:
@@ -839,6 +851,8 @@
             ?- branch(X, [buying/low, maint/high, doors/2, persons/2, lug_boot/med, safety/high]).
             X = unacc.
         \end{minted}
+
+        Esto que se hizo en este último punto en que se tomaron los árboles producidos al aplicar el algoritmo ID3 a las 3 bases de datos se puede repetir seleccionando uno de los árboles producidos durante el proceso de validación cruzada para cada base de datos y se puede comparar uno de esos árboles con los respectivos ejemplos ya mencionados para cada caso.
     \end{solution}
 \end{itemize}
 
