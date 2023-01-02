@@ -56,7 +56,7 @@ Antes de continuar quisiera mencionar que no fui capaz de realizar el cómputo m
     \label{fig:capitales_mexico}
 \end{figure}
 
-Las capitales de México se pueden ver ubicadas en la \cref{fig:capitales_mexico} con circulos de color rojo, siendo un total de 32. Las coordenadas fueron obtenidas usando GoogleMaps buscando cada ciudad y tomando sus coordenasas aproximadamente en sus centros. Se implementó una función para guardar la información de las capitales, \code{available\_cities}, y usarla posteriormente cuando se necesite hacer una selección aleatoria de las mismas.
+Las capitales de México se pueden ver ubicadas en la \cref{fig:capitales_mexico} con circulos de color rojo, siendo un total de 32 marcadores. Las coordenadas fueron obtenidas usando GoogleMaps buscando cada ciudad y tomando sus coordenasas aproximadamente en sus centros. Se implementó una función para guardar la información de las capitales, \code{available\_cities}, y usarla posteriormente cuando se necesite hacer una selección aleatoria de las mismas.
 
 Comenzaremos tomando 5 ciudades de manera aleatoria, se mostrarán los nombres de las ciudades seleccionadas (en el orden en que se visitarán) junto con sus latitudes y longitudes correspondientes, como se muestra a continuación:
 \begin{minted}[
@@ -123,7 +123,7 @@ El recorrido mostrado en \cref{fig:trip_cities_05_init} es el realizado si se hi
     julia> path_permutations_dist = ts.total_distance.(path_permutations, "geo");
 \end{minted}
 
-Teniendo las permutaciones se buscará la ruta con la distancia mínima, y también alguna otra ruta cuya distancia sea igual a la mínima como se muestra a continuación:
+Teniendo las permutaciones se buscará la ruta con la distancia mínima, y también alguna otra ruta cuya distancia sea igual a la mínima, como se muestra a continuación:
 \begin{minted}[
     frame=none,
     autogobble,
@@ -255,7 +255,7 @@ El algoritmo tiene un máximo de iteraciones de $1000$ pero se puede cambiar si 
     2250.1837692021245
     2250.1837692021245    # Distancia de la ruta optima
 \end{minted}
-Es importante notar que esta ruta mostrada en la línea \ref{line:ruta_optima_ciudades_5} es la misma ruta que la primera listada en la línea \ref{line:permutacion_optima_ciudades_5} cuando se encontraron todas las permutaciones de las rutas por lo que la ruta encontrada mediante el algoritmo de recocido simulado será igual a la mostrada en la \cref{fig:bruteforce_path_cities_05}. La última ruta mostrada en el listado de las rutas por iteraciones es la ruta óptima que el algoritmo encuentra, y se guarda en la variable \code{best}. La diferencia de la distancia óptima encontrada por fuerza bruta y la distancia correspondiente a la ruta óptima encontrada por el algoritmo de recocido simulado se muestra en la \cref{fig:delta_distances_cities_05}.
+Es importante notar que esta ruta mostrada en la línea \ref{line:ruta_optima_ciudades_5} es la misma ruta que la primera listada en la línea \ref{line:permutacion_optima_ciudades_5}, cuando se encontraron todas las permutaciones de las rutas, por lo que la ruta encontrada mediante el algoritmo de recocido simulado será igual a la mostrada en la \cref{fig:bruteforce_path_cities_05}. La última ruta mostrada en el listado de las rutas por iteraciones es la ruta óptima que el algoritmo encuentra, y se guarda en la variable \code{best}. La diferencia de la distancia óptima encontrada por fuerza bruta y la distancia correspondiente a la ruta óptima encontrada por el algoritmo de recocido simulado se muestra en la \cref{fig:delta_distances_cities_05}.
 \begin{figure}[ht!]
     \centering
     \includegraphics[scale=0.5]{../figures/delta_distances_cities_05.pdf}
@@ -263,9 +263,9 @@ Es importante notar que esta ruta mostrada en la línea \ref{line:ruta_optima_ci
     \label{fig:delta_distances_cities_05}
 \end{figure}
 
-Se puede observar que hay muchas iteraciones en las que la configuración de la ruta coincide con alguna ruta óptima, y aproximadamente después de la iteración 250 es que se ha convergido a una ruta óptima ya que no se observan cambios en la diferencia de distancias.
+Se puede observar que hay muchas iteraciones en las que la configuración de la ruta coincide con alguna ruta óptima, y aproximadamente después de la iteración 250 es que se ha convergido a una ruta óptima ya que no se observan cambios en la diferencia de distancias. Por esto es que se decidió agregar una condición para la terminación temprana del algoritmo de recocido simulado.
 
-Se hubiera deseado tomar un número más grande de ciudades para aplicar la comparación entre el algoritmo de recocido simulado y el método por fuerza bruta pero el número de permutaciones aumenta tanto que en el equipo de cómputo utilizado resulta imposible llegar a casos más grandes. anteriormente se había mencionado el problema con la función \code{factorial}, pero ahora al tratar de computar las permutaciones para 15 y 20 ciudades la memoria del ordenador fue insuficiente. Ahora que ya se explicó el proceso para encontrar la ruta óptima se procederá a hacer lo mismo tomando un total de 10 ciudades, el muestreo aleatorio de la lista total de capitales y la suposición inicial para el recorrido se muestran a continuación:
+Se hubiera deseado tomar un número más grande de ciudades para aplicar la comparación entre el algoritmo de recocido simulado y el método por fuerza bruta pero el número de permutaciones aumenta tanto que en el equipo de cómputo utilizado resulta imposible llegar a casos más grandes. anteriormente se había mencionado el problema con la función \code{factorial}, pero ahora al tratar de computar las permutaciones para 15 y 20 ciudades, la memoria del ordenador fue insuficiente. Ahora que ya se explicó el proceso para encontrar la ruta óptima se procederá a hacer lo mismo tomando un total de 10 ciudades, el muestreo aleatorio de la lista total de capitales y la suposición inicial para el recorrido se muestran a continuación:
 \begin{minted}[
     frame=none,
     autogobble,
@@ -414,7 +414,7 @@ Nótese que se tiene una lista de 11 rutas igualmente óptimas, todas con una di
 
 Es interesante ver que la ruta óptima encontrada mediante el cómputo de todas las permutaciones y la ruta encontrada mediante el algoritmo de recocido simulado es la misma, con la diferencia en que la primera comienza en Hermosillo y la segunda en Chihuahua pero en realidad el recorrido es el mismo si se considera que debe ser redondo. Como la ruta es la misma, entonces el recorrido visual se verá igual que aquella mostrada en la \cref{fig:bruteforce_path_cities_10}.
 
-Para terminar este trabajo se mostrará el recorrido óptimo encontrado para las 32 capitales de México:
+Para terminar este trabajo se mostrará el recorrido óptimo encontrado para las 32 capitales de México (no se hizo la comparación con el método de fuerza bruta por las razones anteriormente mencionadas):
 \begin{minted}[
     frame=none,
     autogobble,
@@ -478,10 +478,20 @@ Para terminar este trabajo se mostrará el recorrido óptimo encontrado para las
 La distancia que se obtiene al final del algoritmo permitiendo que se compute el número máximo de iteraciones es $9161.35\ km$, y la visualización de su respectivo recorrido se puede observar en la \cref{fig:trip_cities_32_sa}.
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=1.5]{../figures/trip_cities_32_sa.pdf}
+    \includegraphics[scale=1.2]{../figures/trip_cities_32_sa.pdf}
     \caption{Ruta óptima para el recorrido de las 32 capitales de México.}
     \label{fig:trip_cities_32_sa}
 \end{figure}
+
+Antes de terminar este trabajo se quisiera aclarar un par de puntos importantes respecto a esta implementación:
+\begin{itemize}
+    \item Los caminos mostrados solamente reflejan las distancias que existen entre dos capitales no las rutas reales que se deberían de tomar. Si una persona pudiera viajar en \textit{línea recta}\footnote{Se abusó del significado de esta aseveración. Se hizo solamente con motivos ilustrativos.} sobre la superficie de una esféra cruzando los mares de manera indistinta entonces sí que sería la ruta que debería de recorrer.
+    \item La distancia no es una distancia cartesiana como se acostumbra manejar en el mayor de los casos. Se usó una distancia computada mediante la fórmula de Haversine \cite{wiki2022haversine,movable2022haversine,stack2009haversine} la cual encuentra la distancia entre dos puntos en una esféra.
+    \item El algoritmo utilizado en este trabajo fue adaptado de un código existente \cite{computational2021simulated}, se reescribió usando el lenguaje de programación \code{julia} y se adaptó para cumplir con los requisitos del proyecto.
+    \item Las imágenes no se obtuvieron usando \code{julia}, para esto se exportaron las coordenadas de las rutas de cada imágen mostrada aquí y se procesaron con el lenguaje de programación \code{mathematica} el cual tiene funciones para graficar puntos en el mapa a partir de sus coordenadas.
+\end{itemize}
+
+Una idea para complementar este trabajo, la cual es más laboriosa ya que llevaría más tiempo de implementar, sería crear una matriz de adyacencia donde las entradas de dicha matriz fuesen las distancias de rutas reales entre ciudades. De esta manera ya no se necesitaría computar la distancia entre ciudades, estarían guardadas en una matriz y representarían realmente las distancias de carreteras dentro del país. Se tendría que definir una manera de acceder a la matriz a partir de un par de ciudades para buscar la distancia entre ellas, y la matriz sería una cuadrada de $32 \times 32$ debido al total de capitales.
 
 \clearpage
 \section*{Apéndice}
