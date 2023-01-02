@@ -1,0 +1,4 @@
+name = "LR1Parser"
+uuid = "ed58f3b9-3ac0-4155-914b-49b17ebc8fa8"
+authors = ["leoflotor <leonardoflotor@gmail.com>"]
+version = "0.1.0"
