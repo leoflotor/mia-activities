@@ -33,6 +33,13 @@ function parse_string(input_string, symbols, table)
     table = replace(x -> ismissing(x) ? TableEntry(missing, "notype") : x, table)
 
     string_ = split(input_string, "")
+    
+    # Early termination if a character in the input string is not part of the
+    # alphabet of the grammar
+    if !all(x -> x in keys(symbols), string_)
+        error("One or more characters in the input string \"$(input_string)\" do not belong to the symbols $(keys(symbols)) of the grammar.")
+    end
+
     append!(string_, ["eos"])
     stack = []
     
@@ -67,18 +74,15 @@ function parse_string(input_string, symbols, table)
                 # This condition assumes that the right side of the rewrite rule is of 
                 # the form A -> λ
                 if !isequal(rs_symbol, "λ")
+                    symbol_to_pop = stack[begin+1]    # First comes the node's number, and second is the symbol to pop
+
+                    if !isequal(rs_symbol, symbol_to_pop)
+                        error("A symbol from the current rewrite rule $(right_side) does not match the symbol \"$(symbol_to_pop)\" at the top of the stack.")
+                    end
+
                     popfirst!(stack)    # To pop the table entry
                     popfirst!(stack)    # To pop the symbol
-
-                    # pushfirst!(stack, left_side)
-                    # break
                 end
-
-                # symbol_to_pop = popfirst!(stack)
-                # if !isequal(rs_symbol, symbol_to_pop)
-                #     error("A symbol from the current rewrite rule $(right_side) 
-                #           doesn't match the symbol $(symbol_to_pop) at the top of the stack.")
-                # end
             end
 
             token = stack[begin]    # Update token to the symbol at the top of the stack
@@ -94,14 +98,14 @@ function parse_string(input_string, symbols, table)
     end
 
     if !isequal(symbol, "eos")
-        return "Error, last symbol is \"$(symbol)\" but should be eos."
+        return "Error, last symbol is \"$(symbol)\" but should be \"eos\"."
     end
 
     empty!(stack)
     println("The string \"$(input_string)\" was succesfully parsed.")
 end
 
-function grammar_one(input_string)
+function grammar_two(input_string)
     # Test the grammar of the example seen in class:
     # S -> zMNz
     # M -> aMa
@@ -161,7 +165,7 @@ function grammar_one(input_string)
     parse_string(input_string, symbols_, table_)
 end
 
-function grammar_two(input_string)
+function grammar_one(input_string)
     # Test the grammar corresponding to the project:
     # S -> xSz
     # S -> xyTyz

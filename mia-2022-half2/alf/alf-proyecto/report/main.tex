@@ -1,0 +1,792 @@
+% -- Document configuration
+\input{preamble.tex}
+
+% -- Document
+\begin{document}
+
+\thispagestyle{empty}
+
+%Title
+\begin{center}
+\textsc{\theinstitution}\\[2mm]
+
+\thedepartment
+
+\rule{0.6\textwidth}{0.5pt}\\[2mm]
+
+\thecourse \\[4mm]
+
+{\Large \textbf{\thetitle}}\\[2mm]
+
+\theauthor \\[2mm]
+
+{\small \today}
+\end{center}
+\medskip
+
+% -- 
+\vspace{1cm}
+
+La gramática libre de contexto a utilizar para este proyecto es
+\begin{equation}
+    \begin{split}
+        \text{S} & \to \text{xSz} \\
+        \text{S} & \to \text{xyTyz} \\
+        \text{T} & \to \text{\lambda}
+    \end{split}
+    \label{grammar_1}
+\end{equation}
+pero también se quiso tomar a la gramática libre de contexto vista en clase
+\begin{equation}
+    \begin{split}
+        \text{S} & \to \text{zMNz} \\
+        \text{M} & \to \text{aMa} \\
+        \text{M} & \to \text{z} \\
+        \text{N} & \to \text{bNb} \\
+        \text{N} & \to \text{z}
+    \end{split}
+    \label{grammar_2}
+\end{equation}
+para corroborar los resultados del autómata obtenido, la tabla del parser, y para probar la generalidad de la implementación del algoritmo escrito en \code{julia} \cite{Bezanson_Julia_A_fresh_2017}. La implementación se incluye en el Apéndice C de este trabajo.
+
+\begin{figure}[ht!]
+    \centering
+    \begin{tikzpicture}[draw=gray!70!black, node distance = 2cm, on grid, auto, every loop/.style={stealth-}]
+        \node (r1) [state, initial, initial text = {}] {$1.1$};
+        \node (r2) [state, right = of r1] {$1.2$};
+        \node (r3) [state, below left = of r2] {$1.3$};
+        \node (r4) [state, below right = of r2] {$1.4$};
+        \node (r5) [state, below left = of r3, accepting] {$1.5$};
+        \node (r6) [state, above right = of r4, accepting] {$1.6$};
+        \node (r7) [state, below right = of r4] {$1.7$};
+        \node (r8) [state, right = of r7] {$1.8$};
+        \node (r9) [state, right = of r8, accepting] {$1.9$};
+        \node (r10) [state, above = of r1, accepting] {$1.10$};
+
+        \path [-stealth, thick]
+            (r1) edge node {\textcolor{gray}{x}} (r2)
+            (r1) edge node {\textcolor{gray}{S}} (r10)
+            (r2) edge node {\textcolor{gray}{S}} (r3)
+            (r2) edge node {\textcolor{gray}{y}} (r4)
+            (r2) edge[loop above] node {\textcolor{gray}{x}} ()
+            (r3) edge node {\textcolor{gray}{z}} (r5)
+            (r4) edge node {\textcolor{gray}{$\lambda$}} (r6)
+            (r4) edge node {\textcolor{gray}{T}} (r7)
+            (r7) edge node {\textcolor{gray}{y}} (r8)
+            (r8) edge node {\textcolor{gray}{S}} (r9);
+    \end{tikzpicture}
+    \caption{Autómata finito para la gramática 1.}
+    \label{fig:automata_grammar_1}
+\end{figure}
+
+Los estados del autómata de la \cref{grammar_1} se incluyen en el Apéndice A, y los del autómata correspondiente a la \cref{grammar_2} en el Apéndice B, en ambos casos los estados aparecen enumerados para coincidir con los diagramas de sus respectivos autómatas finitos. De igual manera, los autómatas finitos de las \cref{grammar_1,grammar_2} se muestran en las \cref{fig:automata_grammar_1,fig:automata_grammar_2}, y sus respectivas tablas de parsers en las \cref{table:grammar_1,table:grammar_2} al final del documento.
+
+\begin{figure}[ht!]
+    \centering
+    \begin{tikzpicture}[draw=gray!70!black, node distance = 2cm, on grid, auto, every loop/.style={stealth-}]
+        \node (r1) [state, initial, initial text = {}] {$2.1$};
+        \node (r2) [state, below = of r1] {$2.2$};
+        \node (r3) [state, below = of r2] {$2.3$};
+        \node (r4) [state, above right = of r2] {$2.4$};
+        \node (r5) [state, right = of r4] {$2.5$};
+        \node (r6) [state, above right = of r4] {$2.6$};
+        \node (r7) [state, below left = of r2, accepting] {$2.7$};
+        \node (r8) [state, right = of r3] {$2.8$};
+        \node (r9) [state, below = of r4, accepting] {$2.9$};
+        \node (r10) [state, right = of r5] {$2.10$};
+        \node (r11) [state, right = of r6, accepting] {$2.11$};
+        \node (r12) [state, right = of r8, accepting] {$2.12$};
+        \node (r13) [state, below = of r10, accepting] {$2.13$};
+        \node (r14) [state, above right = of r1, accepting] {$2.14$};
+
+        \path [-stealth, thick] 
+            (r1) edge node[left] {\textcolor{gray}{z}} (r2)
+            (r1) edge node {\textcolor{gray}{S}} (r14)
+            (r2) edge node {\textcolor{gray}{M}} (r4)
+            (r2) edge node {\textcolor{gray}{a}} (r3)
+            (r2) edge node {\textcolor{gray}{z}} (r7)
+            (r3) edge[loop below] node {\textcolor{gray}{a}} ()
+            (r3) edge node {\textcolor{gray}{M}} (r8)
+            (r3) edge node {\textcolor{gray}{z}} (r7)
+            (r4) edge node {\textcolor{gray}{N}} (r6)
+            (r4) edge node {\textcolor{gray}{b}} (r5)
+            (r4) edge node {\textcolor{gray}{z}} (r9)
+            (r5) edge[loop below] node {\textcolor{gray}{b}} ()
+            (r5) edge node {\textcolor{gray}{N}} (r10)
+            (r5) edge node {\textcolor{gray}{z}} (r9)
+            (r6) edge node {\textcolor{gray}{z}} (r11)
+            (r8) edge node {\textcolor{gray}{a}} (r12)
+            (r10) edge node {\textcolor{gray}{b}} (r13);
+    \end{tikzpicture}
+    \caption{Autómata finito para la gramática 2.}
+    \label{fig:automata_grammar_2}
+\end{figure}
+
+Se puede utilizar a la \cref{grammar_2} para encontrar algunas cadenas, por ejemplo:
+\begin{equation*}
+    \begin{split}
+        \text{S} & \hspace{1cm} \rewrule{S}{zMNz} \\
+        \text{zMNz} & \hspace{1cm} \rewrule{N}{bNb} \\
+        \text{zMbNbz} & \hspace{1cm} \rewrule{N}{z} \\
+        \text{zMbzbz} & \hspace{1cm} \rewrule{M}{aMa} \\
+        \text{zaMabzbz} & \hspace{1cm} \rewrule{M}{z} \\
+        \text{zazabzbz} & 
+    \end{split}
+\end{equation*}
+La siguiente cadena también es válida para esta gramática:
+\begin{equation*}
+    \begin{split}
+        \text{S} & \hspace{1cm} \rewrule{S}{zMNz} \\
+        \text{zMNz} & \hspace{1cm} \rewrule{N}{bNb} \\
+        \text{zMbNbz} & \hspace{1cm} \rewrule{N}{bNb} \\
+        \text{zMbbNbbz} & \hspace{1cm} \rewrule{N}{z} \\
+        \text{zMbbzbbz} & \hspace{1cm} \rewrule{M}{z} \\
+        \text{zzbbzbbz} & 
+    \end{split}
+\end{equation*}
+Lo interesante ahora sería probar estas cadenas con la implementación del algoritmo. Primero se carga el módulo hecho en \code{julia}, se define la cadena de entrada en la variable \code{input\_string} y se llama a la rutina del algoritmo llamando a la función \code{grammar\_two} donde se encuentra definida a la \cref{grammar_2} y al final de esta función se llama internamente a la función \code{parse\_string}. Lo anteriormente mencionado se muestra a continuación:
+\begin{minted}[
+    frame=none,
+    autogobble,
+    obeytabs=false,
+    breaklines,
+    tabsize=4,
+    linenos=true,
+    baselinestretch=1,
+    firstnumber=last,
+    bgcolor=bg!70,
+    mathescape,
+    numberblanklines=false
+    ]{julia}
+    julia> using Revise; using LR1Parser; lrp = LR1Parser;
+
+    julia> input_string = "zazabzbz"; lrp.grammar_two(input_string)    # Primera cadena de prueba
+    Iteration 1: Any[1] 
+
+    Current symbol: z 
+
+    Iteration 2: Any[1, "z", 2] 
+
+    Current symbol: a 
+
+    Iteration 3: Any[1, "z", 2, "a", 3] 
+
+    Current symbol: z 
+
+    Iteration 4: Any[1, "z", 2, "a", 3, "z", 7] 
+
+    Current symbol: a 
+
+    Iteration 5: Any[1, "z", 2, "a", 3, "M", 8] 
+
+    Iteration 6: Any[1, "z", 2, "a", 3, "M", 8, "a", 12] 
+
+    Current symbol: b 
+
+    Iteration 7: Any[1, "z", 2, "M", 4] 
+
+    Iteration 8: Any[1, "z", 2, "M", 4, "b", 5] 
+
+    Current symbol: z 
+
+    Iteration 9: Any[1, "z", 2, "M", 4, "b", 5, "z", 9] 
+
+    Current symbol: b 
+
+    Iteration 10: Any[1, "z", 2, "M", 4, "b", 5, "N", 10] 
+
+    Iteration 11: Any[1, "z", 2, "M", 4, "b", 5, "N", 10, "b", 13] 
+
+    Current symbol: z 
+
+    Iteration 12: Any[1, "z", 2, "M", 4, "N", 6] 
+
+    Iteration 13: Any[1, "z", 2, "M", 4, "N", 6, "z", 11] 
+
+    Current symbol: eos 
+
+    Iteration 14: Any[1, "S", 14] 
+
+    The string "zazabzbz" was succesfully parsed.
+
+    julia> input_string = "zzbbzbbz"; lrp.grammar_two(input_string)    # Segunda cadena de prueba
+    Iteration 1: Any[1] 
+
+    Current symbol: z 
+
+    Iteration 2: Any[1, "z", 2] 
+
+    Current symbol: z 
+
+    Iteration 3: Any[1, "z", 2, "z", 7] 
+
+    Current symbol: b 
+
+    Iteration 4: Any[1, "z", 2, "M", 4] 
+
+    Iteration 5: Any[1, "z", 2, "M", 4, "b", 5] 
+
+    Current symbol: b 
+
+    Iteration 6: Any[1, "z", 2, "M", 4, "b", 5, "b", 5] 
+
+    Current symbol: z 
+
+    Iteration 7: Any[1, "z", 2, "M", 4, "b", 5, "b", 5, "z", 9] 
+
+    Current symbol: b 
+
+    Iteration 8: Any[1, "z", 2, "M", 4, "b", 5, "b", 5, "N", 10] 
+
+    Iteration 9: Any[1, "z", 2, "M", 4, "b", 5, "b", 5, "N", 10, "b", 13] 
+
+    Current symbol: b 
+
+    Iteration 10: Any[1, "z", 2, "M", 4, "b", 5, "N", 10] 
+
+    Iteration 11: Any[1, "z", 2, "M", 4, "b", 5, "N", 10, "b", 13] 
+
+    Current symbol: z 
+
+    Iteration 12: Any[1, "z", 2, "M", 4, "N", 6] 
+
+    Iteration 13: Any[1, "z", 2, "M", 4, "N", 6, "z", 11] 
+
+    Current symbol: eos 
+
+    Iteration 14: Any[1, "S", 14] 
+
+    The string "zzbbzbbz" was succesfully parsed.
+\end{minted}
+
+Se pensó que sería útil mostrar los pasos de cada iteración del \code{while-loop} dentro de la implementación del algoritmo, de esta manera se podría corroborar el estado del \code{stack} conforme se agregan símbolos y los números correspondientes a los estados en el autómata finito definidos como \code{token}s. Además, para cadenas cortas, esto serviría para seguir los pasos a mano y realizar una comparación mas detalladamente de los contenidos del stack cada que se realiza un \code{pop} o un \code{push}.
+
+Lo mismo se puede hacer para la \cref{grammar_1}. Una cadena que se puede deducir a partir de esta gramática es la siguiente:
+\begin{equation*}
+    \begin{split}
+        \text{S} & \hspace{1cm} \rewrule{S}{xSz} \\
+        \text{xSz} & \hspace{1cm} \rewrule{S}{xyTyz} \\
+        \text{xxyTyzz} & \hspace{1cm} \rewrule{T}{$\lambda$} \\
+        \text{xxyyzz} & 
+    \end{split}
+\end{equation*}
+Una segunda cadena perteneciente a esta gramática es:
+\begin{equation*}
+    \begin{split}
+        \text{S} & \hspace{1cm} \rewrule{S}{xSz} \\
+        \text{xSz} & \hspace{1cm} \rewrule{S}{xSz} \\
+        \text{xxSzz} & \hspace{1cm} \rewrule{S}{xyTyz} \\
+        \text{xxxyTyzzz} & \hspace{1cm} \rewrule{T}{$\lambda$} \\
+        \text{xxxyyzzz} & 
+    \end{split}
+\end{equation*}
+Con estas dos cadenas se probará el algoritmo. De manera similar al caso anterior, se definió una función \code{grammar\_one} en donde se define a la \cref{grammar_1}, e internamente se llama a \code{parse\_string}:
+\begin{minted}[
+    frame=none,
+    autogobble,
+    obeytabs=false,
+    breaklines,
+    tabsize=4,
+    linenos=true,
+    baselinestretch=1,
+    firstnumber=last,
+    bgcolor=bg!70,
+    mathescape,
+    numberblanklines=false
+    ]{julia}
+    julia> input_string = "xxyyzz"; lrp.grammar_one(input_string)    # Primera cadena de prueba
+    Iteration 1: Any[1] 
+
+    Current symbol: x 
+
+    Iteration 2: Any[1, "x", 2] 
+
+    Current symbol: x 
+
+    Iteration 3: Any[1, "x", 2, "x", 2] 
+
+    Current symbol: y 
+
+    Iteration 4: Any[1, "x", 2, "x", 2, "y", 4] 
+
+    Current symbol: y 
+
+    Iteration 5: Any[1, "x", 2, "x", 2, "y", 4, "T", 7] 
+
+    Iteration 6: Any[1, "x", 2, "x", 2, "y", 4, "T", 7, "y", 8] 
+
+    Current symbol: z 
+
+    Iteration 7: Any[1, "x", 2, "x", 2, "y", 4, "T", 7, "y", 8, "z", 9] 
+
+    Current symbol: z 
+
+    Iteration 8: Any[1, "x", 2, "S", 3] 
+
+    Iteration 9: Any[1, "x", 2, "S", 3, "z", 5] 
+
+    Current symbol: eos 
+
+    Iteration 10: Any[1, "S", 10] 
+
+    The string "xxyyzz" was succesfully parsed.
+
+    julia> input_string = "xxxyyzzz"; lrp.grammar_one(input_string)    # Segunda cadena de prueba
+    Iteration 1: Any[1] 
+
+    Current symbol: x 
+
+    Iteration 2: Any[1, "x", 2] 
+
+    Current symbol: x 
+
+    Iteration 3: Any[1, "x", 2, "x", 2] 
+
+    Current symbol: x 
+
+    Iteration 4: Any[1, "x", 2, "x", 2, "x", 2] 
+
+    Current symbol: y 
+
+    Iteration 5: Any[1, "x", 2, "x", 2, "x", 2, "y", 4] 
+
+    Current symbol: y 
+
+    Iteration 6: Any[1, "x", 2, "x", 2, "x", 2, "y", 4, "T", 7] 
+
+    Iteration 7: Any[1, "x", 2, "x", 2, "x", 2, "y", 4, "T", 7, "y", 8] 
+
+    Current symbol: z 
+
+    Iteration 8: Any[1, "x", 2, "x", 2, "x", 2, "y", 4, "T", 7, "y", 8, "z", 9] 
+
+    Current symbol: z 
+
+    Iteration 9: Any[1, "x", 2, "x", 2, "S", 3] 
+
+    Iteration 10: Any[1, "x", 2, "x", 2, "S", 3, "z", 5] 
+
+    Current symbol: z 
+
+    Iteration 11: Any[1, "x", 2, "S", 3] 
+
+    Iteration 12: Any[1, "x", 2, "S", 3, "z", 5] 
+
+    Current symbol: eos 
+
+    Iteration 13: Any[1, "S", 10] 
+
+    The string "xxxyyzzz" was succesfully parsed.
+\end{minted}
+
+Un par de elementos que se añadió al algoritmo en \code{parse\_string} es entrar tempranamente a la rutina de error si detecta que un caracter en la cadena de entrada no pertenece al alfabeto de la gramática. Esto se implementó como se muestra a continuación (se puede observar más detalladamente este extracto de código en el Apéndice C):
+\inputminted[
+    frame=none,
+    autogobble,
+    obeytabs=false,
+    breaklines,
+    tabsize=4,
+    linenos=false,
+    baselinestretch=1,
+    firstnumber=1,
+    firstline=35,
+    lastline=41,
+    bgcolor=bg!70,
+    ]{julia}{\codepath}
+
+Por ejemplo, si se usara la siguiente cadena de entrada \code{\quotes{xxybyzz}} con la \cref{grammar_1}, el caracter \code{\quotes{b}} no es parte del alfabeto de esa gramática, y el algoritmo debería entrar a la rutina de error:
+\begin{minted}[
+    frame=none,
+    autogobble,
+    obeytabs=false,
+    breaklines,
+    tabsize=4,
+    linenos=true,
+    baselinestretch=1,
+    firstnumber=95,
+    bgcolor=bg!70,
+    mathescape,
+    numberblanklines=false
+    ]{julia}
+    julia> input_string = "xxybyzz"; lrp.grammar_one(input_string)
+    ERROR: One or more characters in the input string "xxybyzz" do not belong to the symbols ["eos", "S", "T", "x", "z", "y"] of the grammar.
+\end{minted}
+Recuérdese que a pesar de que se llame a la función \code{grammar\_one}, esta a su vez llama internamente a \code{parse\_string} entonces siempre se está llamando al algoritmo del parser. Otra rutina de error que se añadió fue si se llegara a detectar el caso en que el símbolo al tope del \code{stack}, por algún motivo, no coincide con el símbolo en curso del lado derecho de la regla de reescritura:
+\inputminted[
+    frame=none,
+    autogobble,
+    obeytabs=false,
+    breaklines,
+    tabsize=4,
+    linenos=false,
+    baselinestretch=1,
+    firstnumber=1,
+    firstline=73,
+    lastline=86,
+    bgcolor=bg!70,
+    ]{julia}{\codepath}
+
+Esta última rutina de error se añadió al momento de ir probando el buen funcionamiento del algoritmo y se decidió mantenerla. Se mantuvo la última operación de vaciar el \code{stack} al final del algoritmo, aunque en \code{julia} no es necesario ya que al momento de salir de la función \code{parse\_string} toda variable local (variable definida al interior de una función) que no sea regresada por la función misma se limpia.
+
+La implementación solamente se hizo para un parser del tipo $\text{LR}(k=1)$, esto quiere decir que el parser solamente puede leer un símbolo a la vez. Como trabajo posterior sería interesante pensar en cómo realizar la implementación para $k \neq 1$, con esto me refiero a poder elegir un valor arbitrario de $k$ sin que la implementación sea dependiente del valor asignado. El parser hecho en este trabajo no puede manejar otro valor de $k$ que no sea 1. Lo difícil en esto no es el algoritmo en \code{parse\_string} per se sino en idear un algoritmo que genere automáticamente la tabla de transiciones a partir de $k$.
+
+Finalmente, se quisiera incluir un caso extra que resulta en error. El algoritmo puede manejar 3 condiciones dentro del \code{while-loop}. La primera es cuando la entrada en la tabla de su respectiva gramática es un \code{\quotes{shift}}, la segunda condición es cuando la entrada es una regla de reescritura (también llamada reducción) la cual en este trabajo se identificó como \code{\quotes{redux}}, y la tercera condición es cuando la entrada de la tabla está vacía. Este último caso, cuando la entrada está vacía, es el que detona una rutina de error y se dá cuando todos los símbolos de la cadena de entrada sí pertenecen al alfabeto de la gramática pero la cadena no puede ser generada a partir de la misma. Esto se ejemplificará con las cadenas \code{\quotes{xxxyyyzzz}} y \code{\quotes{zzzbbzbbz}} de las \cref{grammar_1,grammar_2}, respectivamente. A continuación se muestra lo descrito anteriormente:
+\begin{minted}[
+    frame=none,
+    autogobble,
+    obeytabs=false,
+    breaklines,
+    tabsize=4,
+    linenos=true,
+    baselinestretch=1,
+    firstnumber=97,
+    bgcolor=bg!70,
+    mathescape,
+    numberblanklines=false
+    ]{julia}
+    julia> input_string = "xxxyyyzzz"; lrp.grammar_one(input_string)    # Primera prueba de error
+    Iteration 1: Any[1] 
+
+    Current symbol: x 
+
+    Iteration 2: Any[1, "x", 2] 
+
+    Current symbol: x 
+
+    Iteration 3: Any[1, "x", 2, "x", 2] 
+
+    Current symbol: x 
+
+    Iteration 4: Any[1, "x", 2, "x", 2, "x", 2] 
+
+    Current symbol: y 
+
+    Iteration 5: Any[1, "x", 2, "x", 2, "x", 2, "y", 4] 
+
+    Current symbol: y 
+
+    Iteration 6: Any[1, "x", 2, "x", 2, "x", 2, "y", 4, "T", 7] 
+
+    Iteration 7: Any[1, "x", 2, "x", 2, "x", 2, "y", 4, "T", 7, "y", 8] 
+
+    Current symbol: y 
+
+    ERROR: Value of current table entry [8, "y"] is missing/blank.
+
+    julia> input_string = "zzzbbzbbz"; lrp.grammar_two(input_string)    # Segunda prueba de error
+    Iteration 1: Any[1] 
+
+    Current symbol: z 
+
+    Iteration 2: Any[1, "z", 2] 
+
+    Current symbol: z 
+
+    Iteration 3: Any[1, "z", 2, "z", 7] 
+
+    Current symbol: z 
+
+    Iteration 4: Any[1, "z", 2, "M", 4] 
+
+    Iteration 5: Any[1, "z", 2, "M", 4, "z", 9] 
+
+    Current symbol: b 
+
+    Iteration 6: Any[1, "z", 2, "M", 4, "N", 6] 
+
+    ERROR: Value of current table entry [6, "b"] is missing/blank.
+\end{minted}
+
+\begin{table}[ht!]
+    \centering
+    \setlength{\tabcolsep}{8pt}
+    \begin{tabular}{ c|c c c c c c }
+        & x & y & z & EOS & S & T \\
+        \hline
+        1 & shift 2 & & & & 10 & \\
+        2 & shift 2 & shift 4 & & & 3 & \\
+        3 & & & shift 5 & & & \\
+        4 & & \rewrule{T}{$\lambda$} & & & & 7 \\
+        5 & & & \rewrule{S}{xSz} & \rewrule{S}{xSz} & & \\
+        6 & & \rewrule{T}{$\lambda$} & & & & \\
+        7 & & shift 8 & & & & \\
+        8 & & & shift 9 & & & \\
+        9 & & & \rewrule{S}{xyTyz} & \rewrule{S}{xyTyz} & & \\
+        10 & & & & accept & & \\
+    \end{tabular}
+    \caption{Tabla del parser LR(1) basado en la \cref{grammar_1}.}
+    \label{table:grammar_1}
+\end{table}
+
+\begin{table}[ht!]
+    \centering
+    \setlength{\tabcolsep}{8pt}
+    \begin{tabular}{ c|c c c c c c c }
+        & a & b & z & EOS & S & N & N \\
+        \hline
+        1 & & & shift 2 & & 14 & & \\
+        2 & shift 3 & & shift 7 & & & 4 & \\
+        3 & shift 3 & & shift 7 & & & 8 & \\
+        4 & & shift 5 & shift 9 & & & & 6 \\
+        5 & & shift 5 & shift 9 & & & & 10 \\
+        6 & & & shift 11 & & & & \\
+        7 & \rewrule{M}{z} & \rewrule{M}{z} & \rewrule{M}{z} & & & & \\
+        8 & shift 12 & & & & & & \\
+        9 & & \rewrule{N}{z} & \rewrule{N}{z} & & & & \\
+        10 & & shift 13 & & & & & \\
+        11 & & & & \rewrule{S}{zMNz} & & & \\
+        12 & \rewrule{M}{aMa} & \rewrule{M}{aMa} & \rewrule{M}{aMa} & & & & \\
+        13 & & \rewrule{N}{bNb} & \rewrule{N}{bNb} & & & & \\
+        14 & & & & accept & & & \\
+    \end{tabular}
+    \caption{Tabla del parser LR(1) basado en la \cref{grammar_2}.}
+    \label{table:grammar_2}
+\end{table}
+
+Aquí termina el trabajo de la implementación del parser LR(1), el leer y entender el trabajo hecho por Brookshear y Sipser \cite{brookshear1989theory,sipser2021introduction} lo suficiente como para implementar un parser de este tipo me hace preguntarme que cosas tan interesantes estan por venir y que más hay por aprender acerca de la teoría de la computación ¿Qué más hay por aprender sobre autómatas y lenguajes formales? Habrá que averiguarlo.
+
+\clearpage
+\section*{Apéndice A\hspace{0.5cm} Estados de la primera gramática}
+
+Estados del autómata finito mostrado en la \cref{fig:automata_grammar_1} generado a partir de la \cref{grammar_1}. El símbolo $\marker$ funge como el marcador de lectura.
+\vspace{1cm}
+
+\begin{minipage}{0.45\textwidth}
+    \centering
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{S}' \to & \marker \text{S} \\
+            \text{S} \to & \marker \text{xSz} \\
+            \text{S} \to & \marker \text{xyTyz}
+        \end{split}
+        \tag{1.1}
+    \end{tcolorbox}
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{S} \to & \text{x} \marker \text{Sz} \\
+            \text{S} \to & \text{x} \marker \text{yTyz} \\
+            \text{S} \to & \marker \text{xSz} \\
+            \text{S} \to & \marker \text{xyTyz}
+        \end{split}
+        \tag{1.2}
+    \end{tcolorbox}
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{S} \to & \text{xS} \marker \text{z}
+        \end{split}
+        \tag{1.3}
+    \end{tcolorbox}
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{S} \to & \text{xy} \marker \text{Tyz} \\
+            \text{T} \to & \marker \text{\lambda}
+        \end{split}
+        \tag{1.4}
+    \end{tcolorbox}
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{S} \to & \text{xSz} \marker
+        \end{split}
+        \tag{1.5}
+    \end{tcolorbox}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+    \centering
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{T} \to & \text{\lambda} \marker
+        \end{split}
+        \tag{1.6}
+    \end{tcolorbox}
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{S} \to & \text{xyT} \marker \text{yz}
+        \end{split}
+        \tag{1.7}
+    \end{tcolorbox}
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{S} \to & \text{xyTy} \marker \text{z}
+        \end{split}
+        \tag{1.8}
+    \end{tcolorbox}
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{S} \to & \text{xyTyz} \marker
+        \end{split}
+        \tag{1.9}
+    \end{tcolorbox}
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{S}' \to & \text{S} \marker
+        \end{split}
+        \tag{1.10}
+    \end{tcolorbox}
+\end{minipage}
+
+\clearpage
+\section*{Apéndice B\hspace{0.5cm} Estados de la segunda gramática}
+
+Estados del autómata finito mostrado en la \cref{fig:automata_grammar_2} generado a partir de la \cref{grammar_2}. El símbolo $\marker$ funge como el marcador de lectura.
+\vspace{1cm}
+
+\begin{minipage}{0.45\textwidth}
+    \centering
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{S}' \to & \marker \text{S} \\
+            \text{S} \to & \marker \text{zMNz}
+        \end{split}
+        \tag{2.1}
+    \end{tcolorbox}
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{S} \to & \text{z} \marker \text{MNz} \\
+            \text{M} \to & \marker \text{aMa} \\
+            \text{M} \to & \marker \text{z}
+        \end{split}
+        \tag{2.2}
+    \end{tcolorbox}
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{M} \to & \text{a} \marker \text{Ma} \\
+            \text{M} \to & \marker \text{aMa} \\
+            \text{M} \to & \marker \text{z}
+        \end{split}
+        \tag{2.3}
+    \end{tcolorbox}
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{S} \to & \text{zM} \marker \text{Nz} \\
+            \text{N} \to & \marker \text{bNb} \\
+            \text{N} \to & \marker \text{z}
+        \end{split}
+        \tag{2.4}
+    \end{tcolorbox}
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{N} \to & \text{b} \marker \text{Nb} \\
+            \text{N} \to & \marker \text{bNb} \\
+            \text{N} \to & \marker \text{z}
+        \end{split}
+        \tag{2.5}
+    \end{tcolorbox}
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{S} \to & \text{zMN} \marker \text{z}
+        \end{split}
+        \tag{2.6}
+    \end{tcolorbox}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+    \centering
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{M} \to & \text{z} \marker
+        \end{split}
+        \tag{2.7}
+    \end{tcolorbox}
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{M} \to & \text{aM} \marker \text{a}
+        \end{split}
+        \tag{2.8}
+    \end{tcolorbox}
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{N} \to & \text{z} \marker
+        \end{split}
+        \tag{2.9}
+    \end{tcolorbox}
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{N} \to & \text{bN} \marker \text{b}
+        \end{split}
+        \tag{2.10}
+    \end{tcolorbox}
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{S} \to & \text{zMNz} \marker
+        \end{split}
+        \tag{2.11}
+    \end{tcolorbox}
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{M} \to & \text{aMa} \marker
+        \end{split}
+        \tag{2.12}
+    \end{tcolorbox}
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{N} \to & \text{bNb} \marker
+        \end{split}
+        \tag{2.13}
+    \end{tcolorbox}
+    %
+    \begin{tcolorbox}[ams equation, colback=lightgray!15, colframe=gray, width=55mm]
+        \begin{split}
+            \text{S}' \to & \text{S} \marker
+        \end{split}
+        \tag{2.14}
+    \end{tcolorbox}
+\end{minipage}
+
+\clearpage
+\section*{Apéndice C\hspace{0.5cm} Implementación del algoritmo}
+\vspace{1cm}
+\inputminted[
+    frame=none,
+    autogobble,
+    obeytabs=false,
+    breaklines,
+    tabsize=4,
+    linenos=true,
+    baselinestretch=1,
+    firstnumber=1,
+    bgcolor=bg!70,]{julia}{\codepath}
+
+\nocite{*}    % to call all references even if they are not cited in the text
+\bibliography{references.bib}
+
+\end{document}
+
+% \begin{minted}[
+%     frame=none,
+%     autogobble,
+%     obeytabs=false,
+%     breaklines,
+%     tabsize=4,
+%     linenos=true,
+%     baselinestretch=1,
+%     firstnumber=last,
+%     bgcolor=bg!70,
+%     mathescape,
+%     numberblanklines=false
+%     ]{julia}
+%     # empty comment
+% \end{minted}
+
+
