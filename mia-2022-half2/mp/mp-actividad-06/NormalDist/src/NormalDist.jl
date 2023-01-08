@@ -3,7 +3,7 @@ module NormalDist
 using StatsBase
 using Plots
 using LaTeXStrings
-using LazyGrids # To generate lazy grids with low memory allocation
+using LazyGrids    # To generate lazy grids with low memory allocation
 
 
 """

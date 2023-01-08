@@ -1,0 +1,8 @@
+name = "MixtureOfGaussians"
+uuid = "4f643689-a82b-43e1-8242-ae59830f9482"
+authors = ["leoflotor <leonardoflotor@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
